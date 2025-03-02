@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="background">@color/white</color>
+    <color name="onBackground">#2A3335</color>
+    <color name="primary">#EB5B00</color>
+    <color name="primaryVariant">#EF5350</color>
+    <color name="secondary">#EB5B00</color>
+    <color name="statusBarColor">@color/black</color>
+    <color name="navigationBarColor">@color/white</color>
 </resources>
