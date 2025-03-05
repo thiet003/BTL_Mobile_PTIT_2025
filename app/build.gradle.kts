@@ -66,4 +66,7 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     annotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
+
+    implementation("androidx.navigation:navigation-fragment:2.8.8")
+    implementation("androidx.navigation:navigation-ui:2.8.8")
 }
