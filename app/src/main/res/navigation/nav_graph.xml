@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.exercise.app30day.home.HomeFragment"
+        android:name="com.exercise.app30day.features.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.exercise.app30day.setting.SettingFragment"
+        android:name="com.exercise.app30day.features.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.exercise.app30day.report.ReportFragment"
+        android:name="com.exercise.app30day.features.report.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
 </navigation>
