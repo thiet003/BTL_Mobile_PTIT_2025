@@ -26,8 +26,8 @@
         android:background="@drawable/bg_bottom_nav"
         android:minHeight="@dimen/_50sdp"
         app:itemIconSize="@dimen/_22sdp"
-        app:itemTextColor="@drawable/bottom_nav_text_color"
-        app:itemIconTint="@drawable/bottom_nav_icon_color"
+        app:itemTextColor="@drawable/color_bottom_nav_text"
+        app:itemIconTint="@drawable/color_bottom_nav_icon"
         app:itemTextAppearanceActive="@style/BottomNavTextActive"
         app:itemTextAppearanceInactive="@style/BottomNavTextInactive"
         app:itemPaddingBottom="@dimen/_10sdp" />
