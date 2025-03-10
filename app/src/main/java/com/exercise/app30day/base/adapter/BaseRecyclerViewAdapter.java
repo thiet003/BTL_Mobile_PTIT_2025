@@ -79,6 +79,7 @@ public abstract class BaseRecyclerViewAdapter<T, VB extends ViewBinding> extends
     }
 
     public T getItem(int position){
+        if(position < 0 || position >= dataList.size()) return null;
         return dataList.get(position);
     }
 
