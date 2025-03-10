@@ -42,14 +42,14 @@ public abstract class BaseRecyclerViewAdapter<T, VB extends ViewBinding> extends
             if(position == RecyclerView.NO_POSITION) return;
             T item = getItem(position);
             if (onItemClickListener != null && item != null) {
-                onItemClickListener.onItemClick(getItem(position), viewHolder.getAdapterPosition());
+                onItemClickListener.onItemClick(item, position);
             }
         });
         viewHolder.itemView.setOnLongClickListener(v -> {
             int position = viewHolder.getAdapterPosition();
             T item = getItem(position);
             if (onItemLongClickListener != null && item != null) {
-                onItemLongClickListener.onItemLongClick(getItem(position), viewHolder.getAdapterPosition());
+                onItemLongClickListener.onItemLongClick(item, position);
             }
             return true;
         });
