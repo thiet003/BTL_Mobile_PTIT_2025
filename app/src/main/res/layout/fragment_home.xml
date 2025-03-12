@@ -5,10 +5,58 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.home.HomeFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp">
+
+    <EditText
+        android:id="@+id/edtWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter weight"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/edtHeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter height"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:inputType="number"/>
+
+
+    <EditText
+        android:id="@+id/edtId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter update Id"
+        android:layout_marginBottom="@dimen/_5sdp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/_10sdp">
+
+        <Button
+            android:id="@+id/btnAddUser"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add User"/>
+
+        <Button
+            android:id="@+id/btnUpdateUser"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Update user"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/userRcv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

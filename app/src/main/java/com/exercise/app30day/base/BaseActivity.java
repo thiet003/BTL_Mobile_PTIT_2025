@@ -20,16 +20,10 @@ public abstract class BaseActivity<VB extends ViewBinding, VM extends ViewModel>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         binding = BindingReflex.reflexViewBinding(getClass(), getLayoutInflater());
         viewModel = ViewModelHelper.createViewModel(this, getClass());
         View rootView = binding.getRoot();
         setContentView(rootView);
-        ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
         initView();
         initListener();
     }
@@ -44,7 +38,7 @@ public abstract class BaseActivity<VB extends ViewBinding, VM extends ViewModel>
         hideNavigationBar();
     }
 
-    private void hideNavigationBar() {
+    protected void hideNavigationBar() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }

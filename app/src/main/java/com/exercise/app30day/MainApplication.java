@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.orhanobut.hawk.Hawk;
 
+import dagger.hilt.android.HiltAndroidApp;
+
+@HiltAndroidApp
 public class MainApplication extends Application {
     @Override
     public void onCreate() {

@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
 import com.exercise.app30day.base.BindingReflex;
+import com.exercise.app30day.models.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseRecyclerViewAdapter<T, VB extends ViewBinding> extends RecyclerView.Adapter<BaseViewHolder<VB>> {
+public abstract class BaseRecyclerViewAdapter<T extends BaseEntity, VB extends ViewBinding> extends RecyclerView.Adapter<BaseViewHolder<VB>> {
 
     private RecyclerView recyclerView;
 
