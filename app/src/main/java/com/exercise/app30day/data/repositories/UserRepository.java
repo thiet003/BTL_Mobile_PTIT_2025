@@ -11,6 +11,8 @@ public interface UserRepository {
 
     void updateUser(User user);
 
+    void updateUserById(int id, double height, double weight);
+
     void deleteUser(User user);
 
     LiveData<List<User>> getAllUsers();

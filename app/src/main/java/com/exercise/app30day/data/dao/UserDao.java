@@ -22,6 +22,9 @@ public interface UserDao {
     @Update
     void updateUser(User user);
 
+    @Query("UPDATE user SET height = :height, weight = :weight WHERE id = :id")
+    void updateUserById(int id, double height, double weight);
+
     @Delete
     void deleteUser(User user);
 

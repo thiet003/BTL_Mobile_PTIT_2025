@@ -28,15 +28,19 @@ public class HomeViewModel extends ViewModel {
         User user = new User();
         user.setHeight(height);
         user.setWeight(weight);
-        userRepository.insertUser(user);
+        new Thread(() -> userRepository.insertUser(user)).start();
+    }
+
+    public void updateUserById(int id, double height, double weight) {
+        new Thread(() -> userRepository.updateUserById(id, height, weight)).start();
     }
 
     public void updateUser(User user) {
-        userRepository.updateUser(user);
+        new Thread(() -> userRepository.updateUser(user)).start();
     }
 
     public void deleteUser(User user) {
-        userRepository.deleteUser(user);
+        new Thread(() -> userRepository.deleteUser(user)).start();
     }
 
     public LiveData<List<User>> getAllUsers() {

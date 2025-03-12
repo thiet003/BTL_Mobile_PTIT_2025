@@ -17,17 +17,22 @@ public class UserRepositoryImpl implements UserRepository {
     }
     @Override
     public void insertUser(User user) {
-        new Thread(() -> userDao.insertUser(user)).start();
+        userDao.insertUser(user);
     }
 
     @Override
     public void updateUser(User user) {
-        new Thread(() -> userDao.updateUser(user)).start();
+        userDao.updateUser(user);
+    }
+
+    @Override
+    public void updateUserById(int id, double height, double weight) {
+        userDao.updateUserById(id, height, weight);
     }
 
     @Override
     public void deleteUser(User user) {
-        new Thread(() -> userDao.deleteUser(user)).start();
+        userDao.deleteUser(user);
     }
 
     @Override
