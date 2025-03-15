@@ -30,6 +30,7 @@ import com.exercise.app30day.models.ExerciseConcentrationArea;
 import com.exercise.app30day.models.TrainingHistory;
 import com.exercise.app30day.models.User;
 import com.exercise.app30day.models.Weight;
+import com.exercise.app30day.utils.DatabaseSeeder;
 
 @Database(entities = {
         CompleteDay.class,
@@ -78,9 +79,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new Thread(()->{
-
-            }).start();
+            new Thread(()-> DatabaseSeeder.seedDatabase(instance)).start();
         }
     };
     
