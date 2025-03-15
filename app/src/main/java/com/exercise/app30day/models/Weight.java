@@ -15,7 +15,7 @@ import androidx.room.Index;
         ),
         indices = @Index(value = "userId")
 )
-public class Weight {
+public class Weight extends BaseEntity {
     private int userId;
 
     private double weight;

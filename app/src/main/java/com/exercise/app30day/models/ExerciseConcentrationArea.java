@@ -28,28 +28,28 @@ import androidx.room.Index;
         }
 )
 public class ExerciseConcentrationArea extends BaseEntity{
-    private long exerciseId;
-    private long concentrationAreaId;
+    private int exerciseId;
+    private int concentrationAreaId;
 
-    public ExerciseConcentrationArea(long exerciseId, long concentrationAreaId) {
+    public ExerciseConcentrationArea(int exerciseId, int concentrationAreaId) {
         super();
         this.exerciseId = exerciseId;
         this.concentrationAreaId = concentrationAreaId;
     }
 
-    public long getExerciseId() {
+    public int getExerciseId() {
         return exerciseId;
     }
 
-    public void setExerciseId(long exerciseId) {
+    public void setExerciseId(int exerciseId) {
         this.exerciseId = exerciseId;
     }
 
-    public long getConcentrationAreaId() {
+    public int getConcentrationAreaId() {
         return concentrationAreaId;
     }
 
-    public void setConcentrationAreaId(long concentrationAreaId) {
+    public void setConcentrationAreaId(int concentrationAreaId) {
         this.concentrationAreaId = concentrationAreaId;
     }
 }

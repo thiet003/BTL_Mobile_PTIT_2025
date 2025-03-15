@@ -8,10 +8,13 @@ import com.exercise.app30day.models.User;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class UserRepositoryImpl implements UserRepository {
 
     private UserDao userDao;
 
+    @Inject
     public UserRepositoryImpl(UserDao userDao) {
         this.userDao = userDao;
     }

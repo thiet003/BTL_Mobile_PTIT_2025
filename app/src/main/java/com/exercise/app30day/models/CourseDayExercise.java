@@ -27,7 +27,7 @@ import androidx.room.Index;
                 @Index(value = "courseId")
         }
 )
-public class CourseDayExercise {
+public class CourseDayExercise extends BaseEntity {
     private int exerciseId;
     private int courseId;
 
