@@ -20,16 +20,16 @@ public class DatabaseSeeder {
     public static List<ConcentrationArea> getConcentrationAreas() {
         List<ConcentrationArea> areas = new ArrayList<>();
 
-        areas.add(new ConcentrationArea("Abs", "Abdominal muscles including rectus abdominis, obliques, and transverse abdominis"));
-        areas.add(new ConcentrationArea("Arms", "Upper and lower arm muscles including biceps, triceps, and forearms"));
-        areas.add(new ConcentrationArea("Chest", "Pectoral muscles including pectoralis major and pectoralis minor"));
-        areas.add(new ConcentrationArea("Back", "Back muscles including latissimus dorsi, rhomboids, and trapezius"));
-        areas.add(new ConcentrationArea("Shoulders", "Deltoid muscles and rotator cuff"));
-        areas.add(new ConcentrationArea("Legs", "Leg muscles including quadriceps, hamstrings, and calves"));
-        areas.add(new ConcentrationArea("Glutes", "Gluteal muscles including gluteus maximus, medius, and minimus"));
-        areas.add(new ConcentrationArea("Core", "Deep core muscles including transverse abdominis and erector spinae"));
-        areas.add(new ConcentrationArea("Full Body", "Comprehensive exercises that engage multiple muscle groups"));
-        areas.add(new ConcentrationArea("Cardio", "Exercises designed to elevate heart rate and improve cardiovascular health"));
+        areas.add(new ConcentrationArea("area_abs", "desc_abs"));
+        areas.add(new ConcentrationArea("area_arms", "desc_arms"));
+        areas.add(new ConcentrationArea("area_chest", "desc_chest"));
+        areas.add(new ConcentrationArea("area_back", "desc_back"));
+        areas.add(new ConcentrationArea("area_shoulders", "desc_shoulders"));
+        areas.add(new ConcentrationArea("area_legs", "desc_legs"));
+        areas.add(new ConcentrationArea("area_glutes", "desc_glutes"));
+        areas.add(new ConcentrationArea("area_core", "desc_core"));
+        areas.add(new ConcentrationArea("area_full_body", "desc_full_body"));
+        areas.add(new ConcentrationArea("area_cardio", "desc_cardio"));
 
         return areas;
     }
@@ -40,9 +40,9 @@ public class DatabaseSeeder {
     public static List<Course> getCourses() {
         List<Course> courses = new ArrayList<>();
 
-        courses.add(new Course("Beginner's Fitness Journey", "1"));
-        courses.add(new Course("Intermediate Strength & Endurance", "2"));
-        courses.add(new Course("Advanced Athletic Performance", "3"));
+        courses.add(new Course("course_beginner", "1"));
+        courses.add(new Course("course_intermediate", "2"));
+        courses.add(new Course("course_advanced", "3"));
 
         return courses;
     }
@@ -53,65 +53,57 @@ public class DatabaseSeeder {
     public static List<Exercise> getExercises() {
         List<Exercise> exercises = new ArrayList<>();
 
-        // Cardio exercises
-        exercises.add(new Exercise("Jumping Jacks", "Stand with feet together, jump and spread legs while raising arms overhead", 60000, 8.0, 3));
-        exercises.add(new Exercise("High Knees", "Run in place lifting knees as high as possible", 45000, 9.5, 3));
-        exercises.add(new Exercise("Burpees", "Begin in standing position, drop to push-up position, return to standing, and jump", 30000, 10.0, 2));
-        exercises.add(new Exercise("Mountain Climbers", "In plank position, rapidly alternate bringing knees to chest", 45000, 8.0, 3));
-        exercises.add(new Exercise("Jump Rope", "Simulate jumping rope, rotating wrists and jumping on balls of feet", 60000, 10.0, 1));
-        exercises.add(new Exercise("Jumping Lunges", "Alternate legs in lunge position with a jump between transitions", 45000, 9.0, 3));
-        exercises.add(new Exercise("Plank Jacks", "In plank position, jump feet out and in like jumping jacks", 40000, 7.5, 3));
+        exercises.add(new Exercise("exercise_jumping_jacks", "desc_jumping_jacks", 60000, 8.0, 3));
+        exercises.add(new Exercise("exercise_high_knees", "desc_high_knees", 45000, 9.5, 3));
+        exercises.add(new Exercise("exercise_burpees", "desc_burpees", 30000, 10.0, 2));
+        exercises.add(new Exercise("exercise_mountain_climbers", "desc_mountain_climbers", 45000, 8.0, 3));
+        exercises.add(new Exercise("exercise_jump_rope", "desc_jump_rope", 60000, 10.0, 1));
+        exercises.add(new Exercise("exercise_jumping_lunges", "desc_jumping_lunges", 45000, 9.0, 3));
+        exercises.add(new Exercise("exercise_plank_jacks", "desc_plank_jacks", 40000, 7.5, 3));
 
-        // Abs exercises
-        exercises.add(new Exercise("Crunches", "Lie on back with knees bent, lift shoulders towards knees", 30000, 3.5, 15));
-        exercises.add(new Exercise("Russian Twists", "Seated with elevated feet, rotate torso side to side", 45000, 6.0, 20));
-        exercises.add(new Exercise("Bicycle Crunches", "Lie on back, alternate bringing elbow to opposite knee", 40000, 8.0, 12));
-        exercises.add(new Exercise("Leg Raises", "Lie on back, raise legs to 90 degrees and lower without touching floor", 30000, 4.0, 10));
-        exercises.add(new Exercise("Plank", "Hold push-up position with weight on forearms and toes", 60000, 5.0, 3));
-        exercises.add(new Exercise("Side Plank", "Balance on forearm and side of foot with body straight", 30000, 4.0, 2));
-        exercises.add(new Exercise("V-Ups", "Lie on back, simultaneously lift legs and upper body to form V shape", 30000, 7.0, 10));
+        exercises.add(new Exercise("exercise_crunches", "desc_crunches", 30000, 3.5, 15));
+        exercises.add(new Exercise("exercise_russian_twists", "desc_russian_twists", 45000, 6.0, 20));
+        exercises.add(new Exercise("exercise_bicycle_crunches", "desc_bicycle_crunches", 40000, 8.0, 12));
+        exercises.add(new Exercise("exercise_leg_raises", "desc_leg_raises", 30000, 4.0, 10));
+        exercises.add(new Exercise("exercise_plank", "desc_plank", 60000, 5.0, 3));
+        exercises.add(new Exercise("exercise_side_plank", "desc_side_plank", 30000, 4.0, 2));
+        exercises.add(new Exercise("exercise_v_ups", "desc_v_ups", 30000, 7.0, 10));
 
-        // Arm exercises
-        exercises.add(new Exercise("Push-Ups", "Start in plank position, lower chest to ground and push back up", 30000, 5.0, 10));
-        exercises.add(new Exercise("Tricep Dips", "Using chair or bench, lower body by bending elbows then push back up", 30000, 4.5, 12));
-        exercises.add(new Exercise("Diamond Push-Ups", "Push-ups with hands close together forming diamond shape", 30000, 6.0, 8));
-        exercises.add(new Exercise("Arm Circles", "Extend arms and make small circles forward and backward", 30000, 2.0, 20));
-        exercises.add(new Exercise("Plank Shoulder Taps", "In plank position, alternate touching opposite shoulder with hand", 45000, 5.5, 15));
-        exercises.add(new Exercise("Wall Push-Ups", "Push-ups performed standing against wall", 30000, 2.5, 15));
+        exercises.add(new Exercise("exercise_push_ups", "desc_push_ups", 30000, 5.0, 10));
+        exercises.add(new Exercise("exercise_tricep_dips", "desc_tricep_dips", 30000, 4.5, 12));
+        exercises.add(new Exercise("exercise_diamond_push_ups", "desc_diamond_push_ups", 30000, 6.0, 8));
+        exercises.add(new Exercise("exercise_arm_circles", "desc_arm_circles", 30000, 2.0, 20));
+        exercises.add(new Exercise("exercise_plank_shoulder_taps", "desc_plank_shoulder_taps", 45000, 5.5, 15));
+        exercises.add(new Exercise("exercise_wall_push_ups", "desc_wall_push_ups", 30000, 2.5, 15));
 
-        // Leg exercises
-        exercises.add(new Exercise("Squats", "Stand with feet shoulder-width apart, lower hips as if sitting in chair", 45000, 7.0, 15));
-        exercises.add(new Exercise("Lunges", "Step forward and lower back knee towards ground, alternate legs", 45000, 6.5, 10));
-        exercises.add(new Exercise("Glute Bridges", "Lie on back with knees bent, lift hips off floor", 30000, 4.0, 15));
-        exercises.add(new Exercise("Calf Raises", "Stand and rise onto balls of feet, lower and repeat", 30000, 3.0, 20));
-        exercises.add(new Exercise("Sumo Squats", "Wide-stance squats with toes pointed outward", 45000, 7.5, 12));
-        exercises.add(new Exercise("Wall Sit", "Lean against wall in sitting position with knees at 90 degrees", 60000, 6.0, 2));
-        exercises.add(new Exercise("Side Leg Raises", "Lie on side and lift top leg upward", 30000, 3.5, 15));
+        exercises.add(new Exercise("exercise_squats", "desc_squats", 45000, 7.0, 15));
+        exercises.add(new Exercise("exercise_lunges", "desc_lunges", 45000, 6.5, 10));
+        exercises.add(new Exercise("exercise_glute_bridges", "desc_glute_bridges", 30000, 4.0, 15));
+        exercises.add(new Exercise("exercise_calf_raises", "desc_calf_raises", 30000, 3.0, 20));
+        exercises.add(new Exercise("exercise_sumo_squats", "desc_sumo_squats", 45000, 7.5, 12));
+        exercises.add(new Exercise("exercise_wall_sit", "desc_wall_sit", 60000, 6.0, 2));
+        exercises.add(new Exercise("exercise_side_leg_raises", "desc_side_leg_raises", 30000, 3.5, 15));
 
-        // Full body exercises
-        exercises.add(new Exercise("Inchworm", "From standing, walk hands out to plank and back", 45000, 7.0, 8));
-        exercises.add(new Exercise("Bear Crawls", "Move forward and backward on hands and feet with knees hovering above ground", 40000, 8.0, 3));
-        exercises.add(new Exercise("Plank Up-Downs", "Alternate between forearm plank and high plank positions", 45000, 7.0, 10));
-        exercises.add(new Exercise("Superman", "Lie on stomach and lift arms and legs simultaneously", 30000, 3.0, 10));
-        exercises.add(new Exercise("Kettlebell Swings", "Using kettlebell or dumbbell, swing from between legs to chest height", 40000, 8.5, 15));
-        exercises.add(new Exercise("Burpee with Push-Up", "Standard burpee with added push-up at bottom position", 45000, 12.0, 8));
+        exercises.add(new Exercise("exercise_inchworm", "desc_inchworm", 45000, 7.0, 8));
+        exercises.add(new Exercise("exercise_bear_crawls", "desc_bear_crawls", 40000, 8.0, 3));
+        exercises.add(new Exercise("exercise_plank_up_downs", "desc_plank_up_downs", 45000, 7.0, 10));
+        exercises.add(new Exercise("exercise_superman", "desc_superman", 30000, 3.0, 10));
+        exercises.add(new Exercise("exercise_kettlebell_swings", "desc_kettlebell_swings", 40000, 8.5, 15));
+        exercises.add(new Exercise("exercise_burpee_push_up", "desc_burpee_push_up", 45000, 12.0, 8));
 
-        // Back exercises
-        exercises.add(new Exercise("Superman Pull", "Superman position while pulling arms back as if rowing", 30000, 4.0, 12));
-        exercises.add(new Exercise("Bird Dog", "On hands and knees, extend opposite arm and leg", 30000, 3.0, 10));
-        exercises.add(new Exercise("Reverse Snow Angels", "Lie face down, sweep arms from sides to overhead", 30000, 3.5, 12));
-        exercises.add(new Exercise("Dolphin Kicks", "Lie face down, kick legs up and down", 30000, 4.5, 15));
+        exercises.add(new Exercise("exercise_superman_pull", "desc_superman_pull", 30000, 4.0, 12));
+        exercises.add(new Exercise("exercise_bird_dog", "desc_bird_dog", 30000, 3.0, 10));
+        exercises.add(new Exercise("exercise_reverse_snow_angels", "desc_reverse_snow_angels", 30000, 3.5, 12));
+        exercises.add(new Exercise("exercise_dolphin_kicks", "desc_dolphin_kicks", 30000, 4.5, 15));
 
-        // Shoulder exercises
-        exercises.add(new Exercise("Pike Push-Ups", "Downward dog position, bend elbows to lower head toward ground", 30000, 5.5, 10));
-        exercises.add(new Exercise("Arm Raises", "Raise arms to sides then overhead, lower and repeat", 30000, 3.0, 12));
-        exercises.add(new Exercise("YTWLs", "Series of arm positions resembling letters Y, T, W, and L", 45000, 4.0, 8));
+        exercises.add(new Exercise("exercise_pike_push_ups", "desc_pike_push_ups", 30000, 5.5, 10));
+        exercises.add(new Exercise("exercise_arm_raises", "desc_arm_raises", 30000, 3.0, 12));
+        exercises.add(new Exercise("exercise_ytwls", "desc_ytwls", 45000, 4.0, 8));
 
-        // Core exercises
-        exercises.add(new Exercise("Dead Bug", "Lie on back, extend opposite arm and leg while keeping low back flat", 30000, 3.5, 12));
-        exercises.add(new Exercise("Bird-Dog Crunch", "Bird dog with elbow to knee crunch in between", 30000, 5.0, 10));
-        exercises.add(new Exercise("Hollow Hold", "Lie on back, elevate shoulders and legs while keeping low back pressed to floor", 30000, 4.5, 3));
-        exercises.add(new Exercise("Windshield Wipers", "Lie on back with legs extended upward, rotate legs side to side", 30000, 6.0, 10));
+        exercises.add(new Exercise("exercise_dead_bug", "desc_dead_bug", 30000, 3.5, 12));
+        exercises.add(new Exercise("exercise_bird_dog_crunch", "desc_bird_dog_crunch", 30000, 5.0, 10));
+        exercises.add(new Exercise("exercise_hollow_hold", "desc_hollow_hold", 30000, 4.5, 3));
+        exercises.add(new Exercise("exercise_windshield_wipers", "desc_windshield_wipers", 30000, 6.0, 10));
 
         return exercises;
     }
