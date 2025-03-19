@@ -1,7 +1,7 @@
 package com.exercise.app30day.di.modules;
 
-import com.exercise.app30day.data.repositories.UserRepository;
-import com.exercise.app30day.data.repositories.impl.UserRepositoryImpl;
+import com.exercise.app30day.data.repositories.CourseRepository;
+import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -13,10 +13,9 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class RepositoryModule {
-
     @Provides
     @Singleton
-    public static UserRepository provideUserRepository(UserRepositoryImpl userRepository) {
-        return userRepository;
+    public static CourseRepository provideCourseRepository(CourseRepositoryImpl courseRepository) {
+        return courseRepository;
     }
 }

@@ -1,11 +1,10 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.data.models;
 
 
 import androidx.room.Entity;
-import androidx.room.Ignore;
 
 @Entity(tableName = "user", inheritSuperIndices = true)
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     private double height = 0;
     private double weight = 0;
 

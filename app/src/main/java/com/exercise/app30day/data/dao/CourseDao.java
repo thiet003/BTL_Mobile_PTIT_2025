@@ -8,7 +8,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.exercise.app30day.models.Course;
+import com.exercise.app30day.data.models.Course;
+import com.exercise.app30day.models.CourseItem;
 
 import java.util.List;
 
@@ -18,15 +19,9 @@ public interface CourseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCourse(Course course);
 
-    @Update
-    void updateCourse(Course course);
-
-    @Delete
-    void deleteCourse(Course course);
-
-    @Query("SELECT * FROM course WHERE id = :id")
-    LiveData<Course> getCourseById(int id);
-
-    @Query("SELECT * FROM course order by id asc")
-    LiveData<List<Course>> getAllCourses();
+    @Query("SELECT c.id, c.name, c.difficultLevel, COUNT(cde.id) as numberOfDays FROM course c " +
+            "LEFT JOIN course_day_exercise cde ON c.id = cde.courseId " +
+            "GROUP BY c.id " +
+            "order by c.id asc")
+    LiveData<List<CourseItem>> getAllCourseItems();
 }

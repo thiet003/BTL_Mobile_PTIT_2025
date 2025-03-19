@@ -19,17 +19,17 @@ import com.exercise.app30day.data.dao.ExerciseDao;
 import com.exercise.app30day.data.dao.TrainingHistoryDao;
 import com.exercise.app30day.data.dao.UserDao;
 import com.exercise.app30day.data.dao.WeightDao;
-import com.exercise.app30day.models.CompleteDay;
-import com.exercise.app30day.models.CompleteExercise;
-import com.exercise.app30day.models.ConcentrationArea;
-import com.exercise.app30day.models.Course;
-import com.exercise.app30day.models.CourseDayExercise;
-import com.exercise.app30day.models.Exercise;
-import com.exercise.app30day.models.ExerciseAttachment;
-import com.exercise.app30day.models.ExerciseConcentrationArea;
-import com.exercise.app30day.models.TrainingHistory;
-import com.exercise.app30day.models.User;
-import com.exercise.app30day.models.Weight;
+import com.exercise.app30day.data.models.CompleteDay;
+import com.exercise.app30day.data.models.CompleteExercise;
+import com.exercise.app30day.data.models.ConcentrationArea;
+import com.exercise.app30day.data.models.Course;
+import com.exercise.app30day.data.models.CourseDayExercise;
+import com.exercise.app30day.data.models.Exercise;
+import com.exercise.app30day.data.models.ExerciseAttachment;
+import com.exercise.app30day.data.models.ExerciseConcentrationArea;
+import com.exercise.app30day.data.models.TrainingHistory;
+import com.exercise.app30day.data.models.User;
+import com.exercise.app30day.data.models.Weight;
 import com.exercise.app30day.utils.DatabaseSeeder;
 
 @Database(entities = {

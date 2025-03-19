@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="md_theme_light_primary">#EB5B00</color>
-    <color name="md_theme_light_background">#FFFFFF</color>
-    <color name="md_theme_light_textPrimaryColor">#2A3335</color>
-    <color name="md_theme_light_secondaryBackground">#F1F1F1</color>
+    <color name="primary">#EB5B00</color>
+    <color name="background">#FFFFFF</color>
+    <color name="textPrimaryColor">#2A3335</color>
+    <color name="textSecondaryColor">#FFFFFF</color>
+    <color name="secondaryBackground">#F1F1F1</color>
+    <color name="statusBarColor">#000000</color>
+    <color name="navigationBarColor">#F1F1F1</color>
 </resources>

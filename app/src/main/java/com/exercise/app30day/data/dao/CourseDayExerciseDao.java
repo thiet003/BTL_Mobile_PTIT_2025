@@ -9,7 +9,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.exercise.app30day.models.CourseDayExercise;
+import com.exercise.app30day.data.models.CourseDayExercise;
 
 import java.util.List;
 

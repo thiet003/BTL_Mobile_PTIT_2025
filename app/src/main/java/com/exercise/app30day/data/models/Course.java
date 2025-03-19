@@ -1,10 +1,10 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.data.models;
 
 
 import androidx.room.Entity;
 
 @Entity(tableName = "course", inheritSuperIndices = true)
-public class Course extends BaseEntity{
+public class Course extends BaseEntity {
     private String name;
 
     private String difficultLevel;

@@ -2,11 +2,9 @@ package com.exercise.app30day.base.adapter;
 
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.exercise.app30day.models.BaseEntity;
-
 import java.util.List;
 
-public class DiffUtilCallBack<T extends BaseEntity> extends DiffUtil.Callback {
+public class DiffUtilCallBack<T extends BaseItem> extends DiffUtil.Callback {
 
     private List<T> oldData;
     private List<T> newData;
