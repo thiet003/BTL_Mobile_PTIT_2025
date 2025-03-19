@@ -1,4 +1,4 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.data.models;
 
 
 import androidx.room.Entity;
@@ -6,7 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 
 @Entity(
-        tableName = "course_day_exercise",
+        tableName = "exercise_concentration_area",
         inheritSuperIndices = true,
         foreignKeys = {
                 @ForeignKey(
@@ -16,28 +16,25 @@ import androidx.room.Index;
                         onDelete = ForeignKey.CASCADE
                 ),
                 @ForeignKey(
-                        entity = Course.class,
+                        entity = ConcentrationArea.class,
                         parentColumns = "id",
-                        childColumns = "courseId",
+                        childColumns = "concentrationAreaId",
                         onDelete = ForeignKey.CASCADE
                 )
         },
         indices = {
                 @Index(value = "exerciseId"),
-                @Index(value = "courseId")
+                @Index(value = "concentrationAreaId")
         }
 )
-public class CourseDayExercise extends BaseEntity {
+public class ExerciseConcentrationArea extends BaseEntity {
     private int exerciseId;
-    private int courseId;
+    private int concentrationAreaId;
 
-    private int orderNumber;
-
-    public CourseDayExercise(int exerciseId, int courseId, int orderNumber) {
+    public ExerciseConcentrationArea(int exerciseId, int concentrationAreaId) {
         super();
         this.exerciseId = exerciseId;
-        this.courseId = courseId;
-        this.orderNumber = orderNumber;
+        this.concentrationAreaId = concentrationAreaId;
     }
 
     public int getExerciseId() {
@@ -48,19 +45,11 @@ public class CourseDayExercise extends BaseEntity {
         this.exerciseId = exerciseId;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public int getConcentrationAreaId() {
+        return concentrationAreaId;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setConcentrationAreaId(int concentrationAreaId) {
+        this.concentrationAreaId = concentrationAreaId;
     }
 }

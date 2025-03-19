@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.exercise.app30day.models.Exercise;
+import com.exercise.app30day.data.models.Exercise;
 
 import java.util.List;
 

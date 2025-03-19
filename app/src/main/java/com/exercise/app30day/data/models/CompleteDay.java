@@ -1,4 +1,4 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.data.models;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -26,7 +26,7 @@ import androidx.room.Index;
                 @Index(value = "userId")
         }
 )
-public class CompleteDay extends BaseEntity{
+public class CompleteDay extends BaseEntity {
 
     private int userId;
 

@@ -1,4 +1,4 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.data.models;
 
 
 import androidx.room.Entity;
@@ -27,7 +27,7 @@ import androidx.room.Index;
                 @Index(value = "courseId")
         }
 )
-public class TrainingHistory extends BaseEntity{
+public class TrainingHistory extends BaseEntity {
     private int userId;
     private int courseId;
 

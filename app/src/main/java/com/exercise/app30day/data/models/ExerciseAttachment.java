@@ -1,4 +1,4 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.data.models;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -15,7 +15,7 @@ import androidx.room.Index;
         ),
         indices = @Index(value = "exerciseId")
 )
-public class ExerciseAttachment extends BaseEntity{
+public class ExerciseAttachment extends BaseEntity {
     private int exerciseId;
 
     private String fileName;

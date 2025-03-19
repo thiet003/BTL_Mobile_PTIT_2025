@@ -1,9 +1,9 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.data.models;
 
 import androidx.room.Entity;
 
 @Entity(tableName = "concentration_area", inheritSuperIndices = true)
-public class ConcentrationArea extends BaseEntity{
+public class ConcentrationArea extends BaseEntity {
     private String name;
 
     private String description;
