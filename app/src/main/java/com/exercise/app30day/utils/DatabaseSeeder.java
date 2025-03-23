@@ -120,44 +120,6 @@ public class DatabaseSeeder {
      */
     public static List<ExerciseAttachment> getExerciseAttachments() {
         List<ExerciseAttachment> attachments = new ArrayList<>();
-
-        // Add attachments for some exercises (assuming exercise IDs start from 1)
-        // Images
-        attachments.add(new ExerciseAttachment(1, "jumping_jacks.jpg", "image"));
-        attachments.add(new ExerciseAttachment(2, "high_knees.jpg", "image"));
-        attachments.add(new ExerciseAttachment(3, "burpees.jpg", "image"));
-        attachments.add(new ExerciseAttachment(8, "crunches.jpg", "image"));
-        attachments.add(new ExerciseAttachment(15, "push_ups.jpg", "image"));
-        attachments.add(new ExerciseAttachment(22, "squats.jpg", "image"));
-        attachments.add(new ExerciseAttachment(25, "sumo_squats.jpg", "image"));
-        attachments.add(new ExerciseAttachment(29, "bear_crawls.jpg", "image"));
-        attachments.add(new ExerciseAttachment(36, "pike_push_ups.jpg", "image"));
-        attachments.add(new ExerciseAttachment(40, "hollow_hold.jpg", "image"));
-
-        // Videos
-        attachments.add(new ExerciseAttachment(1, "jumping_jacks_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(3, "burpees_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(8, "crunches_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(9, "russian_twists_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(15, "push_ups_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(17, "diamond_push_ups_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(22, "squats_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(23, "lunges_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(28, "inchworm_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(32, "burpee_push_up_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(35, "reverse_snow_angels_demo.mp4", "video"));
-        attachments.add(new ExerciseAttachment(40, "hollow_hold_demo.mp4", "video"));
-
-        // Audio instructions
-        attachments.add(new ExerciseAttachment(1, "jumping_jacks_audio.mp3", "audio"));
-        attachments.add(new ExerciseAttachment(5, "jump_rope_audio.mp3", "audio"));
-        attachments.add(new ExerciseAttachment(8, "crunches_audio.mp3", "audio"));
-        attachments.add(new ExerciseAttachment(12, "plank_audio.mp3", "audio"));
-        attachments.add(new ExerciseAttachment(15, "push_ups_audio.mp3", "audio"));
-        attachments.add(new ExerciseAttachment(22, "squats_audio.mp3", "audio"));
-        attachments.add(new ExerciseAttachment(26, "wall_sit_audio.mp3", "audio"));
-        attachments.add(new ExerciseAttachment(33, "superman_audio.mp3", "audio"));
-
         return attachments;
     }
 
@@ -238,116 +200,30 @@ public class DatabaseSeeder {
      * CourseDayExercise - Maps exercises to courses and days
      */
     public static List<CourseDayExercise> getCourseDayExercises() {
-        List<CourseDayExercise> mappings = new ArrayList<>();
+        List<CourseDayExercise> courseDayExercises = new ArrayList<>();
 
-        // Helper method to create a day's exercises
+        for (int courseId = 1; courseId <= 3; courseId++) {
+            int startExerciseId, endExerciseId;
 
-        // Beginner Course (ID 1)
-        // --- Day 1: Introduction to fitness basics ---
-        mappings.addAll(createDayExercises(1, 1, new int[]{1, 8, 15, 20, 22, 24, 12, 33, 38, 41, 19}, 1));
-
-        // --- Day 2: Building foundational strength ---
-        mappings.addAll(createDayExercises(1, 2, new int[]{2, 9, 16, 21, 25, 31, 13, 35, 39, 42, 5, 18}, 1));
-
-        // --- Day 3: Core stability focus ---
-        mappings.addAll(createDayExercises(1, 3, new int[]{1, 10, 17, 23, 26, 32, 34, 36, 41, 43, 6}, 1));
-
-        // --- Day 4: Lower body emphasis ---
-        mappings.addAll(createDayExercises(1, 4, new int[]{3, 11, 18, 22, 27, 30, 37, 40, 44, 7, 14}, 1));
-
-        // --- Day 5: Rest and recovery (lighter workout) ---
-        mappings.addAll(createDayExercises(1, 5, new int[]{1, 12, 19, 23, 28, 33, 35, 38, 42, 5, 9}, 1));
-
-        // Continue with days 6-30 for Beginner Course
-        // Days 6-10: Repeat first week with slight progression
-        for (int day = 6; day <= 10; day++) {
-            int baseDay = day - 5;
-            List<CourseDayExercise> baseDayExercises = new ArrayList<>();
-            for (CourseDayExercise cde : mappings) {
-                if (cde.getCourseId() == 1 && cde.getOrderNumber() >= (baseDay-1)*12+1 && cde.getOrderNumber() <= baseDay*12) {
-                    baseDayExercises.add(new CourseDayExercise(cde.getExerciseId(), 1, cde.getOrderNumber() + 100));
+            // Xác định phạm vi exerciseId cho từng course
+            if (courseId == 1) {
+                startExerciseId = 1;
+                endExerciseId = 14;
+            } else if (courseId == 2) {
+                startExerciseId = 15;
+                endExerciseId = 29;
+            } else {
+                startExerciseId = 30;
+                endExerciseId = 44;
+            }
+            for (int day = 1; day <= 30; day++) {
+                for (int exerciseId = startExerciseId; exerciseId <= endExerciseId; exerciseId++) {
+                    courseDayExercises.add(new CourseDayExercise(exerciseId, courseId, day));
                 }
             }
-            mappings.addAll(baseDayExercises);
         }
 
-        // Days 11-30: Create new variations for remaining days
-        // Day 11-15: Focus on endurance
-        mappings.addAll(createDayExercises(1, 11, new int[]{2, 8, 15, 21, 25, 28, 34, 38, 41, 5, 10, 13}, 200));
-        mappings.addAll(createDayExercises(1, 12, new int[]{3, 9, 16, 22, 26, 29, 35, 39, 42, 6, 11}, 220));
-        mappings.addAll(createDayExercises(1, 13, new int[]{4, 10, 17, 23, 27, 30, 36, 40, 43, 7, 12, 14}, 240));
-        mappings.addAll(createDayExercises(1, 14, new int[]{1, 11, 18, 24, 25, 31, 37, 38, 44, 5, 13}, 260));
-        mappings.addAll(createDayExercises(1, 15, new int[]{2, 12, 19, 21, 26, 32, 34, 39, 41, 6, 14, 8}, 280));
-
-        // Days 16-20: Focus on strength building
-        mappings.addAll(createDayExercises(1, 16, new int[]{3, 13, 15, 22, 27, 28, 35, 40, 42, 7, 9}, 300));
-        mappings.addAll(createDayExercises(1, 17, new int[]{4, 14, 16, 23, 25, 29, 36, 38, 43, 5, 10, 11}, 320));
-        mappings.addAll(createDayExercises(1, 18, new int[]{1, 8, 17, 24, 26, 30, 37, 39, 44, 6, 12}, 340));
-        mappings.addAll(createDayExercises(1, 19, new int[]{2, 9, 18, 21, 27, 31, 34, 40, 41, 7, 13, 19}, 360));
-        mappings.addAll(createDayExercises(1, 20, new int[]{3, 10, 19, 22, 25, 32, 35, 38, 42, 5, 14}, 380));
-
-        // Days 21-25: Focus on flexibility and mobility
-        mappings.addAll(createDayExercises(1, 21, new int[]{4, 11, 20, 23, 26, 28, 36, 39, 43, 6, 8, 15}, 400));
-        mappings.addAll(createDayExercises(1, 22, new int[]{1, 12, 15, 24, 27, 29, 37, 40, 44, 7, 9}, 420));
-        mappings.addAll(createDayExercises(1, 23, new int[]{2, 13, 16, 21, 25, 30, 34, 38, 41, 5, 10, 17}, 440));
-        mappings.addAll(createDayExercises(1, 24, new int[]{3, 14, 17, 22, 26, 31, 35, 39, 42, 6, 11}, 460));
-        mappings.addAll(createDayExercises(1, 25, new int[]{4, 8, 18, 23, 27, 32, 36, 40, 43, 7, 12, 19}, 480));
-
-        // Days 26-30: Final progress push
-        mappings.addAll(createDayExercises(1, 26, new int[]{1, 9, 19, 24, 25, 28, 37, 38, 44, 5, 13}, 500));
-        mappings.addAll(createDayExercises(1, 27, new int[]{2, 10, 20, 21, 26, 29, 34, 39, 41, 6, 14, 17}, 520));
-        mappings.addAll(createDayExercises(1, 28, new int[]{3, 11, 15, 22, 27, 30, 35, 40, 42, 7, 8}, 540));
-        mappings.addAll(createDayExercises(1, 29, new int[]{4, 12, 16, 23, 25, 31, 36, 38, 43, 5, 9, 18}, 560));
-        mappings.addAll(createDayExercises(1, 30, new int[]{1, 13, 17, 24, 26, 32, 37, 39, 44, 6, 10}, 580));
-
-        // Intermediate Course (ID 2)
-        // --- Day 1: Foundation with increased intensity ---
-        mappings.addAll(createDayExercises(2, 1, new int[]{3, 9, 15, 20, 22, 29, 12, 33, 38, 41, 6, 14}, 600));
-
-        // --- Day 2: Core and upper body focus ---
-        mappings.addAll(createDayExercises(2, 2, new int[]{4, 10, 16, 21, 25, 31, 34, 36, 42, 7, 13}, 620));
-
-        // --- Day 3: Lower body power ---
-        mappings.addAll(createDayExercises(2, 3, new int[]{5, 11, 17, 23, 26, 32, 35, 39, 43, 2, 8, 19}, 640));
-
-        // --- Day 4: Full body conditioning ---
-        mappings.addAll(createDayExercises(2, 4, new int[]{6, 12, 18, 22, 27, 30, 37, 40, 44, 3, 9}, 660));
-
-        // --- Day 5: Active recovery with mobility ---
-        mappings.addAll(createDayExercises(2, 5, new int[]{1, 13, 19, 24, 28, 33, 35, 38, 41, 4, 10, 16}, 680));
-
-        // Continue with days 6-30 for Intermediate Course
-        // Create more challenging progressions for remaining days following similar pattern
-
-        // Advanced Course (ID 3)
-        // --- Day 1: High-intensity full body ---
-        mappings.addAll(createDayExercises(3, 1, new int[]{3, 9, 17, 20, 22, 29, 32, 36, 41, 7, 14, 19}, 1200));
-
-        // --- Day 2: Power and explosiveness ---
-        mappings.addAll(createDayExercises(3, 2, new int[]{4, 10, 15, 21, 25, 31, 34, 40, 43, 2, 13, 18}, 1220));
-
-        // --- Day 3: Advanced core and strength ---
-        mappings.addAll(createDayExercises(3, 3, new int[]{5, 11, 16, 23, 26, 32, 35, 38, 44, 3, 8, 17}, 1240));
-
-        // --- Day 4: Endurance and stamina ---
-        mappings.addAll(createDayExercises(3, 4, new int[]{6, 12, 18, 22, 27, 30, 37, 39, 41, 4, 9, 20}, 1260));
-
-        // --- Day 5: Technical skill focus ---
-        mappings.addAll(createDayExercises(3, 5, new int[]{1, 13, 19, 24, 28, 33, 36, 40, 42, 5, 10, 16}, 1280));
-
-        // Continue with days 6-30 for Advanced Course
-        // Create even more challenging progressions for remaining days
-
-        return mappings;
-    }
-
-    private static List<CourseDayExercise> createDayExercises(int courseId, int day, int[] exerciseIds, int startOrderNumber) {
-        List<CourseDayExercise> result = new ArrayList<>();
-        int orderNumber = startOrderNumber;
-        for (int exerciseId : exerciseIds) {
-            result.add(new CourseDayExercise(exerciseId, courseId, orderNumber++));
-        }
-        return result;
+        return courseDayExercises;
     }
 
     /**

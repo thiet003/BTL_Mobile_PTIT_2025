@@ -19,7 +19,7 @@ public interface CourseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCourse(Course course);
 
-    @Query("SELECT c.id, c.name, c.difficultLevel, COUNT(cde.id) as numberOfDays FROM course c " +
+    @Query("SELECT c.id, c.name, c.difficultLevel, COUNT(DISTINCT cde.orderNumber) as numberOfDays FROM course c " +
             "LEFT JOIN course_day_exercise cde ON c.id = cde.courseId " +
             "GROUP BY c.id " +
             "order by c.id asc")
