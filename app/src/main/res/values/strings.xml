@@ -11,5 +11,5 @@
     <string name="advanced">Advanced</string>
 
     <string name="day_numbers">%d Days</string>
-    <string name="progress">Progress: %d%</string>
+    <string name="progress">Progress: %d%%</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.exercise.app30day.models;
+package com.exercise.app30day.items;
 
 import androidx.room.Ignore;
 
@@ -8,21 +8,17 @@ public class CourseItem extends BaseItem {
     private String name;
     private String difficultLevel;
     private int numberOfDays;
+
+    private int numberOfCompletedDays;
+
+    @Ignore
+    private double dayProgress;
+
     @Ignore
     private int level;
 
-    public CourseItem(int id, String name, String difficultLevel, int numberOfDays) {
+    public CourseItem(int id) {
         super(id);
-        this.name = name;
-        this.difficultLevel = difficultLevel;
-        this.numberOfDays = numberOfDays;
-        if(difficultLevel.equals("Beginner")){
-            level = 1;
-        }else if (difficultLevel.equals("Intermediate")){
-            level = 2;
-        }else{
-            level = 3;
-        }
     }
 
     public String getName() {
@@ -47,6 +43,22 @@ public class CourseItem extends BaseItem {
 
     public void setNumberOfDays(int numberOfDays) {
         this.numberOfDays = numberOfDays;
+    }
+
+    public int getNumberOfCompletedDays() {
+        return numberOfCompletedDays;
+    }
+
+    public void setNumberOfCompletedDays(int numberOfCompletedDays) {
+        this.numberOfCompletedDays = numberOfCompletedDays;
+    }
+
+    public double getDayProgress() {
+        return dayProgress;
+    }
+
+    public void setDayProgress(double dayProgress) {
+        this.dayProgress = dayProgress;
     }
 
     public int getLevel() {

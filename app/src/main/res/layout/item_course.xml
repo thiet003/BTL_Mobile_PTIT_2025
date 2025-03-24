@@ -106,7 +106,6 @@
                 android:layout_height="@dimen/_5sdp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:progressTint="@color/primary"
                 android:splitTrack="false"
                 android:thumbTint="@android:color/transparent"
                 android:progressDrawable="@drawable/progress_bar_custom"

@@ -1,10 +1,11 @@
 package com.exercise.app30day.features.home;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.data.repositories.CourseRepository;
-import com.exercise.app30day.models.CourseItem;
+import com.exercise.app30day.items.CourseItem;
 
 import java.util.List;
 
@@ -18,11 +19,29 @@ public class HomeViewModel extends ViewModel {
 
     private final CourseRepository courseRepository;
 
-    public LiveData<List<CourseItem>> listCourseItemData;
 
     @Inject
     public HomeViewModel(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
-        listCourseItemData = courseRepository.getAllCourseItems();
+    }
+
+    public LiveData<List<CourseItem>> getAllCourseItems() {
+        return Transformations.map(courseRepository.getAllCourseItems(), courseItems -> {
+            for(CourseItem courseItem : courseItems) {
+                courseItem.setDayProgress(courseItem.getNumberOfCompletedDays() * 100.0 / courseItem.getNumberOfDays());
+                switch (courseItem.getDifficultLevel()) {
+                    case "Beginner":
+                        courseItem.setLevel(1);
+                        break;
+                    case "Intermediate":
+                        courseItem.setLevel(2);
+                        break;
+                    default:
+                        courseItem.setLevel(3);
+                        break;
+                }
+            }
+            return courseItems;
+        });
     }
 }

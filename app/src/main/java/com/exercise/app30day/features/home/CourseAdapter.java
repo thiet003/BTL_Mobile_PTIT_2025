@@ -3,7 +3,7 @@ package com.exercise.app30day.features.home;
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.adapter.BaseRecyclerViewAdapter;
 import com.exercise.app30day.databinding.ItemCourseBinding;
-import com.exercise.app30day.models.CourseItem;
+import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.utils.ResourceUtils;
 
 public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCourseBinding> {
@@ -15,5 +15,7 @@ public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCours
         binding.tvDay.setText(getContext().getString(R.string.day_numbers, item.getNumberOfDays()));
         binding.tvLevel.setText(item.getDifficultLevel());
         binding.rbCourse.setRating(item.getLevel());
+        binding.tvProgress.setText(getContext().getString(R.string.progress, (int) item.getDayProgress()));
+        binding.progressCourse.setProgress((int) item.getDayProgress());
     }
 }

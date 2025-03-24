@@ -17,7 +17,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.rvCourse.setLayoutManager(layoutManager);
         binding.rvCourse.setAdapter(courseAdapter);
-        viewModel.listCourseItemData.observe(getViewLifecycleOwner(), courseItems -> {
+        viewModel.getAllCourseItems().observe(getViewLifecycleOwner(), courseItems -> {
             courseAdapter.setData(courseItems);
         });
     }
