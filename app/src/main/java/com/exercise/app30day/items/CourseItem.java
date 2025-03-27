@@ -1,7 +1,5 @@
 package com.exercise.app30day.items;
 
-import androidx.room.Ignore;
-
 import com.exercise.app30day.base.adapter.BaseItem;
 
 public class CourseItem extends BaseItem {
@@ -10,12 +8,6 @@ public class CourseItem extends BaseItem {
     private int numberOfDays;
 
     private int numberOfCompletedDays;
-
-    @Ignore
-    private double dayProgress;
-
-    @Ignore
-    private int level;
 
     public CourseItem(int id) {
         super(id);
@@ -51,21 +43,5 @@ public class CourseItem extends BaseItem {
 
     public void setNumberOfCompletedDays(int numberOfCompletedDays) {
         this.numberOfCompletedDays = numberOfCompletedDays;
-    }
-
-    public double getDayProgress() {
-        return dayProgress;
-    }
-
-    public void setDayProgress(double dayProgress) {
-        this.dayProgress = dayProgress;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 }

@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CourseRepository {
     LiveData<List<CourseItem>> getAllCourseItems();
+
+    LiveData<CourseItem> getCourseItemById(int courseId);
 }

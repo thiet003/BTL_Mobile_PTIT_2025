@@ -23,8 +23,20 @@ public interface CourseDao {
             "FROM course c " +
             "LEFT JOIN course_day_exercise cde ON c.id = cde.courseId " +
             "LEFT JOIN complete_day cd ON c.id = cd.courseId " +
-            "GROUP BY c.id, c.difficultLevel " +
+            "GROUP BY c.id " +
             "ORDER BY c.id ASC")
     LiveData<List<CourseItem>> getAllCourseItems();
+
+
+    @Query("SELECT c.id, c.name, c.difficultLevel, " +
+            "COUNT(DISTINCT cde.orderNumber) AS numberOfDays, " +
+            "COUNT(DISTINCT cd.orderNumber) AS numberOfCompletedDays " +
+            "FROM course c " +
+            "LEFT JOIN course_day_exercise cde ON c.id = cde.courseId " +
+            "LEFT JOIN complete_day cd ON c.id = cd.courseId " +
+            "WHERE c.id = :courseId " +
+            "GROUP BY c.id " +
+            "ORDER BY c.id ASC")
+    LiveData<CourseItem> getCourseItemById(int courseId);
 
 }

@@ -22,4 +22,9 @@ public class CourseRepositoryImpl implements CourseRepository {
     public LiveData<List<CourseItem>> getAllCourseItems() {
         return courseDao.getAllCourseItems();
     }
+
+    @Override
+    public LiveData<CourseItem> getCourseItemById(int courseId) {
+        return courseDao.getCourseItemById(courseId);
+    }
 }

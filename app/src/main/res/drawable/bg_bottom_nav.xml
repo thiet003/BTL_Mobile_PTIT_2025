@@ -4,15 +4,15 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/primary"/>
-            <padding android:top="@dimen/_1sdp"/>
-            <corners android:topLeftRadius="@dimen/_10sdp" android:topRightRadius="@dimen/_10sdp"/>
+            <padding android:top="1.5dp"/>
+            <corners android:topLeftRadius="12dp" android:topRightRadius="12dp"/>
         </shape>
     </item>
 
     <item android:top="0dp">
         <shape android:shape="rectangle">
             <solid android:color="@color/secondaryBackground"/>
-            <corners android:topLeftRadius="@dimen/_9sdp" android:topRightRadius="@dimen/_9sdp"/>
+            <corners android:topLeftRadius="10.5dp" android:topRightRadius="10.5dp"/>
         </shape>
     </item>
 </layer-list>

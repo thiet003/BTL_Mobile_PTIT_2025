@@ -1,6 +1,8 @@
 package com.exercise.app30day.di.modules;
 
+import com.exercise.app30day.data.repositories.CourseDayExerciseRepository;
 import com.exercise.app30day.data.repositories.CourseRepository;
+import com.exercise.app30day.data.repositories.impl.CourseDayExerciseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
 
 import javax.inject.Singleton;
@@ -17,5 +19,12 @@ public class RepositoryModule {
     @Singleton
     public static CourseRepository provideCourseRepository(CourseRepositoryImpl courseRepository) {
         return courseRepository;
+    }
+
+    @Provides
+    @Singleton
+    public static CourseDayExerciseRepository provideCourseDayExerciseRepository(
+            CourseDayExerciseRepositoryImpl courseDayExerciseRepository) {
+        return courseDayExerciseRepository;
     }
 }

@@ -36,23 +36,30 @@ public abstract class BaseRecyclerViewAdapter<T extends BaseItem, VB extends Vie
     protected abstract void bindData(VB binding, T item, int position);
 
     public void bindViewClickListener(BaseViewHolder<VB> viewHolder, int viewType){
-        viewHolder.itemView.setOnClickListener(v->{
-            if(!isCheckClickItem()) return;
-            int position = viewHolder.getAdapterPosition();
-            if(position == RecyclerView.NO_POSITION) return;
-            T item = getItem(position);
-            if (onItemClickListener != null && item != null) {
-                onItemClickListener.onItemClick(item, position);
-            }
-        });
+        viewHolder.itemView.setOnClickListener(v-> onItemClick(viewHolder));
         viewHolder.itemView.setOnLongClickListener(v -> {
-            int position = viewHolder.getAdapterPosition();
-            T item = getItem(position);
-            if (onItemLongClickListener != null && item != null) {
-                onItemLongClickListener.onItemLongClick(item, position);
-            }
+            onItemLongClick(viewHolder);
             return true;
         });
+    }
+
+    protected void onItemClick(BaseViewHolder<VB> viewHolder){
+        if(!isCheckClickItem()) return;
+        int position = viewHolder.getAdapterPosition();
+        if(position == RecyclerView.NO_POSITION) return;
+        T item = getItem(position);
+        if (onItemClickListener != null && item != null) {
+            onItemClickListener.onItemClick(item, position);
+        }
+    }
+
+    protected void onItemLongClick(BaseViewHolder<VB> viewHolder){
+        int position = viewHolder.getAdapterPosition();
+        if(position == RecyclerView.NO_POSITION) return;
+        T item = getItem(position);
+        if (onItemLongClickListener != null && item != null) {
+            onItemLongClickListener.onItemLongClick(item, position);
+        }
     }
 
     private long timeClickItem = 0L;

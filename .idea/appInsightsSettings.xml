@@ -8,7 +8,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.ichime.textcap.addtextonphoto.picture.texteditor.quotecreator" />
+                  <option name="appId" value="com.live.wallpapers.screenwallpapers" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

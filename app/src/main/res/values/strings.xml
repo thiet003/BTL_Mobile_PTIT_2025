@@ -12,4 +12,13 @@
 
     <string name="day_numbers">%d Days</string>
     <string name="progress">Progress: %d%%</string>
+
+    <string name="days_remain">%d days remain</string>
+    <string name="text_continue">Continue</string>
+
+    <string name="day">Day %d</string>
+    <string name="exercises">%d exercises</string>
+    <string name="start">Start</string>
+
+    <string name="completed">Completed</string>
 </resources>

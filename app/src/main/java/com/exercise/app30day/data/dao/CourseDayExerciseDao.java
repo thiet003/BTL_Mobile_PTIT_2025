@@ -3,13 +3,12 @@ package com.exercise.app30day.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.exercise.app30day.data.models.CourseDayExercise;
+import com.exercise.app30day.items.CourseDayExerciseItem;
 
 import java.util.List;
 
@@ -19,16 +18,18 @@ public interface CourseDayExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCourseDayExercise(CourseDayExercise courseDayExercise);
 
-    @Update
-    void updateCourseDayExercise(CourseDayExercise courseDayExercise);
-
-    @Delete
-    void deleteCourseDayExercise(CourseDayExercise courseDayExercise);
-
-    @Query("SELECT * FROM course_day_exercise WHERE id = :id")
-    LiveData<CourseDayExercise> getCourseDayExerciseById(int id);
-
-    @Query("SELECT * FROM course_day_exercise order by id asc")
-    LiveData<List<CourseDayExercise>> getAllCourseDayExercises();
+    @Query("SELECT cde.id, " +
+            "cde.orderNumber AS day, " +
+            "COUNT(cde.exerciseId) AS numberOfExercises, " +
+            "CASE " +
+            "WHEN COUNT(cd.id) = 0 THEN 0 " +
+            "ELSE 1 " +
+            "END AS isCompleted " +
+            "FROM course_day_exercise AS cde " +
+            "LEFT JOIN complete_day AS cd ON cde.courseId = cd.courseId " +
+            "WHERE cde.courseId = :courseId " +
+            "GROUP BY cde.orderNumber " +
+            "ORDER BY cde.orderNumber ASC")
+    LiveData<List<CourseDayExerciseItem>> getListCourseDayExercise(int courseId);
 
 }

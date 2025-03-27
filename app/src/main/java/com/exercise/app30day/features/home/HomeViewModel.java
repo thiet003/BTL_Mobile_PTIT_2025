@@ -26,22 +26,21 @@ public class HomeViewModel extends ViewModel {
     }
 
     public LiveData<List<CourseItem>> getAllCourseItems() {
-        return Transformations.map(courseRepository.getAllCourseItems(), courseItems -> {
-            for(CourseItem courseItem : courseItems) {
-                courseItem.setDayProgress(courseItem.getNumberOfCompletedDays() * 100.0 / courseItem.getNumberOfDays());
-                switch (courseItem.getDifficultLevel()) {
-                    case "Beginner":
-                        courseItem.setLevel(1);
-                        break;
-                    case "Intermediate":
-                        courseItem.setLevel(2);
-                        break;
-                    default:
-                        courseItem.setLevel(3);
-                        break;
-                }
-            }
-            return courseItems;
-        });
+        return courseRepository.getAllCourseItems();
+    }
+
+    public int calculateDayProgress(int numberOfCompletedDays, int numberOfDays) {
+        return (int) (numberOfCompletedDays * 100.0 / numberOfDays);
+    }
+
+    public int getLevel(String difficultLevel) {
+        switch (difficultLevel) {
+            case "Beginner":
+                return 1;
+            case "Intermediate":
+                return 2;
+            default:
+                return 3;
+        }
     }
 }

@@ -4,7 +4,11 @@
     <color name="background">#FFFFFF</color>
     <color name="textPrimaryColor">#2A3335</color>
     <color name="textSecondaryColor">#FFFFFF</color>
+    <color name="textTertiaryColor">#595959</color>
     <color name="secondaryBackground">#F1F1F1</color>
     <color name="statusBarColor">#000000</color>
     <color name="navigationBarColor">#F1F1F1</color>
+    <color name="iconPrimaryColor">#2A3335</color>
+    <color name="iconSecondaryColor">#FFFFFF</color>
+    <color name="iconTertiaryColor">#595959</color>
 </resources>

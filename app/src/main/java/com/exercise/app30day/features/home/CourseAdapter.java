@@ -7,6 +7,11 @@ import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.utils.ResourceUtils;
 
 public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCourseBinding> {
+
+    private final HomeViewModel homeViewModel;
+    public CourseAdapter(HomeViewModel homeViewModel){
+        this.homeViewModel = homeViewModel;
+    }
     @Override
     protected void bindData(ItemCourseBinding binding, CourseItem item, int position) {
         int imgRes = ResourceUtils.getDrawableId(getContext(), "img_course_" + item.getDifficultLevel().toLowerCase());
@@ -14,8 +19,9 @@ public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCours
         binding.tvName.setText(item.getName());
         binding.tvDay.setText(getContext().getString(R.string.day_numbers, item.getNumberOfDays()));
         binding.tvLevel.setText(item.getDifficultLevel());
-        binding.rbCourse.setRating(item.getLevel());
-        binding.tvProgress.setText(getContext().getString(R.string.progress, (int) item.getDayProgress()));
-        binding.progressCourse.setProgress((int) item.getDayProgress());
+        binding.rbCourse.setRating(homeViewModel.getLevel(item.getDifficultLevel()));
+        int dayProgress = homeViewModel.calculateDayProgress(item.getNumberOfCompletedDays(), item.getNumberOfDays());
+        binding.tvProgress.setText(getContext().getString(R.string.progress, dayProgress));
+        binding.progressCourse.setProgress(dayProgress);
     }
 }

@@ -1,0 +1,26 @@
+package com.exercise.app30day.data.repositories.impl;
+
+import androidx.lifecycle.LiveData;
+
+import com.exercise.app30day.data.dao.CourseDayExerciseDao;
+import com.exercise.app30day.data.repositories.CourseDayExerciseRepository;
+import com.exercise.app30day.items.CourseDayExerciseItem;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+public class CourseDayExerciseRepositoryImpl implements CourseDayExerciseRepository {
+
+    private final CourseDayExerciseDao courseDayExerciseDao;
+
+    @Inject
+    public CourseDayExerciseRepositoryImpl(CourseDayExerciseDao courseDayExerciseDao) {
+        this.courseDayExerciseDao = courseDayExerciseDao;
+    }
+
+    @Override
+    public LiveData<List<CourseDayExerciseItem>> getListCourseDayExercise(int courseId) {
+        return courseDayExerciseDao.getListCourseDayExercise(courseId);
+    }
+}
