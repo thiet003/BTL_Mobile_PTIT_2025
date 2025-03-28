@@ -8,11 +8,12 @@ import com.exercise.app30day.data.models.Exercise;
 import com.exercise.app30day.data.models.ExerciseAttachment;
 import com.exercise.app30day.data.models.ExerciseConcentrationArea;
 import com.exercise.app30day.data.models.User;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseSeeder {
+public final class DatabaseSeeder {
 
     /**
      * Concentration Areas - muscle groups
@@ -266,6 +267,9 @@ public class DatabaseSeeder {
             db.courseDayExerciseDao().insertCourseDayExercise(cde);
         }
 
-        db.userDao().insertUser(new User());
+        User user = new User();
+        user.setId(1);
+        db.userDao().insertUser(user);
+        Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
     }
 }

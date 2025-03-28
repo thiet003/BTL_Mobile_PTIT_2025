@@ -49,4 +49,15 @@ public class ExerciseDayViewModel extends ViewModel {
     public LiveData<List<CourseDayExerciseItem>> getListCourseDayExercise(int courseId) {
         return courseDayExerciseRepository.getListCourseDayExercise(courseId);
     }
+
+
+    public ExerciseDayState getExerciseState(CourseDayExerciseItem item, CourseDayExerciseItem previousItem) {
+        if ((previousItem == null && !item.isCompleted()) || (previousItem != null && previousItem.isCompleted() && !item.isCompleted())) {
+            return ExerciseDayState.READY_TO_START;
+        } else if (item.isCompleted()) {
+            return ExerciseDayState.COMPLETED;
+        } else {
+            return ExerciseDayState.LOCKED;
+        }
+    }
 }

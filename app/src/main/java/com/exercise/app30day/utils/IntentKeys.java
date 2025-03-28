@@ -1,5 +1,5 @@
 package com.exercise.app30day.utils;
 
-public class IntentKeys {
+public final class IntentKeys {
     public static final String EXTRA_COURSE_ID = "extra_course_id";
 }

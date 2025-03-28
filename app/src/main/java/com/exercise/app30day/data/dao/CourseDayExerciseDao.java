@@ -21,12 +21,9 @@ public interface CourseDayExerciseDao {
     @Query("SELECT cde.id, " +
             "cde.orderNumber AS day, " +
             "COUNT(cde.exerciseId) AS numberOfExercises, " +
-            "CASE " +
-            "WHEN COUNT(cd.id) = 0 THEN 0 " +
-            "ELSE 1 " +
-            "END AS isCompleted " +
+            "(COUNT(DISTINCT cd.id) > 0) AS isCompleted " +
             "FROM course_day_exercise AS cde " +
-            "LEFT JOIN complete_day AS cd ON cde.courseId = cd.courseId " +
+            "LEFT JOIN complete_day AS cd ON cde.orderNumber = cd.orderNumber AND cde.courseId = cd.courseId " +
             "WHERE cde.courseId = :courseId " +
             "GROUP BY cde.orderNumber " +
             "ORDER BY cde.orderNumber ASC")

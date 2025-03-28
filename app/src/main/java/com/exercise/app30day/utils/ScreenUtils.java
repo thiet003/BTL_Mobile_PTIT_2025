@@ -3,7 +3,7 @@ package com.exercise.app30day.utils;
 import android.content.res.Resources;
 import android.util.TypedValue;
 
-public class ScreenUtils {
+public final class ScreenUtils {
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }

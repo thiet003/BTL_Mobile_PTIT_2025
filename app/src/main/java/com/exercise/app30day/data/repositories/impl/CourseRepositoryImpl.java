@@ -9,7 +9,10 @@ import com.exercise.app30day.items.CourseItem;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+
+@Singleton
 public class CourseRepositoryImpl implements CourseRepository {
 
     private final CourseDao courseDao;

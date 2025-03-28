@@ -1,13 +1,8 @@
 package com.exercise.app30day.features.day;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
-import android.graphics.Color;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
@@ -15,25 +10,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
+import com.exercise.app30day.base.adapter.BaseRecyclerViewAdapter;
 import com.exercise.app30day.databinding.ActivityExerciseDayBinding;
 import com.exercise.app30day.items.CourseDayExerciseItem;
 import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
-import com.google.android.material.appbar.AppBarLayout;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding, ExerciseDayViewModel> implements View.OnClickListener{
+public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding, ExerciseDayViewModel>
+        implements View.OnClickListener, NestedScrollView.OnScrollChangeListener, BaseRecyclerViewAdapter.OnItemClickListener<CourseDayExerciseItem>{
 
 
     ExerciseDayAdapter exerciseDayAdapter;
 
     boolean isTopBarHidden = false;
+
+    int courseId;
     @Override
     protected void initView() {
 
-        int courseId = getIntent().getIntExtra(IntentKeys.EXTRA_COURSE_ID,1);
+        courseId = getIntent().getIntExtra(IntentKeys.EXTRA_COURSE_ID,1);
         viewModel.getCourseItemById(courseId).observe(this, courseItem -> {
             int imgRes = ResourceUtils.getDrawableId(ExerciseDayActivity.this, "img_course_" + courseItem.getDifficultLevel().toLowerCase());
             binding.imgCourse.setImageResource(imgRes);
@@ -51,6 +49,9 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
         binding.rvDay.setAdapter(exerciseDayAdapter);
 
         viewModel.getListCourseDayExercise(courseId).observe(this, courseDayExerciseItems -> {
+            for(CourseDayExerciseItem item : courseDayExerciseItems){
+                System.out.println(item);
+            }
             exerciseDayAdapter.setData(courseDayExerciseItems);
         });
     }
@@ -59,19 +60,8 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
     protected void initListener() {
         binding.ibBack.setOnClickListener(this);
         binding.ibBackTempTopBar.setOnClickListener(this);
-        binding.nestScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            int topBarHeight = binding.topBar.getHeight();
-            int animStartY = topBarHeight - (int)(topBarHeight / 1.5);
-            if (scrollY > oldScrollY && scrollY > animStartY && !isTopBarHidden) {
-                isTopBarHidden = true;
-                fadeOut(binding.topBar, 1200);
-                fadeIn(binding.tempTopBar, 800);
-            } else if (scrollY < oldScrollY && scrollY <= animStartY && isTopBarHidden) {
-                isTopBarHidden = false;
-                fadeIn(binding.topBar, 1200);
-                fadeOut(binding.tempTopBar, 800);
-            }
-        });
+        binding.nestScrollView.setOnScrollChangeListener(this);
+        exerciseDayAdapter.setOnItemClickListener(this);
     }
 
     private void fadeIn(View view, long duration) {
@@ -95,6 +85,7 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
             @Override
             public void onAnimationEnd(Animation animation) {
                 view.setVisibility(View.INVISIBLE);
+                alphaAnimation.setAnimationListener(null);
             }
 
             @Override
@@ -110,5 +101,25 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
         if(v == binding.ibBack || v == binding.ibBackTempTopBar){
             finish();
         }
+    }
+
+    @Override
+    public void onScrollChange(@NonNull NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        int topBarHeight = binding.topBar.getHeight();
+        int animStartY = topBarHeight - (int)(topBarHeight / 1.5);
+        if (scrollY > oldScrollY && scrollY > animStartY && !isTopBarHidden) {
+            isTopBarHidden = true;
+            fadeOut(binding.topBar, 1200);
+            fadeIn(binding.tempTopBar, 800);
+        } else if (scrollY < oldScrollY && scrollY <= animStartY && isTopBarHidden) {
+            isTopBarHidden = false;
+            fadeIn(binding.topBar, 1200);
+            fadeOut(binding.tempTopBar, 800);
+        }
+    }
+
+    @Override
+    public void onItemClick(CourseDayExerciseItem data, int position) {
+
     }
 }

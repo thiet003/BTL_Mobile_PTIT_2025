@@ -8,10 +8,13 @@ import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp
 public class MainApplication extends Application {
+
+    public static MainApplication INSTANCE;
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        INSTANCE = this;
         Hawk.init(this).build();
     }
 }

@@ -1,7 +1,9 @@
 package com.exercise.app30day.di.modules;
 
+import com.exercise.app30day.data.repositories.CompleteDayRepository;
 import com.exercise.app30day.data.repositories.CourseDayExerciseRepository;
 import com.exercise.app30day.data.repositories.CourseRepository;
+import com.exercise.app30day.data.repositories.impl.CompleteDayRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.CourseDayExerciseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
 
@@ -17,7 +19,8 @@ import dagger.hilt.components.SingletonComponent;
 public class RepositoryModule {
     @Provides
     @Singleton
-    public static CourseRepository provideCourseRepository(CourseRepositoryImpl courseRepository) {
+    public static CourseRepository provideCourseRepository(
+            CourseRepositoryImpl courseRepository) {
         return courseRepository;
     }
 
@@ -26,5 +29,12 @@ public class RepositoryModule {
     public static CourseDayExerciseRepository provideCourseDayExerciseRepository(
             CourseDayExerciseRepositoryImpl courseDayExerciseRepository) {
         return courseDayExerciseRepository;
+    }
+
+    @Provides
+    @Singleton
+    public static CompleteDayRepository provideCompleteDayRepository(
+            CompleteDayRepositoryImpl completeDayRepository) {
+        return completeDayRepository;
     }
 }
