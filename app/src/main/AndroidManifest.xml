@@ -14,7 +14,7 @@
         android:theme="@style/Theme.App30DayShred"
         tools:targetApi="31">
         <activity
-            android:name=".features.day.ExerciseDayActivity"
+            android:name=".features.course.CourseActivity"
             android:exported="false" />
         <activity
             android:name=".features.splash.SplashActivity"

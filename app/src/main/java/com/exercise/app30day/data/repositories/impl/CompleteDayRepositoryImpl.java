@@ -18,7 +18,7 @@ public class CompleteDayRepositoryImpl implements CompleteDayRepository {
     }
 
     @Override
-    public void insertCompleteDayExercise(CompleteDay completeDay) {
+    public void insertCompleteDay(CompleteDay completeDay) {
         new Thread(() -> completeDayDao.insertCompleteDay(completeDay)).start();
     }
 }

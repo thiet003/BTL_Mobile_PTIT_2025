@@ -1,18 +1,17 @@
 package com.exercise.app30day.items;
 
 import androidx.annotation.NonNull;
-import androidx.room.Ignore;
 
 import com.exercise.app30day.base.adapter.BaseItem;
 
-public class CourseDayExerciseItem extends BaseItem {
+public class DayItem extends BaseItem {
 
     private int day;
 
     private int numberOfExercises;
 
     private boolean isCompleted;
-    public CourseDayExerciseItem(int id) {
+    public DayItem(int id) {
         super(id);
     }
 

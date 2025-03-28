@@ -1,4 +1,4 @@
-package com.exercise.app30day.features.day;
+package com.exercise.app30day.features.course;
 
 import android.view.ViewGroup;
 
@@ -7,23 +7,23 @@ import androidx.core.content.ContextCompat;
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.adapter.BaseRecyclerViewAdapter;
 import com.exercise.app30day.databinding.ItemDayBinding;
-import com.exercise.app30day.items.CourseDayExerciseItem;
+import com.exercise.app30day.items.DayItem;
 
-public class ExerciseDayAdapter extends BaseRecyclerViewAdapter<CourseDayExerciseItem, ItemDayBinding> {
+public class DayAdapter extends BaseRecyclerViewAdapter<DayItem, ItemDayBinding> {
 
-    public ExerciseDayViewModel viewModel;
+    public CourseViewModel viewModel;
 
-    public ExerciseDayAdapter(ExerciseDayViewModel viewModel) {
+    public DayAdapter(CourseViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
     @Override
-    protected void bindData(ItemDayBinding binding, CourseDayExerciseItem item, int position) {
+    protected void bindData(ItemDayBinding binding, DayItem item, int position) {
         binding.tvDay.setText(getContext().getString(R.string.day, item.getDay()));
         binding.tvExercise.setText(getContext().getString(R.string.exercises, item.getNumberOfExercises()));
         binding.getRoot().setBackground(ContextCompat.getDrawable(getContext(), R.drawable.bg_item_day_unselected));
-        ExerciseDayState exerciseDayState = viewModel.getExerciseState(item, getItem(position - 1));
-        switch (exerciseDayState){
+        DayState dayState = viewModel.getExerciseState(item, getItem(position - 1));
+        switch (dayState){
             case READY_TO_START:
                 binding.btnStart.setVisibility(ViewGroup.VISIBLE);
                 binding.ivCircleCheck.setVisibility(ViewGroup.GONE);

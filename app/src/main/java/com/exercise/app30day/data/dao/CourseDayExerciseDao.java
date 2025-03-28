@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.exercise.app30day.data.models.CourseDayExercise;
-import com.exercise.app30day.items.CourseDayExerciseItem;
+import com.exercise.app30day.items.DayItem;
 
 import java.util.List;
 
@@ -27,6 +27,6 @@ public interface CourseDayExerciseDao {
             "WHERE cde.courseId = :courseId " +
             "GROUP BY cde.orderNumber " +
             "ORDER BY cde.orderNumber ASC")
-    LiveData<List<CourseDayExerciseItem>> getListCourseDayExercise(int courseId);
+    LiveData<List<DayItem>> getListDay(int courseId);
 
 }

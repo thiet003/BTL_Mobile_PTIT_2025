@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.databinding.FragmentHomeBinding;
-import com.exercise.app30day.features.day.ExerciseDayActivity;
+import com.exercise.app30day.features.course.CourseActivity;
 import com.exercise.app30day.utils.IntentKeys;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -29,7 +29,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     protected void initListener() {
         courseAdapter.setOnItemClickListener((item, position) -> {
-            Intent intent = new Intent(requireContext(), ExerciseDayActivity.class);
+            Intent intent = new Intent(requireContext(), CourseActivity.class);
             intent.putExtra(IntentKeys.EXTRA_COURSE_ID, item.getId());
             requireContext().startActivity(intent);
         });

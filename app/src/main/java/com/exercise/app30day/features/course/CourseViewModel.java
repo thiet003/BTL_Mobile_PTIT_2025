@@ -1,11 +1,11 @@
-package com.exercise.app30day.features.day;
+package com.exercise.app30day.features.course;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.data.repositories.CourseDayExerciseRepository;
 import com.exercise.app30day.data.repositories.CourseRepository;
-import com.exercise.app30day.items.CourseDayExerciseItem;
+import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.CourseItem;
 
 import java.util.List;
@@ -15,14 +15,14 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class ExerciseDayViewModel extends ViewModel {
+public class CourseViewModel extends ViewModel {
 
     private final CourseRepository courseRepository;
 
     private final CourseDayExerciseRepository courseDayExerciseRepository;
 
     @Inject
-    public ExerciseDayViewModel(CourseRepository courseRepository, CourseDayExerciseRepository courseDayExerciseRepository) {
+    public CourseViewModel(CourseRepository courseRepository, CourseDayExerciseRepository courseDayExerciseRepository) {
         this.courseRepository = courseRepository;
         this.courseDayExerciseRepository = courseDayExerciseRepository;
     }
@@ -46,18 +46,18 @@ public class ExerciseDayViewModel extends ViewModel {
         }
     }
 
-    public LiveData<List<CourseDayExerciseItem>> getListCourseDayExercise(int courseId) {
-        return courseDayExerciseRepository.getListCourseDayExercise(courseId);
+    public LiveData<List<DayItem>> getListDay(int courseId) {
+        return courseDayExerciseRepository.getListDay(courseId);
     }
 
 
-    public ExerciseDayState getExerciseState(CourseDayExerciseItem item, CourseDayExerciseItem previousItem) {
+    public DayState getExerciseState(DayItem item, DayItem previousItem) {
         if ((previousItem == null && !item.isCompleted()) || (previousItem != null && previousItem.isCompleted() && !item.isCompleted())) {
-            return ExerciseDayState.READY_TO_START;
+            return DayState.READY_TO_START;
         } else if (item.isCompleted()) {
-            return ExerciseDayState.COMPLETED;
+            return DayState.COMPLETED;
         } else {
-            return ExerciseDayState.LOCKED;
+            return DayState.LOCKED;
         }
     }
 }

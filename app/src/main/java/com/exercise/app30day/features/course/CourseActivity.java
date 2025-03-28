@@ -1,4 +1,4 @@
-package com.exercise.app30day.features.day;
+package com.exercise.app30day.features.course;
 
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -11,19 +11,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.base.adapter.BaseRecyclerViewAdapter;
-import com.exercise.app30day.databinding.ActivityExerciseDayBinding;
-import com.exercise.app30day.items.CourseDayExerciseItem;
+import com.exercise.app30day.databinding.ActivityCourseBinding;
+import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding, ExerciseDayViewModel>
-        implements View.OnClickListener, NestedScrollView.OnScrollChangeListener, BaseRecyclerViewAdapter.OnItemClickListener<CourseDayExerciseItem>{
+public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseViewModel>
+        implements View.OnClickListener, NestedScrollView.OnScrollChangeListener, BaseRecyclerViewAdapter.OnItemClickListener<DayItem>{
 
 
-    ExerciseDayAdapter exerciseDayAdapter;
+    DayAdapter dayAdapter;
 
     boolean isTopBarHidden = false;
 
@@ -33,7 +33,7 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
 
         courseId = getIntent().getIntExtra(IntentKeys.EXTRA_COURSE_ID,1);
         viewModel.getCourseItemById(courseId).observe(this, courseItem -> {
-            int imgRes = ResourceUtils.getDrawableId(ExerciseDayActivity.this, "img_course_" + courseItem.getDifficultLevel().toLowerCase());
+            int imgRes = ResourceUtils.getDrawableId(CourseActivity.this, "img_course_" + courseItem.getDifficultLevel().toLowerCase());
             binding.imgCourse.setImageResource(imgRes);
             binding.tvName.setText(courseItem.getName());
             binding.rbCourse.setRating(viewModel.getLevel(courseItem.getDifficultLevel()));
@@ -43,16 +43,16 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
             binding.tvTopBarCourseName.setText(courseItem.getName());
         });
 
-        exerciseDayAdapter = new ExerciseDayAdapter(viewModel);
+        dayAdapter = new DayAdapter(viewModel);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.rvDay.setLayoutManager(linearLayoutManager);
-        binding.rvDay.setAdapter(exerciseDayAdapter);
+        binding.rvDay.setAdapter(dayAdapter);
 
-        viewModel.getListCourseDayExercise(courseId).observe(this, courseDayExerciseItems -> {
-            for(CourseDayExerciseItem item : courseDayExerciseItems){
+        viewModel.getListDay(courseId).observe(this, courseDayExerciseItems -> {
+            for(DayItem item : courseDayExerciseItems){
                 System.out.println(item);
             }
-            exerciseDayAdapter.setData(courseDayExerciseItems);
+            dayAdapter.setData(courseDayExerciseItems);
         });
     }
 
@@ -61,7 +61,7 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
         binding.ibBack.setOnClickListener(this);
         binding.ibBackTempTopBar.setOnClickListener(this);
         binding.nestScrollView.setOnScrollChangeListener(this);
-        exerciseDayAdapter.setOnItemClickListener(this);
+        dayAdapter.setOnItemClickListener(this);
     }
 
     private void fadeIn(View view, long duration) {
@@ -119,7 +119,7 @@ public class ExerciseDayActivity extends BaseActivity<ActivityExerciseDayBinding
     }
 
     @Override
-    public void onItemClick(CourseDayExerciseItem data, int position) {
+    public void onItemClick(DayItem data, int position) {
 
     }
 }
