@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Beginner's Fitness Journey",
+    "difficultLevel": "Beginner"
+  },
+  {
+    "name": "Intermediate Strength & Endurance",
+    "difficultLevel": "Intermediate"
+  },
+  {
+    "name": "Advanced Athletic Performance",
+    "difficultLevel": "Advanced"
+  }
+]

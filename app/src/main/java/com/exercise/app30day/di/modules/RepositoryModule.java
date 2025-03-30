@@ -3,38 +3,35 @@ package com.exercise.app30day.di.modules;
 import com.exercise.app30day.data.repositories.CompleteDayRepository;
 import com.exercise.app30day.data.repositories.CourseDayExerciseRepository;
 import com.exercise.app30day.data.repositories.CourseRepository;
+import com.exercise.app30day.data.repositories.ExerciseRepository;
 import com.exercise.app30day.data.repositories.impl.CompleteDayRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.CourseDayExerciseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.ExerciseRepositoryImpl;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 
 @Module
 @InstallIn(SingletonComponent.class)
-public class RepositoryModule {
-    @Provides
+public abstract class RepositoryModule {
+    @Binds
     @Singleton
-    public static CourseRepository provideCourseRepository(
-            CourseRepositoryImpl courseRepository) {
-        return courseRepository;
-    }
+    public abstract CourseRepository bindCourseRepository(CourseRepositoryImpl impl);
 
-    @Provides
+    @Binds
     @Singleton
-    public static CourseDayExerciseRepository provideCourseDayExerciseRepository(
-            CourseDayExerciseRepositoryImpl courseDayExerciseRepository) {
-        return courseDayExerciseRepository;
-    }
+    public abstract CourseDayExerciseRepository bindCourseDayExerciseRepository(CourseDayExerciseRepositoryImpl impl);
 
-    @Provides
+    @Binds
     @Singleton
-    public static CompleteDayRepository provideCompleteDayRepository(
-            CompleteDayRepositoryImpl completeDayRepository) {
-        return completeDayRepository;
-    }
+    public abstract CompleteDayRepository bindCompleteDayRepository(CompleteDayRepositoryImpl impl);
+
+    @Binds
+    @Singleton
+    public abstract ExerciseRepository bindExerciseRepository(ExerciseRepositoryImpl impl);
 }

@@ -2,10 +2,11 @@
 <resources>
     <color name="primary">#EB5B00</color>
     <color name="background">#FFFFFF</color>
+    <color name="secondaryBackground">#F1F1F1</color>
+    <color name="tertiaryBackground">#888888</color>
     <color name="textPrimaryColor">#2A3335</color>
     <color name="textSecondaryColor">#FFFFFF</color>
     <color name="textTertiaryColor">#595959</color>
-    <color name="secondaryBackground">#F1F1F1</color>
     <color name="statusBarColor">#000000</color>
     <color name="navigationBarColor">#F1F1F1</color>
     <color name="iconPrimaryColor">#2A3335</color>

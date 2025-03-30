@@ -60,4 +60,14 @@ public class CourseViewModel extends ViewModel {
             return DayState.LOCKED;
         }
     }
+
+    public int findReadyToStartDayPosition(List<DayItem> dayItems){
+        for(int position = 0; position < dayItems.size(); position++){
+            if (position == 0 && !dayItems.get(position).isCompleted()
+                    || (position > 0 && dayItems.get(position - 1).isCompleted() && !dayItems.get(position).isCompleted())){
+                return position;
+            }
+        }
+        return 0;
+    }
 }

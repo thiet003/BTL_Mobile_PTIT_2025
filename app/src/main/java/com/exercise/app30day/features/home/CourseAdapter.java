@@ -17,7 +17,7 @@ public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCours
         int imgRes = ResourceUtils.getDrawableId(getContext(), "img_course_" + item.getDifficultLevel().toLowerCase());
         binding.imgCourse.setImageResource(imgRes);
         binding.tvName.setText(item.getName());
-        binding.tvDay.setText(getContext().getString(R.string.day_numbers, item.getNumberOfDays()));
+        binding.tvDay.setText(getContext().getString(R.string.day_number, item.getNumberOfDays()));
         binding.tvLevel.setText(item.getDifficultLevel());
         binding.rbCourse.setRating(homeViewModel.getLevel(item.getDifficultLevel()));
         int dayProgress = homeViewModel.calculateDayProgress(item.getNumberOfCompletedDays(), item.getNumberOfDays());

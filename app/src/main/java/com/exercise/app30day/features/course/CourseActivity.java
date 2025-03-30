@@ -1,26 +1,25 @@
 package com.exercise.app30day.features.course;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
-import com.exercise.app30day.base.adapter.BaseRecyclerViewAdapter;
 import com.exercise.app30day.databinding.ActivityCourseBinding;
-import com.exercise.app30day.items.DayItem;
+import com.exercise.app30day.features.day.DayActivity;
+import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseViewModel>
-        implements View.OnClickListener, NestedScrollView.OnScrollChangeListener, BaseRecyclerViewAdapter.OnItemClickListener<DayItem>{
+public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseViewModel> implements View.OnClickListener{
 
 
     DayAdapter dayAdapter;
@@ -28,6 +27,10 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
     boolean isTopBarHidden = false;
 
     int courseId;
+
+    CourseItem courseItem;
+
+    int readyToStartDayPosition;
     @Override
     protected void initView() {
 
@@ -41,6 +44,7 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
             int daysRemain = viewModel.calculateDaysRemain(courseItem.getNumberOfCompletedDays(), courseItem.getNumberOfDays());
             binding.tvRemain.setText(getString(R.string.days_remain, daysRemain));
             binding.tvTopBarCourseName.setText(courseItem.getName());
+            CourseActivity.this.courseItem = courseItem;
         });
 
         dayAdapter = new DayAdapter(viewModel);
@@ -49,9 +53,8 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
         binding.rvDay.setAdapter(dayAdapter);
 
         viewModel.getListDay(courseId).observe(this, courseDayExerciseItems -> {
-            for(DayItem item : courseDayExerciseItems){
-                System.out.println(item);
-            }
+            readyToStartDayPosition = viewModel.findReadyToStartDayPosition(courseDayExerciseItems);
+            binding.btnContinue.setText(readyToStartDayPosition == 0 ? R.string.start : R.string.text_continue);
             dayAdapter.setData(courseDayExerciseItems);
         });
     }
@@ -60,8 +63,30 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
     protected void initListener() {
         binding.ibBack.setOnClickListener(this);
         binding.ibBackTempTopBar.setOnClickListener(this);
-        binding.nestScrollView.setOnScrollChangeListener(this);
-        dayAdapter.setOnItemClickListener(this);
+        binding.btnContinue.setOnClickListener(this);
+        binding.nestScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            int topBarHeight = binding.topBar.getHeight();
+            int animStartY = topBarHeight - (int)(topBarHeight / 1.5);
+            if (scrollY > oldScrollY && scrollY > animStartY && !isTopBarHidden) {
+                isTopBarHidden = true;
+                fadeOut(binding.topBar, 1200);
+                fadeIn(binding.tempTopBar, 800);
+            } else if (scrollY < oldScrollY && scrollY <= animStartY && isTopBarHidden) {
+                isTopBarHidden = false;
+                fadeIn(binding.topBar, 1200);
+                fadeOut(binding.tempTopBar, 800);
+            }
+        });
+        dayAdapter.setOnItemClickListener((data, position) -> {
+            if(viewModel.getExerciseState(data, dayAdapter.getItem(position - 1)) == DayState.LOCKED){
+                return;
+            }
+            Intent intent = new Intent(CourseActivity.this, DayActivity.class);
+            intent.putExtra(IntentKeys.EXTRA_COURSE_ID, courseId);
+            intent.putExtra(IntentKeys.EXTRA_DAY, data.getDay());
+            intent.putExtra(IntentKeys.EXTRA_COURSE_DIFFICULT_LEVEL, courseItem != null ? courseItem.getDifficultLevel() : null);
+            startActivity(intent);
+        });
     }
 
     private void fadeIn(View view, long duration) {
@@ -101,25 +126,12 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
         if(v == binding.ibBack || v == binding.ibBackTempTopBar){
             finish();
         }
-    }
-
-    @Override
-    public void onScrollChange(@NonNull NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        int topBarHeight = binding.topBar.getHeight();
-        int animStartY = topBarHeight - (int)(topBarHeight / 1.5);
-        if (scrollY > oldScrollY && scrollY > animStartY && !isTopBarHidden) {
-            isTopBarHidden = true;
-            fadeOut(binding.topBar, 1200);
-            fadeIn(binding.tempTopBar, 800);
-        } else if (scrollY < oldScrollY && scrollY <= animStartY && isTopBarHidden) {
-            isTopBarHidden = false;
-            fadeIn(binding.topBar, 1200);
-            fadeOut(binding.tempTopBar, 800);
+        else if(v == binding.btnContinue){
+            Intent intent = new Intent(CourseActivity.this, DayActivity.class);
+            intent.putExtra(IntentKeys.EXTRA_COURSE_ID, courseId);
+            intent.putExtra(IntentKeys.EXTRA_DAY, dayAdapter.getItem(readyToStartDayPosition).getDay());
+            intent.putExtra(IntentKeys.EXTRA_COURSE_DIFFICULT_LEVEL, courseItem != null ? courseItem.getDifficultLevel() : null);
+            startActivity(intent);
         }
-    }
-
-    @Override
-    public void onItemClick(DayItem data, int position) {
-
     }
 }

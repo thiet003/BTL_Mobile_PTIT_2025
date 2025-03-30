@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Abs",
+    "description": "Abdominal muscles including rectus abdominis, obliques, and transverse abdominis"
+  },
+  {
+    "name": "Arms",
+    "description": "Upper and lower arm muscles including biceps, triceps, and forearms"
+  },
+  {
+    "name": "Chest",
+    "description": "Pectoral muscles including pectoralis major and pectoralis minor"
+  },
+  {
+    "name": "Back",
+    "description": "Back muscles including latissimus dorsi, rhomboids, and trapezius"
+  },
+  {
+    "name": "Shoulders",
+    "description": "Deltoid muscles and rotator cuff"
+  },
+  {
+    "name": "Legs",
+    "description": "Leg muscles including quadriceps, hamstrings, and calves"
+  },
+  {
+    "name": "Glutes",
+    "description": "Gluteal muscles including gluteus maximus, medius, and minimus"
+  },
+  {
+    "name": "Core",
+    "description": "Deep core muscles including transverse abdominis and erector spinae"
+  },
+  {
+    "name": "Full Body",
+    "description": "Comprehensive exercises that engage multiple muscle groups"
+  },
+  {
+    "name": "Cardio",
+    "description": "Exercises designed to elevate heart rate and improve cardiovascular health"
+  }
+]

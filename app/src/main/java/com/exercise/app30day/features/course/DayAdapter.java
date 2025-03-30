@@ -20,7 +20,7 @@ public class DayAdapter extends BaseRecyclerViewAdapter<DayItem, ItemDayBinding>
     @Override
     protected void bindData(ItemDayBinding binding, DayItem item, int position) {
         binding.tvDay.setText(getContext().getString(R.string.day, item.getDay()));
-        binding.tvExercise.setText(getContext().getString(R.string.exercises, item.getNumberOfExercises()));
+        binding.tvExercise.setText(getContext().getString(R.string.exercise_number, item.getNumberOfExercises()));
         binding.getRoot().setBackground(ContextCompat.getDrawable(getContext(), R.drawable.bg_item_day_unselected));
         DayState dayState = viewModel.getExerciseState(item, getItem(position - 1));
         switch (dayState){

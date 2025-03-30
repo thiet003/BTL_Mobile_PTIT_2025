@@ -35,7 +35,7 @@
             android:textAlignment="center"
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:textSize="48sp"
+            android:textSize="@dimen/_32sdp"
             />
 
         <com.airbnb.lottie.LottieAnimationView

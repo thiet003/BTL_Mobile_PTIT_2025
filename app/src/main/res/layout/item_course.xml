@@ -24,12 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/_15sdp">
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/rl_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true">
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <RatingBar
                     android:id="@+id/rb_course"
                     android:layout_width="wrap_content"
@@ -41,8 +43,6 @@
                     android:progressTint="#FFEB3B"
                     android:progressBackgroundTint="#F1F1F1"
                     android:minHeight="40dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:layout_marginStart="-16dp"
@@ -54,24 +54,23 @@
                     android:layout_height="wrap_content"
                     android:text="@string/beginner"
                     android:textColor="@color/textSecondaryColor"
-                    android:textSize="@dimen/_13sdp"
-                    android:layout_toEndOf="@id/rb_course"
-                    android:layout_centerVertical="true" />
+                    android:textSize="@dimen/_13sdp" />
 
 
                 <TextView
                     android:id="@+id/tv_day"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/day_numbers"
+                    android:text="@string/day_number"
                     android:textColor="@color/textSecondaryColor"
                     android:textSize="@dimen/_16sdp"
                     android:fontFamily="@font/vn_bold"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    tools:ignore="RelativeOverlap" />
+                    tools:ignore="RelativeOverlap"
+                    android:textAlignment="textEnd"
+                    />
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_name"
