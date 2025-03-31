@@ -31,49 +31,37 @@ public final class DatabaseUtils {
         String areasJson = readJsonFromAsset(context, "concentration_areas.json");
         Type areasType = new TypeToken<List<ConcentrationArea>>(){}.getType();
         List<ConcentrationArea> areas = new Gson().fromJson(areasJson, areasType);
-        for (ConcentrationArea area : areas) {
-            db.concentrationAreaDao().insertConcentrationArea(area);
-        }
+        db.concentrationAreaDao().insertConcentrationAreas(areas);
 
         // Insert courses
         String coursesJson = readJsonFromAsset(context, "courses.json");
         Type coursesType = new TypeToken<List<Course>>(){}.getType();
         List<Course> courses = new Gson().fromJson(coursesJson, coursesType);
-        for (Course course : courses) {
-            db.courseDao().insertCourse(course);
-        }
+        db.courseDao().insertCourses(courses);
 
         // Insert exercises
         String exercisesJson = readJsonFromAsset(context, "exercises.json");
         Type exercisesType = new TypeToken<List<Exercise>>(){}.getType();
         List<Exercise> exercises = new Gson().fromJson(exercisesJson, exercisesType);
-        for (Exercise exercise : exercises) {
-            db.exerciseDao().insertExercise(exercise);
-        }
+        db.exerciseDao().insertExercises(exercises);
 
         // Insert exercise attachments
         String attachmentsJson = readJsonFromAsset(context, "exercise_attachments.json");
         Type attachmentsType = new TypeToken<List<ExerciseAttachment>>(){}.getType();
         List<ExerciseAttachment> attachments = new Gson().fromJson(attachmentsJson, attachmentsType);
-        for (ExerciseAttachment attachment : attachments) {
-            db.exerciseAttachmentDao().insertExerciseAttachment(attachment);
-        }
+        db.exerciseAttachmentDao().insertExerciseAttachments(attachments);
 
         // Insert exercise-concentration area mappings
         String exerciseConcentrationAreasJson = readJsonFromAsset(context, "exercise_concentration_areas.json");
         Type exerciseConcentrationAreasType = new TypeToken<List<ExerciseConcentrationArea>>(){}.getType();
         List<ExerciseConcentrationArea> exerciseConcentrationAreas = new Gson().fromJson(exerciseConcentrationAreasJson, exerciseConcentrationAreasType);
-        for (ExerciseConcentrationArea mapping : exerciseConcentrationAreas) {
-            db.exerciseConcentrationAreaDao().insertExerciseConcentrationArea(mapping);
-        }
+        db.exerciseConcentrationAreaDao().insertExerciseConcentrationAreas(exerciseConcentrationAreas);
 
         // Insert course day exercises
         String courseDayExercisesJson = readJsonFromAsset(context, "course_day_exercises.json");
         Type courseDayExercisesType = new TypeToken<List<CourseDayExercise>>(){}.getType();
         List<CourseDayExercise> courseDayExercises = new Gson().fromJson(courseDayExercisesJson, courseDayExercisesType);
-        for (CourseDayExercise cde : courseDayExercises) {
-            db.courseDayExerciseDao().insertCourseDayExercise(cde);
-        }
+        db.courseDayExerciseDao().insertCourseDayExercises(courseDayExercises);
 
         User user = new User();
         user.setId(1);

@@ -14,19 +14,6 @@ import java.util.List;
 
 @Dao
 public interface ExerciseConcentrationAreaDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExerciseConcentrationArea(ExerciseConcentrationArea exerciseConcentrationArea);
-
-    @Update
-    void updateExerciseConcentrationArea(ExerciseConcentrationArea exerciseConcentrationArea);
-
-    @Delete
-    void deleteExerciseConcentrationArea(ExerciseConcentrationArea exerciseConcentrationArea);
-
-    @Query("SELECT * FROM exercise_concentration_area WHERE id = :id")
-    LiveData<ExerciseConcentrationArea> getExerciseConcentrationAreaById(int id);
-
-    @Query("SELECT * FROM exercise_concentration_area order by id asc")
-    LiveData<List<ExerciseConcentrationArea>> getAllExerciseConcentrationAreas();
+    void insertExerciseConcentrationAreas(List<ExerciseConcentrationArea> exerciseConcentrationAreas);
 }

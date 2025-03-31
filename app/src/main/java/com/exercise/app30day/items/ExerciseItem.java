@@ -11,6 +11,8 @@ public class ExerciseItem extends BaseItem {
     private double kcal;
 
     private int loopNumber;
+
+    private String fileName;
     public ExerciseItem(int id) {
         super(id);
     }
@@ -53,6 +55,14 @@ public class ExerciseItem extends BaseItem {
 
     public void setLoopNumber(int loopNumber) {
         this.loopNumber = loopNumber;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override

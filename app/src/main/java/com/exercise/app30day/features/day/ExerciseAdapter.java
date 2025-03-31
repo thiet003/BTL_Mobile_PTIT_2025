@@ -5,6 +5,7 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.base.adapter.BaseRecyclerViewAdapter;
 import com.exercise.app30day.databinding.ItemExerciseBinding;
 import com.exercise.app30day.items.ExerciseItem;
+import com.exercise.app30day.utils.ResourceUtils;
 import com.exercise.app30day.utils.TimeUtils;
 
 public class ExerciseAdapter extends BaseRecyclerViewAdapter<ExerciseItem, ItemExerciseBinding> {
@@ -12,6 +13,12 @@ public class ExerciseAdapter extends BaseRecyclerViewAdapter<ExerciseItem, ItemE
     protected void bindData(ItemExerciseBinding binding, ExerciseItem item, int position) {
         binding.tvExercise.setText(item.getName());
         binding.tvTimeOrLoop.setText(item.getTime() != 0 ? TimeUtils.formatMillisecondsToMMSS(item.getTime()) : "x" + item.getLoopNumber());
-        Glide.with(getContext()).asGif().load(R.drawable.img_push_up).into(binding.ivAnim);
+        int resId = ResourceUtils.getDrawableId(getContext(), item.getFileName());
+        if(item.getFileName().equals("gif")){
+            Glide.with(getContext()).asGif().load(resId).into(binding.ivAnim);
+        }else{
+            Glide.with(getContext()).load(resId).into(binding.ivAnim);
+        }
+
     }
 }

@@ -15,15 +15,17 @@ import java.util.List;
 
 @Dao
 public interface ExerciseDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExercise(Exercise exercise);
+    void insertExercises(List<Exercise> exercises);
 
 
-    @Query("SELECT e.id, e.name, e.description, e.time, e.kcal, e.loopNumber FROM exercise AS e " +
-            "JOIN course_day_exercise AS cde " +
-            "ON e.id = cde.exerciseId " +
-            "WHERE cde.courseId = :courseId AND cde.orderNumber = :orderNumber")
+    @Query("SELECT e.id, e.name, e.description, e.time, e.kcal, e.loopNumber, ea.fileName FROM exercise AS e " +
+            "JOIN course_day_exercise AS cde ON e.id = cde.exerciseId " +
+            "LEFT JOIN exercise_attachment AS ea ON e.id = ea.exerciseId " +
+            "WHERE cde.courseId = :courseId " +
+            "AND cde.orderNumber = :orderNumber " +
+            "AND (ea.type = 'gif' OR ea.type = 'jpg')" +
+            "GROUP BY e.id ")
     LiveData<List<ExerciseItem>> getListExerciseItem(int courseId, int orderNumber);
 
 }

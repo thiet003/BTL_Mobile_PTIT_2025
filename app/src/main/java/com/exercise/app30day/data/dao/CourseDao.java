@@ -13,9 +13,8 @@ import java.util.List;
 
 @Dao
 public interface CourseDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertCourse(Course course);
+    void insertCourses(List<Course> courses);
 
     @Query("SELECT c.id, c.name, c.difficultLevel, " +
             "COUNT(DISTINCT cde.orderNumber) AS numberOfDays, " +

@@ -42,6 +42,7 @@ public class DayViewModel extends ViewModel {
         for (ExerciseItem item : exerciseItems){
             totalTime += item.getTime() + item.getLoopNumber() * 3000L;
         }
+        totalTime += (exerciseItems.size() - 1) * 15000L;
         return Math.round(totalTime / 60000.0);
     }
 }

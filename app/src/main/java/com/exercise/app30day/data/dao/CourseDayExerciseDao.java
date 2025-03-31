@@ -14,10 +14,8 @@ import java.util.List;
 
 @Dao
 public interface CourseDayExerciseDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertCourseDayExercise(CourseDayExercise courseDayExercise);
-
+    void insertCourseDayExercises(List<CourseDayExercise> courseDayExercises);
     @Query("SELECT cde.id, " +
             "cde.orderNumber AS day, " +
             "COUNT(cde.exerciseId) AS numberOfExercises, " +

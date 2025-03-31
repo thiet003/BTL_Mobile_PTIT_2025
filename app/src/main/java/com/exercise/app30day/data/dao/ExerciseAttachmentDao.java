@@ -15,20 +15,6 @@ import java.util.List;
 
 @Dao
 public interface ExerciseAttachmentDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExerciseAttachment(ExerciseAttachment exerciseAttachment);
-
-    @Update
-    void updateExerciseAttachment(ExerciseAttachment exerciseAttachment);
-
-
-    @Delete
-    void deleteExerciseAttachment(ExerciseAttachment exerciseAttachment);
-
-    @Query("SELECT * FROM exercise_attachment WHERE id = :id")
-    LiveData<ExerciseAttachment> getExerciseAttachmentById(int id);
-
-    @Query("SELECT * FROM exercise_attachment order by id asc")
-    LiveData<List<ExerciseAttachment>> getAllExerciseAttachments();
+    void insertExerciseAttachments(List<ExerciseAttachment> exerciseAttachments);
 }
