@@ -133,14 +133,13 @@
             android:orientation="vertical"
             />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@id/tv_exercise"
-            android:background="#19000000"
-            />
-
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/bg_top_shader"
+        />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -151,9 +150,10 @@
         <Button
             android:id="@+id/btn_start"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="wrap_content"
             android:text="@string/start"
             android:textSize="@dimen/_16sdp"
+            android:paddingVertical="15dp"
             android:background="@drawable/bg_primary_button"
             android:textColor="@color/textSecondaryColor"
             />

@@ -66,7 +66,7 @@ public final class DatabaseUtils {
         User user = new User();
         user.setId(1);
         db.userDao().insertUser(user);
-        Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
+        Hawk.put(DataStoreKeys.INSTANCE_USER_KEY, user);
     }
 
     private static String readJsonFromAsset(Context context, String fileName) {

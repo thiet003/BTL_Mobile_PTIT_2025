@@ -2,221 +2,265 @@
   {
     "exerciseId": 1,
     "fileName": "img_jumping_jacks",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 2,
     "fileName": "img_high_knees",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 3,
     "fileName": "img_burpees",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 4,
     "fileName": "img_mountain_climbers",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 5,
     "fileName": "img_jump_rope",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 6,
     "fileName": "img_jumping_lunges",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 7,
     "fileName": "img_plank_jacks",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 8,
     "fileName": "img_crunches",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 9,
     "fileName": "img_russian_twists",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 10,
     "fileName": "img_bicycle_crunches",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 11,
     "fileName": "img_leg_raises",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 12,
     "fileName": "img_plank",
-    "type": "jpg"
+    "fileType": "jpg",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 13,
     "fileName": "img_side_plank",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 14,
     "fileName": "img_v_ups",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 15,
     "fileName": "img_push_ups",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 16,
     "fileName": "img_tricep_dips",
-    "type": "jpg"
+    "fileType": "jpg",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 17,
     "fileName": "img_diamond_push_ups",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 18,
     "fileName": "img_arm_circles",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 19,
     "fileName": "img_plank_shoulder_taps",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 20,
     "fileName": "img_wall_push_ups",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 21,
     "fileName": "img_squats",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 22,
     "fileName": "img_lunges",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 23,
     "fileName": "img_glute_bridges",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 24,
     "fileName": "img_calf_raises",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 25,
     "fileName": "img_sumo_squats",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 26,
     "fileName": "img_wall_sit",
-    "type": "jpg"
+    "fileType": "jpg",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 27,
     "fileName": "img_side_leg_raises",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 28,
     "fileName": "img_inchworm",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 29,
     "fileName": "img_bear_crawls",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 30,
     "fileName": "img_plank_up_downs",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 31,
     "fileName": "img_superman",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 32,
     "fileName": "img_kettlebell_swings",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 33,
     "fileName": "img_burpee_with_push_up",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 34,
     "fileName": "img_superman_pull",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 35,
     "fileName": "img_bird_dog",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 36,
     "fileName": "img_reverse_snow_angels",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 37,
     "fileName": "img_dolphin_kicks",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 38,
     "fileName": "img_pike_push_ups",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 39,
     "fileName": "img_arm_raises",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 40,
     "fileName": "img_ytwls",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 41,
     "fileName": "img_dead_bug",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 42,
     "fileName": "img_bird_dog_crunch",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 43,
     "fileName": "img_hollow_hold",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   },
   {
     "exerciseId": 44,
     "fileName": "img_windshield_wipers",
-    "type": "gif"
+    "fileType": "gif",
+    "instructionType": "animation"
   }
 ]

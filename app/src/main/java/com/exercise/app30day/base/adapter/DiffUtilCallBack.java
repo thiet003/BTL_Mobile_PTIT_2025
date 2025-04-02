@@ -6,8 +6,8 @@ import java.util.List;
 
 public class DiffUtilCallBack<T extends BaseItem> extends DiffUtil.Callback {
 
-    private List<T> oldData;
-    private List<T> newData;
+    private final List<T> oldData;
+    private final List<T> newData;
 
     public DiffUtilCallBack(List<T> oldData, List<T> newData) {
         this.oldData = oldData;

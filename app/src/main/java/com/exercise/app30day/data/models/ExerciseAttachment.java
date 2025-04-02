@@ -20,13 +20,16 @@ public class ExerciseAttachment extends BaseEntity {
 
     private String fileName;
 
-    private String type;
+    private String fileType;
 
-    public ExerciseAttachment(int exerciseId, String fileName, String type) {
+    private String instructionType;
+
+    public ExerciseAttachment(int exerciseId, String fileName, String fileType, String instructionType) {
         super();
         this.exerciseId = exerciseId;
         this.fileName = fileName;
-        this.type = type;
+        this.fileType = fileType;
+        this.instructionType = instructionType;
     }
 
     public int getExerciseId() {
@@ -45,11 +48,19 @@ public class ExerciseAttachment extends BaseEntity {
         this.fileName = fileName;
     }
 
-    public String getType() {
-        return type;
+    public String getFileType() {
+        return fileType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public String getInstructionType() {
+        return instructionType;
+    }
+
+    public void setInstructionType(String instructionType) {
+        this.instructionType = instructionType;
     }
 }

@@ -1,18 +1,18 @@
 package com.exercise.app30day.features.day;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.View;
 
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityDayBinding;
-import com.exercise.app30day.items.ExerciseItem;
+import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.exercise.ExerciseActivity;
 import com.exercise.app30day.utils.IntentKeys;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -21,7 +21,7 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
 
     int courseId, day;
 
-    String diffcultLevel;
+    String difficultLevel;
 
     ExerciseAdapter exerciseAdapter;
 
@@ -29,10 +29,10 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
     protected void initView() {
         courseId = getIntent().getIntExtra(IntentKeys.EXTRA_COURSE_ID, 1);
         day = getIntent().getIntExtra(IntentKeys.EXTRA_DAY, 1);
-        diffcultLevel = getIntent().getStringExtra(IntentKeys.EXTRA_COURSE_DIFFICULT_LEVEL);
+        difficultLevel = getIntent().getStringExtra(IntentKeys.EXTRA_COURSE_DIFFICULT_LEVEL);
 
         binding.tvDay.setText(getString(R.string.day, day));
-        binding.tvDifficult.setText(diffcultLevel);
+        binding.tvDifficult.setText(difficultLevel);
         binding.itemExercise.tvLabel.setText(R.string.exercises);
         binding.itemCalo.tvLabel.setText(R.string.calo);
         binding.itemTime.tvLabel.setText(R.string.time);
@@ -48,17 +48,27 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
             exerciseAdapter.setData(exerciseItems);
         });
 
+        exerciseAdapter.setOnItemClickListener((data, position) -> {
+            ExerciseBottomDialog exerciseBottomDialog = new ExerciseBottomDialog(exerciseAdapter.getDataList(), position);
+            exerciseBottomDialog.show(getSupportFragmentManager(), exerciseBottomDialog.getTag());
+        });
+
     }
 
     @Override
     protected void initListener() {
         binding.ibBack.setOnClickListener(this);
+        binding.btnStart.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v == binding.ibBack){
             finish();
+        }else if(v == binding.btnStart){
+            Intent intent = new Intent(this, ExerciseActivity.class);
+            intent.putExtra(IntentKeys.EXTRA_EXERCISE_LIST, new ArrayList<>(exerciseAdapter.getDataList()));
+            startActivity(intent);
         }
     }
 }

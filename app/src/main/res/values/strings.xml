@@ -27,4 +27,18 @@
     <string name="minute_number">%d minutes</string>
     <string name="second_number">%d seconds</string>
     <string name="calo_number">%s kcal</string>
+    <string name="close">Close</string>
+
+    <string name="animation">Animation</string>
+    <string name="muscle">Muscle</string>
+    <string name="instruction">Instruction</string>
+    <string name="duration">Duration</string>
+    <string name="repeat">Repeat</string>
+    <string name="instructions">Instructions</string>
+    <string name="page">%d/%d</string>
+    <string name="ready_to_practice">Ready to practice</string>
+    <string name="push_up">Push up</string>
+    <string name="next">Next</string>
+    <string name="resting_time">Resting time</string>
+    <string name="skip">Skip</string>
 </resources>

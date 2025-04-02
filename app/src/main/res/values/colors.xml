@@ -3,7 +3,7 @@
     <color name="primary">#EB5B00</color>
     <color name="background">#FFFFFF</color>
     <color name="secondaryBackground">#F1F1F1</color>
-    <color name="tertiaryBackground">#888888</color>
+    <color name="tertiaryBackground">#DDDDDD</color>
     <color name="textPrimaryColor">#2A3335</color>
     <color name="textSecondaryColor">#FFFFFF</color>
     <color name="textTertiaryColor">#595959</color>

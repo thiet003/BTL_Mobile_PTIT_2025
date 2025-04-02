@@ -6,4 +6,6 @@ public final class IntentKeys {
     public static final String EXTRA_DAY = "extra_day";
 
     public static final String EXTRA_COURSE_DIFFICULT_LEVEL = "extra_course_difficult_level";
+
+    public static final String EXTRA_EXERCISE_LIST = "extra_exercise_list";
 }
