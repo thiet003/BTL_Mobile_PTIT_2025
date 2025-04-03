@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.data.repositories.ExerciseRepository;
+import com.exercise.app30day.items.CourseItem;
+import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
 
 import java.util.List;
@@ -18,6 +20,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class DayViewModel extends ViewModel {
 
     private final ExerciseRepository exerciseRepository;
+
+    private DayItem dayItem;
+
+    private CourseItem courseItem;
 
     @Inject
     public DayViewModel(ExerciseRepository exerciseRepository) {
@@ -44,5 +50,21 @@ public class DayViewModel extends ViewModel {
         }
         totalTime += (exerciseItems.size() - 1) * 15000L;
         return Math.round(totalTime / 60000.0);
+    }
+
+    public DayItem getDayItem() {
+        return dayItem;
+    }
+
+    public void setDayItem(DayItem dayItem) {
+        this.dayItem = dayItem;
+    }
+
+    public CourseItem getCourseItem() {
+        return courseItem;
+    }
+
+    public void setCourseItem(CourseItem courseItem) {
+        this.courseItem = courseItem;
     }
 }

@@ -9,37 +9,49 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
+import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.ActivityExerciseBinding;
 import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
+import com.exercise.app30day.items.CourseItem;
+import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
-import com.exercise.app30day.utils.IntentKeys;
+import com.exercise.app30day.keys.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, ExerciseViewModel> implements View.OnClickListener{
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable prepareRunnable, exerciseRunnable;
     private boolean inBackground = false;
+    private final long delayMillis = 100;
 
-    private final long delayTime = 100;
-
-    private final long prepareTime = 15000;
-
-
-    @Override
-    protected void initView() {
+    private void initData(){
         List<ExerciseItem> listExerciseItem = (ArrayList<ExerciseItem>) getIntent().getSerializableExtra(IntentKeys.EXTRA_EXERCISE_LIST);
-        if(listExerciseItem == null || listExerciseItem.isEmpty()){
+        DayItem dayItem = (DayItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_DAY);
+        CourseItem courseItem = (CourseItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_COURSE);
+        if(listExerciseItem == null || listExerciseItem.isEmpty() || dayItem == null){
             finish();
             return;
         }
         viewModel.updateListExerciseItem(listExerciseItem);
+        viewModel.setDayItem(dayItem);
+        viewModel.setCourseItem(courseItem);
+    }
+
+    @Override
+    protected void initView() {
+        initData();
+        binding.stepSeekBar.setNumSteps(viewModel.getListExerciseItem().size());
+        binding.stepSeekBar.setEnabled(false);
         viewModel.onExerciseUiState.observe(this, exerciseUiState -> {
-            ExerciseItem exerciseItem = exerciseUiState.getListExerciseItem().get(exerciseUiState.getExercisePosition());
-            binding.stepSeekBar.setNumSteps(exerciseUiState.getListExerciseItem().size());
+            ExerciseItem exerciseItem = viewModel.getListExerciseItem().get(exerciseUiState.getExercisePosition());
             binding.stepSeekBar.setProgress(exerciseUiState.getExercisePosition() + 1);
             if(exerciseUiState.getExerciseState() == ExerciseState.PREPARE) {
                 setPrepareLayout(exerciseItem);
@@ -61,21 +73,22 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
             Glide.with(this).load(resId).into(binding.ivAnimation);
         }
         binding.tvExerciseName.setText(item.getName());
+        long prepareDuration = AppConfig.EXERCISE_PREPARE_DURATION;
         prepareRunnable = () -> {
-            if(viewModel.getTimeCounter() < prepareTime){
+            if(viewModel.getTimeCounter() < prepareDuration){
                 if(!inBackground){
-                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + delayTime);
-                    if((viewModel.getTimeCounter() / delayTime) % (1000 / delayTime) == 0){
+                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + delayMillis);
+                    if((viewModel.getTimeCounter() / delayMillis) % (1000 / delayMillis) == 0){
                         binding.tvProgress.setText(String.valueOf((viewModel.getTimeCounter()/1000)));
                     }
-                    binding.circleView.setValue((float) (viewModel.getTimeCounter() * 100) / prepareTime);
+                    binding.circleView.setValue((float) (viewModel.getTimeCounter() * 100) / prepareDuration);
                 }
-                handler.postDelayed(prepareRunnable, delayTime);
+                handler.postDelayed(prepareRunnable, delayMillis);
             }else{
                 movePrepareToExercise();
             }
         };
-        handler.postDelayed(prepareRunnable, delayTime);
+        handler.postDelayed(prepareRunnable, delayMillis);
     }
 
     private void setExerciseLayout(ExerciseItem item){
@@ -91,20 +104,20 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
             Glide.with(this).load(resId).into(binding.ivAnimation);
         }
 
-        long totalTime = viewModel.calculateTime(item);
+        long totalDuration = viewModel.calculateDuration(item);
 
         exerciseRunnable = () -> {
-            if(viewModel.getTimeCounter() < totalTime) {
-                if (!inBackground) {
-                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + delayTime);
-                    binding.sbExercise.setProgress((int) (viewModel.getTimeCounter() * 100 / totalTime));
+            if(viewModel.getTimeCounter() < totalDuration) {
+                if (!inBackground && viewModel.isPlayExercise()) {
+                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + delayMillis);
+                    binding.sbExercise.setProgress((int) (viewModel.getTimeCounter() * 100 / totalDuration));
                 }
-                handler.postDelayed(exerciseRunnable, delayTime);
+                handler.postDelayed(exerciseRunnable, delayMillis);
             }else{
                 moveExerciseToRest();
             }
         };
-        handler.postDelayed(exerciseRunnable, delayTime);
+        handler.postDelayed(exerciseRunnable, delayMillis);
 
     }
 
@@ -125,10 +138,6 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         viewModel.moveExerciseToRest();
     }
 
-    private void moveRestingToExercise(){
-
-    }
-
     private void movePrepareToExercise(){
         handler.removeCallbacks(prepareRunnable);
         viewModel.movePrepareToExercise();
@@ -141,6 +150,8 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         binding.btnInfo2.setOnClickListener(this);
         binding.btnSkipPrepare.setOnClickListener(this);
         binding.btnNext.setOnClickListener(this);
+        binding.btnPrevious.setOnClickListener(this);
+        binding.viewProgress.setOnClickListener(this);
     }
 
     @Override
@@ -153,8 +164,33 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         }else if(v == binding.btnSkipPrepare){
             movePrepareToExercise();
         }else if(v == binding.btnNext){
+            playExercise();
             moveExerciseToRest();
+        }else if(v == binding.btnPrevious) {
+            if (viewModel.getExercisePosition() > 0) {
+                handler.removeCallbacks(exerciseRunnable);
+                viewModel.movePreviousExercise();
+            }else{
+                finish();
+            }
         }
+        else if(v == binding.viewProgress){
+            if(viewModel.isPlayExercise()){
+                pauseExercise();
+            }else{
+               playExercise();
+            }
+        }
+    }
+
+    private void playExercise(){
+        binding.ivPlayPause.setImageResource(R.drawable.ic_pause);
+        viewModel.setPlayExercise(true);
+    }
+
+    private void pauseExercise(){
+        binding.ivPlayPause.setImageResource(R.drawable.ic_play);
+        viewModel.setPlayExercise(false);
     }
 
     @Override
@@ -175,6 +211,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         handler.removeCallbacksAndMessages(null);
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
         finish();

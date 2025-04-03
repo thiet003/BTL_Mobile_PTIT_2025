@@ -13,7 +13,7 @@ import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityCourseBinding;
 import com.exercise.app30day.features.day.DayActivity;
 import com.exercise.app30day.items.CourseItem;
-import com.exercise.app30day.utils.IntentKeys;
+import com.exercise.app30day.keys.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -28,9 +28,8 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
 
     int courseId;
 
-    CourseItem courseItem;
-
     int readyToStartDayPosition;
+
     @Override
     protected void initView() {
 
@@ -44,7 +43,7 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
             int daysRemain = viewModel.calculateDaysRemain(courseItem.getNumberOfCompletedDays(), courseItem.getNumberOfDays());
             binding.tvRemain.setText(getString(R.string.days_remain, daysRemain));
             binding.tvTopBarCourseName.setText(courseItem.getName());
-            CourseActivity.this.courseItem = courseItem;
+            viewModel.setCourseItem(courseItem);
         });
 
         dayAdapter = new DayAdapter(viewModel);
@@ -52,10 +51,10 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
         binding.rvDay.setLayoutManager(linearLayoutManager);
         binding.rvDay.setAdapter(dayAdapter);
 
-        viewModel.getListDay(courseId).observe(this, courseDayExerciseItems -> {
-            readyToStartDayPosition = viewModel.findReadyToStartDayPosition(courseDayExerciseItems);
+        viewModel.getListDay(courseId).observe(this, dayItems -> {
+            readyToStartDayPosition = viewModel.findReadyToStartDayPosition(dayItems);
             binding.btnContinue.setText(readyToStartDayPosition == 0 ? R.string.start : R.string.text_continue);
-            dayAdapter.setData(courseDayExerciseItems);
+            dayAdapter.setData(dayItems);
         });
     }
 
@@ -81,11 +80,7 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
             if(viewModel.getExerciseState(data, dayAdapter.getItem(position - 1)) == DayState.LOCKED){
                 return;
             }
-            Intent intent = new Intent(CourseActivity.this, DayActivity.class);
-            intent.putExtra(IntentKeys.EXTRA_COURSE_ID, courseId);
-            intent.putExtra(IntentKeys.EXTRA_DAY, data.getDay());
-            intent.putExtra(IntentKeys.EXTRA_COURSE_DIFFICULT_LEVEL, courseItem != null ? courseItem.getDifficultLevel() : null);
-            startActivity(intent);
+            gotoDayActivity();
         });
     }
 
@@ -121,17 +116,21 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
         view.startAnimation(alphaAnimation);
     }
 
+    private void gotoDayActivity(){
+        if(viewModel.getCourseItem() == null) return;
+        Intent intent = new Intent(CourseActivity.this, DayActivity.class);
+        intent.putExtra(IntentKeys.EXTRA_COURSE, viewModel.getCourseItem());
+        intent.putExtra(IntentKeys.EXTRA_DAY, dayAdapter.getItem(readyToStartDayPosition));
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         if(v == binding.ibBack || v == binding.ibBackTempTopBar){
             finish();
         }
         else if(v == binding.btnContinue){
-            Intent intent = new Intent(CourseActivity.this, DayActivity.class);
-            intent.putExtra(IntentKeys.EXTRA_COURSE_ID, courseId);
-            intent.putExtra(IntentKeys.EXTRA_DAY, dayAdapter.getItem(readyToStartDayPosition).getDay());
-            intent.putExtra(IntentKeys.EXTRA_COURSE_DIFFICULT_LEVEL, courseItem != null ? courseItem.getDifficultLevel() : null);
-            startActivity(intent);
+            gotoDayActivity();
         }
     }
 }

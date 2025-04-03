@@ -1,10 +1,12 @@
 package com.exercise.app30day.di.modules;
 
 import com.exercise.app30day.data.repositories.CompleteDayRepository;
+import com.exercise.app30day.data.repositories.CompleteExerciseRepository;
 import com.exercise.app30day.data.repositories.CourseDayExerciseRepository;
 import com.exercise.app30day.data.repositories.CourseRepository;
 import com.exercise.app30day.data.repositories.ExerciseRepository;
 import com.exercise.app30day.data.repositories.impl.CompleteDayRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.CompleteExerciseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.CourseDayExerciseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.ExerciseRepositoryImpl;
@@ -34,4 +36,9 @@ public abstract class RepositoryModule {
     @Binds
     @Singleton
     public abstract ExerciseRepository bindExerciseRepository(ExerciseRepositoryImpl impl);
+
+    @Binds
+    @Singleton
+    public abstract CompleteExerciseRepository bindCompleteExerciseRepository(CompleteExerciseRepositoryImpl impl);
+
 }

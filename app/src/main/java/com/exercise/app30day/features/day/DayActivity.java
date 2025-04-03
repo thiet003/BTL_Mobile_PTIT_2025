@@ -10,7 +10,9 @@ import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityDayBinding;
 import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.features.exercise.ExerciseActivity;
-import com.exercise.app30day.utils.IntentKeys;
+import com.exercise.app30day.items.CourseItem;
+import com.exercise.app30day.items.DayItem;
+import com.exercise.app30day.keys.IntentKeys;
 
 import java.util.ArrayList;
 
@@ -19,20 +21,20 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> implements View.OnClickListener {
 
-    int courseId, day;
-
-    String difficultLevel;
-
     ExerciseAdapter exerciseAdapter;
 
     @Override
     protected void initView() {
-        courseId = getIntent().getIntExtra(IntentKeys.EXTRA_COURSE_ID, 1);
-        day = getIntent().getIntExtra(IntentKeys.EXTRA_DAY, 1);
-        difficultLevel = getIntent().getStringExtra(IntentKeys.EXTRA_COURSE_DIFFICULT_LEVEL);
-
-        binding.tvDay.setText(getString(R.string.day, day));
-        binding.tvDifficult.setText(difficultLevel);
+        CourseItem courseItem = (CourseItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_COURSE);
+        DayItem dayItem = (DayItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_DAY);
+        if(dayItem == null || courseItem == null){
+            finish();
+            return;
+        }
+        viewModel.setDayItem(dayItem);
+        viewModel.setCourseItem(courseItem);
+        binding.tvDay.setText(getString(R.string.day, dayItem.getDay()));
+        binding.tvDifficult.setText(courseItem.getDifficultLevel());
         binding.itemExercise.tvLabel.setText(R.string.exercises);
         binding.itemCalo.tvLabel.setText(R.string.calo);
         binding.itemTime.tvLabel.setText(R.string.time);
@@ -41,7 +43,7 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.rvExercise.setLayoutManager(linearLayoutManager);
         binding.rvExercise.setAdapter(exerciseAdapter);
-        viewModel.getListExerciseItem(courseId,day).observe(this, exerciseItems -> {
+        viewModel.getListExerciseItem(courseItem.getId(),dayItem.getDay()).observe(this, exerciseItems -> {
             binding.itemExercise.tvValue.setText(String.valueOf(exerciseItems.size()));
             binding.itemTime.tvValue.setText(getString(R.string.minute_number, viewModel.calculateMinutes(exerciseItems)));
             binding.itemCalo.tvValue.setText(getString(R.string.calo_number, viewModel.calculateAndFormatCalories(exerciseItems)));
@@ -68,6 +70,8 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
         }else if(v == binding.btnStart){
             Intent intent = new Intent(this, ExerciseActivity.class);
             intent.putExtra(IntentKeys.EXTRA_EXERCISE_LIST, new ArrayList<>(exerciseAdapter.getDataList()));
+            intent.putExtra(IntentKeys.EXTRA_DAY, viewModel.getDayItem());
+            intent.putExtra(IntentKeys.EXTRA_COURSE, viewModel.getCourseItem());
             startActivity(intent);
         }
     }

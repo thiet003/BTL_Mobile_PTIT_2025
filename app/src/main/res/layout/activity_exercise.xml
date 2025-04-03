@@ -275,6 +275,13 @@
                             android:layout_gravity="center"
                             app:tint="@color/iconPrimaryColor"
                             />
+
+                        <View
+                            android:id="@+id/viewProgress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            />
                     </FrameLayout>
                 </androidx.cardview.widget.CardView>
 

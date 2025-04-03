@@ -21,6 +21,8 @@ public class CourseViewModel extends ViewModel {
 
     private final CourseDayExerciseRepository courseDayExerciseRepository;
 
+    private CourseItem courseItem;
+
     @Inject
     public CourseViewModel(CourseRepository courseRepository, CourseDayExerciseRepository courseDayExerciseRepository) {
         this.courseRepository = courseRepository;
@@ -69,5 +71,13 @@ public class CourseViewModel extends ViewModel {
             }
         }
         return 0;
+    }
+
+    public CourseItem getCourseItem() {
+        return courseItem;
+    }
+
+    public void setCourseItem(CourseItem courseItem) {
+        this.courseItem = courseItem;
     }
 }
