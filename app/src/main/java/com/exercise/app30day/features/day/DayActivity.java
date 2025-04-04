@@ -23,16 +23,18 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
 
     ExerciseAdapter exerciseAdapter;
 
+    private DayItem dayItem;
+
+    private CourseItem courseItem;
+
     @Override
     protected void initView() {
-        CourseItem courseItem = (CourseItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_COURSE);
-        DayItem dayItem = (DayItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_DAY);
+        courseItem = (CourseItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_COURSE);
+        dayItem = (DayItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_DAY);
         if(dayItem == null || courseItem == null){
             finish();
             return;
         }
-        viewModel.setDayItem(dayItem);
-        viewModel.setCourseItem(courseItem);
         binding.tvDay.setText(getString(R.string.day, dayItem.getDay()));
         binding.tvDifficult.setText(courseItem.getDifficultLevel());
         binding.itemExercise.tvLabel.setText(R.string.exercises);
@@ -70,8 +72,8 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
         }else if(v == binding.btnStart){
             Intent intent = new Intent(this, ExerciseActivity.class);
             intent.putExtra(IntentKeys.EXTRA_EXERCISE_LIST, new ArrayList<>(exerciseAdapter.getDataList()));
-            intent.putExtra(IntentKeys.EXTRA_DAY, viewModel.getDayItem());
-            intent.putExtra(IntentKeys.EXTRA_COURSE, viewModel.getCourseItem());
+            intent.putExtra(IntentKeys.EXTRA_DAY, dayItem);
+            intent.putExtra(IntentKeys.EXTRA_COURSE, courseItem);
             startActivity(intent);
         }
     }

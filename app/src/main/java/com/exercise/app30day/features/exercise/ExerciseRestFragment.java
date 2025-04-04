@@ -30,7 +30,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
 
     private boolean inBackground = false;
 
-    private long restDuration = AppConfig.EXERCISE_REST_DURATION;
+    private long restDuration = AppConfig.getExerciseRestDuration();
 
     public ExerciseRestFragment(ExerciseViewModel viewModel) {
         this.viewModel = viewModel;

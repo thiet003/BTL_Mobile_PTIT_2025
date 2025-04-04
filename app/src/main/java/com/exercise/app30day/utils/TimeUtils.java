@@ -8,10 +8,9 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public final class TimeUtils {
-    public static String convertLongToDate(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        Date date = new Date(timestamp);
-        return sdf.format(date);
+    public static String convertMillisToDate(long millis) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", new Locale("vi", "VN"));
+        return sdf.format(new Date(millis));
     }
 
     @SuppressLint("DefaultLocale")

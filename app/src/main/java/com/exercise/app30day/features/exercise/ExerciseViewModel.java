@@ -1,7 +1,5 @@
 package com.exercise.app30day.features.exercise;
 
-import android.app.Activity;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -63,7 +61,7 @@ public class ExerciseViewModel extends ViewModel {
         }
     }
 
-    public void moveExerciseToRest(){
+    public void moveExerciseToRest(OnCompleteListener listener){
         timeCounter = 0;
         ExerciseUiState state = _onExerciseUiState.getValue();
         if(state != null){
@@ -73,8 +71,10 @@ public class ExerciseViewModel extends ViewModel {
                 state.setExercisePosition(state.getExercisePosition() + 1);
                 _onExerciseUiState.setValue(state);
                 completeExerciseRepository.insertCompleteExercise(new CompleteExercise(user.getId(), dayItem.getId(), "completed"));
+                listener.onCompleteExercise(listExerciseItem.get(state.getExercisePosition()));
             }else{
                 completeDayRepository.insertCompleteDay(new CompleteDay(user.getId(), courseItem.getId(), dayItem.getDay()));
+                listener.onCompleteDay();
             }
         }
     }
@@ -99,7 +99,7 @@ public class ExerciseViewModel extends ViewModel {
         }
     }
 
-    public void updateListExerciseItem(List<ExerciseItem> listExerciseItem){
+    public void setListExerciseItem(List<ExerciseItem> listExerciseItem){
         this.listExerciseItem = listExerciseItem;
     }
 

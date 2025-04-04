@@ -41,4 +41,13 @@
     <string name="next">Next</string>
     <string name="resting_time">Resting time</string>
     <string name="skip">Skip</string>
+    <string name="share">Share</string>
+
+    <string name="course_day">Day %d - %s</string>
+    <string name="congratulations_on_your_completion">Congratulations on your completion</string>
+    <string name="weights">Weights</string>
+    <string name="kg">kg</string>
+    <string name="heights">Heights</string>
+    <string name="cm">cm</string>
+    <string name="bmi">BMI (kg/m²)</string>
 </resources>

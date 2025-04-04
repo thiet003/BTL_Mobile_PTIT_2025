@@ -1,6 +1,7 @@
 package com.exercise.app30day.features.exercise;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.ActivityExerciseBinding;
+import com.exercise.app30day.features.complete.ExerciseCompleteActivity;
 import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
@@ -26,24 +28,11 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, ExerciseViewModel> implements View.OnClickListener{
+public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, ExerciseViewModel> implements View.OnClickListener, OnCompleteListener{
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable prepareRunnable, exerciseRunnable;
     private boolean inBackground = false;
     private final long delayMillis = 100;
-
-    private void initData(){
-        List<ExerciseItem> listExerciseItem = (ArrayList<ExerciseItem>) getIntent().getSerializableExtra(IntentKeys.EXTRA_EXERCISE_LIST);
-        DayItem dayItem = (DayItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_DAY);
-        CourseItem courseItem = (CourseItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_COURSE);
-        if(listExerciseItem == null || listExerciseItem.isEmpty() || dayItem == null){
-            finish();
-            return;
-        }
-        viewModel.updateListExerciseItem(listExerciseItem);
-        viewModel.setDayItem(dayItem);
-        viewModel.setCourseItem(courseItem);
-    }
 
     @Override
     protected void initView() {
@@ -63,6 +52,19 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         });
     }
 
+    private void initData(){
+        List<ExerciseItem> listExerciseItem = (ArrayList<ExerciseItem>) getIntent().getSerializableExtra(IntentKeys.EXTRA_EXERCISE_LIST);
+        DayItem dayItem = (DayItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_DAY);
+        CourseItem courseItem = (CourseItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_COURSE);
+        if(listExerciseItem == null || listExerciseItem.isEmpty() || dayItem == null || courseItem == null){
+            finish();
+            return;
+        }
+        viewModel.setListExerciseItem(listExerciseItem);
+        viewModel.setDayItem(dayItem);
+        viewModel.setCourseItem(courseItem);
+    }
+
     private void setPrepareLayout(ExerciseItem item) {
         binding.layoutPrepare.setVisibility(View.VISIBLE);
         binding.layoutExercise.setVisibility(View.GONE);
@@ -73,7 +75,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
             Glide.with(this).load(resId).into(binding.ivAnimation);
         }
         binding.tvExerciseName.setText(item.getName());
-        long prepareDuration = AppConfig.EXERCISE_PREPARE_DURATION;
+        long prepareDuration = AppConfig.getExercisePrepareDuration();
         prepareRunnable = () -> {
             if(viewModel.getTimeCounter() < prepareDuration){
                 if(!inBackground){
@@ -135,7 +137,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
 
     private void moveExerciseToRest(){
         handler.removeCallbacks(exerciseRunnable);
-        viewModel.moveExerciseToRest();
+        viewModel.moveExerciseToRest(this);
     }
 
     private void movePrepareToExercise(){
@@ -214,6 +216,21 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public void onCompleteExercise(ExerciseItem exerciseItem) {
+
+    }
+
+    @Override
+    public void onCompleteDay() {
+        Intent intent = new Intent(this, ExerciseCompleteActivity.class);
+        intent.putExtra(IntentKeys.EXTRA_DAY, viewModel.getDayItem());
+        intent.putExtra(IntentKeys.EXTRA_COURSE, viewModel.getCourseItem());
+        intent.putExtra(IntentKeys.EXTRA_EXERCISE_LIST, new ArrayList<>(viewModel.getListExerciseItem()));
+        startActivity(intent);
         finish();
     }
 }

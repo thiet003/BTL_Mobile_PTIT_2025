@@ -71,4 +71,5 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.8.8")
     implementation("com.github.addisonElliott:SegmentedButton:3.1.9")
     implementation("com.github.jakob-grabner:Circle-Progress-View:1.2.8")
+    implementation("com.github.kevalpatel2106:android-ruler-picker:v1.1")
 }
