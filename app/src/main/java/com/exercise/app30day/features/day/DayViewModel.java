@@ -26,8 +26,8 @@ public class DayViewModel extends ViewModel {
         this.exerciseRepository = exerciseRepository;
     }
 
-    public LiveData<List<ExerciseItem>> getListExerciseItem(int courseId, int day){
-        return exerciseRepository.getListExerciseItem(courseId, day);
+    public LiveData<List<ExerciseItem>> getExerciseItems(int dayId){
+        return exerciseRepository.getExerciseItems(dayId);
     }
 
     @SuppressLint("DefaultLocale")

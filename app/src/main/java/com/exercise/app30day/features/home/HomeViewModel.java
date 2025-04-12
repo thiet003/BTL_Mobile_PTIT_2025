@@ -28,19 +28,4 @@ public class HomeViewModel extends ViewModel {
     public LiveData<List<CourseItem>> getAllCourseItems() {
         return courseRepository.getAllCourseItems();
     }
-
-    public int calculateDayProgress(int numberOfCompletedDays, int numberOfDays) {
-        return (int) (numberOfCompletedDays * 100.0 / numberOfDays);
-    }
-
-    public int getLevel(String difficultLevel) {
-        switch (difficultLevel) {
-            case "Beginner":
-                return 1;
-            case "Intermediate":
-                return 2;
-            default:
-                return 3;
-        }
-    }
 }

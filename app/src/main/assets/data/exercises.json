@@ -2,309 +2,353 @@
   {
     "name": "Jumping Jacks",
     "description": "Stand with feet together, jump and spread legs while raising arms overhead",
-    "c": 60000,
+    "time": 0,
     "kcal": 8.0,
-    "loopNumber": 3
+    "loopNumber": 3,
+    "fileName" : "gif_jumping_jacks"
   },
   {
     "name": "High Knees",
     "description": "Run in place lifting knees as high as possible",
     "time": 0,
     "kcal": 9.5,
-    "loopNumber": 3
+    "loopNumber": 3,
+    "fileName" : "gif_high_knees"
   },
   {
     "name": "Burpees",
     "description": "Begin in standing position, drop to push-up position, return to standing, and jump",
     "time": 0,
     "kcal": 10.0,
-    "loopNumber": 2
+    "loopNumber": 2,
+    "fileName" : "gif_burpees"
   },
   {
     "name": "Mountain Climbers",
     "description": "In plank position, rapidly alternate bringing knees to chest",
     "time": 0,
     "kcal": 8.0,
-    "loopNumber": 3
+    "loopNumber": 3,
+    "fileName" : "gif_mountain_climbers"
   },
   {
     "name": "Jump Rope",
     "description": "Simulate jumping rope, rotating wrists and jumping on balls of feet",
     "time": 0,
     "kcal": 10.0,
-    "loopNumber": 1
+    "loopNumber": 1,
+    "fileName" : "gif_jump_rope"
   },
   {
     "name": "Jumping Lunges",
     "description": "Alternate legs in lunge position with a jump between transitions",
     "time": 0,
     "kcal": 9.0,
-    "loopNumber": 3
+    "loopNumber": 3,
+    "fileName" : "gif_jumping_lunges"
   },
   {
     "name": "Plank Jacks",
     "description": "In plank position, jump feet out and in like jumping jacks",
     "time": 40000,
     "kcal": 7.5,
-    "loopNumber": 0
+    "loopNumber": 0,
+    "fileName" : "gif_plank_jacks"
   },
   {
     "name": "Crunches",
     "description": "Lie on back with knees bent, lift shoulders towards knees",
     "time": 0,
     "kcal": 3.5,
-    "loopNumber": 15
+    "loopNumber": 15,
+    "fileName" : "gif_crunches"
   },
   {
     "name": "Russian Twists",
     "description": "Seated with elevated feet, rotate torso side to side",
     "time": 0,
     "kcal": 6.0,
-    "loopNumber": 20
+    "loopNumber": 20,
+    "fileName" : "gif_russian_twists"
   },
   {
     "name": "Bicycle Crunches",
     "description": "Lie on back, alternate bringing elbow to opposite knee",
     "time": 0,
     "kcal": 8.0,
-    "loopNumber": 12
+    "loopNumber": 12,
+    "fileName" : "gif_bicycle_crunches"
   },
   {
     "name": "Leg Raises",
     "description": "Lie on back, raise legs to 90 degrees and lower without touching floor",
     "time": 0,
     "kcal": 4.0,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_leg_raises"
   },
   {
     "name": "Plank",
     "description": "Hold push-up position with weight on forearms and toes",
     "time": 60000,
     "kcal": 5.0,
-    "loopNumber": 0
+    "loopNumber": 0,
+    "fileName" : "img_plank"
   },
   {
     "name": "Side Plank",
     "description": "Balance on forearm and side of foot with body straight",
     "time": 30000,
     "kcal": 4.0,
-    "loopNumber": 0
+    "loopNumber": 0,
+    "fileName" : "gif_side_plank"
   },
   {
     "name": "V-Ups",
     "description": "Lie on back, simultaneously lift legs and upper body to form V shape",
     "time": 0,
     "kcal": 7.0,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_v_ups"
   },
   {
     "name": "Push-Ups",
     "description": "Start in plank position, lower chest to ground and push back up",
     "time": 0,
     "kcal": 5.0,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_push_ups"
   },
   {
     "name": "Tricep Dips",
     "description": "Using chair or bench, lower body by bending elbows then push back up",
     "time": 0,
     "kcal": 4.5,
-    "loopNumber": 12
+    "loopNumber": 12,
+    "fileName" : "img_tricep_dips"
   },
   {
     "name": "Diamond Push-Ups",
     "description": "Push-ups with hands close together forming diamond shape",
     "time": 0,
     "kcal": 6.0,
-    "loopNumber": 8
+    "loopNumber": 8,
+    "fileName" : "gif_diamond_push_ups"
   },
   {
     "name": "Arm Circles",
     "description": "Extend arms and make small circles forward and backward",
     "time": 0,
     "kcal": 2.0,
-    "loopNumber": 20
+    "loopNumber": 20,
+    "fileName" : "gif_arm_circles"
   },
   {
     "name": "Plank Shoulder Taps",
     "description": "In plank position, alternate touching opposite shoulder with hand",
     "time": 45000,
     "kcal": 5.5,
-    "loopNumber": 0
+    "loopNumber": 0,
+    "fileName" : "gif_plank_shoulder_taps"
   },
   {
     "name": "Wall Push-Ups",
     "description": "Push-ups performed standing against wall",
     "time": 0,
     "kcal": 2.5,
-    "loopNumber": 15
+    "loopNumber": 15,
+    "fileName" : "gif_wall_push_ups"
   },
   {
     "name": "Squats",
     "description": "Stand with feet shoulder-width apart, lower hips as if sitting in chair",
     "time": 0,
     "kcal": 7.0,
-    "loopNumber": 15
+    "loopNumber": 15,
+    "fileName" : "gif_squats"
   },
   {
     "name": "Lunges",
     "description": "Step forward and lower back knee towards ground, alternate legs",
     "time": 0,
     "kcal": 6.5,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_lunges"
   },
   {
     "name": "Glute Bridges",
     "description": "Lie on back with knees bent, lift hips off floor",
     "time": 0,
     "kcal": 4.0,
-    "loopNumber": 15
+    "loopNumber": 15,
+    "fileName" : "gif_glute_bridges"
   },
   {
     "name": "Calf Raises",
     "description": "Stand and rise onto balls of feet, lower and repeat",
     "time": 0,
     "kcal": 3.0,
-    "loopNumber": 20
+    "loopNumber": 20,
+    "fileName" : "gif_calf_raises"
   },
   {
     "name": "Sumo Squats",
     "description": "Wide-stance squats with toes pointed outward",
     "time": 0,
     "kcal": 7.5,
-    "loopNumber": 12
+    "loopNumber": 12,
+    "fileName" : "gif_sumo_squats"
   },
   {
     "name": "Wall Sit",
     "description": "Lean against wall in sitting position with knees at 90 degrees",
     "time": 0,
     "kcal": 6.0,
-    "loopNumber": 0
+    "loopNumber": 0,
+    "fileName" : "img_wall_sit"
   },
   {
     "name": "Side Leg Raises",
     "description": "Lie on side and lift top leg upward",
     "time": 0,
     "kcal": 3.5,
-    "loopNumber": 15
+    "loopNumber": 15,
+    "fileName" : "gif_side_leg_raises"
   },
   {
     "name": "Inchworm",
     "description": "From standing, walk hands out to plank and back",
     "time": 0,
     "kcal": 7.0,
-    "loopNumber": 8
+    "loopNumber": 8,
+    "fileName" : "gif_inchworm"
   },
   {
     "name": "Bear Crawls",
     "description": "Move forward and backward on hands and feet with knees hovering above ground",
     "time": 0,
     "kcal": 8.0,
-    "loopNumber": 3
+    "loopNumber": 3,
+    "fileName" : "gif_bear_crawls"
   },
   {
     "name": "Plank Up-Downs",
     "description": "Alternate between forearm plank and high plank positions",
     "time": 45000,
     "kcal": 7.0,
-    "loopNumber": 0
+    "loopNumber": 0,
+    "fileName" : "gif_plank_up_downs"
   },
   {
     "name": "Superman",
     "description": "Lie on stomach and lift arms and legs simultaneously",
     "time": 0,
     "kcal": 3.0,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_superman"
   },
   {
     "name": "Kettlebell Swings",
     "description": "Using kettlebell or dumbbell, swing from between legs to chest height",
     "time": 0,
     "kcal": 8.5,
-    "loopNumber": 15
+    "loopNumber": 15,
+    "fileName" : "gif_kettlebell_swings"
   },
   {
     "name": "Burpee with Push-Up",
     "description": "Standard burpee with added push-up at bottom position",
     "time": 0,
     "kcal": 12.0,
-    "loopNumber": 8
+    "loopNumber": 8,
+    "fileName" : "gif_burpee_with_push_up"
   },
   {
     "name": "Superman Pull",
     "description": "Superman position while pulling arms back as if rowing",
     "time": 0,
     "kcal": 4.0,
-    "loopNumber": 12
+    "loopNumber": 12,
+    "fileName" : "gif_superman_pull"
   },
   {
     "name": "Bird Dog",
     "description": "On hands and knees, extend opposite arm and leg",
     "time": 0,
     "kcal": 3.0,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_bird_dog"
   },
   {
     "name": "Reverse Snow Angels",
     "description": "Lie face down, sweep arms from sides to overhead",
     "time": 0,
     "kcal": 3.5,
-    "loopNumber": 12
+    "loopNumber": 12,
+    "fileName" : "gif_reverse_snow_angels"
   },
   {
     "name": "Dolphin Kicks",
     "description": "Lie face down, kick legs up and down",
     "time": 0,
     "kcal": 4.5,
-    "loopNumber": 15
+    "loopNumber": 15,
+    "fileName" : "gif_dolphin_kicks"
   },
   {
     "name": "Pike Push-Ups",
     "description": "Downward dog position, bend elbows to lower head toward ground",
     "time": 0,
     "kcal": 5.5,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_pike_push_ups"
   },
   {
     "name": "Arm Raises",
     "description": "Raise arms to sides then overhead, lower and repeat",
     "time": 0,
     "kcal": 3.0,
-    "loopNumber": 12
+    "loopNumber": 12,
+    "fileName" : "gif_arm_raises"
   },
   {
     "name": "YTWLs",
     "description": "Series of arm positions resembling letters Y, T, W, and L",
     "time": 0,
     "kcal": 4.0,
-    "loopNumber": 8
+    "loopNumber": 8,
+    "fileName" : "gif_ytwls"
   },
   {
     "name": "Dead Bug",
     "description": "Lie on back, extend opposite arm and leg while keeping low back flat",
     "time": 0,
     "kcal": 3.5,
-    "loopNumber": 12
+    "loopNumber": 12,
+    "fileName" : "gif_dead_bug"
   },
   {
     "name": "Bird-Dog Crunch",
     "description": "Bird dog with elbow to knee crunch in between",
     "time": 0,
     "kcal": 5.0,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_bird_dog_crunch"
   },
   {
     "name": "Hollow Hold",
     "description": "Lie on back, elevate shoulders and legs while keeping low back pressed to floor",
     "time": 30000,
     "kcal": 4.5,
-    "loopNumber": 0
+    "loopNumber": 0,
+    "fileName" : "gif_hollow_hold"
   },
   {
     "name": "Windshield Wipers",
     "description": "Lie on back with legs extended upward, rotate legs side to side",
     "time": 0,
     "kcal": 6.0,
-    "loopNumber": 10
+    "loopNumber": 10,
+    "fileName" : "gif_windshield_wipers"
   }
 ]

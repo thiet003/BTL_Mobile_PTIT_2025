@@ -14,13 +14,13 @@ public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCours
     }
     @Override
     protected void bindData(ItemCourseBinding binding, CourseItem item, int position) {
-        int imgRes = ResourceUtils.getDrawableId(getContext(), "img_course_" + item.getDifficultLevel().toLowerCase());
+        int imgRes = ResourceUtils.getDrawableId(getContext(), item.getImage());
         binding.imgCourse.setImageResource(imgRes);
         binding.tvName.setText(item.getName());
         binding.tvDay.setText(getContext().getString(R.string.day_number, item.getNumberOfDays()));
         binding.tvLevel.setText(item.getDifficultLevel());
-        binding.rbCourse.setRating(homeViewModel.getLevel(item.getDifficultLevel()));
-        int dayProgress = homeViewModel.calculateDayProgress(item.getNumberOfCompletedDays(), item.getNumberOfDays());
+        binding.rbCourse.setRating(item.getLevel());
+        int dayProgress = item.getDayProgress();
         binding.tvProgress.setText(getContext().getString(R.string.progress, dayProgress));
         binding.progressCourse.setProgress(dayProgress);
     }

@@ -20,13 +20,11 @@ public interface ExerciseDao {
     void insertExercises(List<Exercise> exercises);
 
 
-    @Query("SELECT e.id, e.name, e.description, e.time, e.kcal, e.loopNumber, ea.fileName as animationFileName, ea.fileType as animationFileType FROM exercise AS e " +
-            "JOIN course_day_exercise AS cde ON e.id = cde.exerciseId " +
-            "LEFT JOIN exercise_attachment AS ea ON e.id = ea.exerciseId " +
-            "WHERE cde.courseId = :courseId " +
-            "AND cde.orderNumber = :orderNumber " +
-            "AND ea.instructionType = 'animation'" +
-            "GROUP BY e.id ")
-    LiveData<List<ExerciseItem>> getListExerciseItem(int courseId, int orderNumber);
+    @Query("SELECT DISTINCT e.id, e.name, e.description, e.time, e.kcal, e.loopNumber, e.fileName as fileName FROM exercise AS e " +
+            "JOIN day_exercise AS de ON e.id = de.id " +
+            "JOIN day AS d ON de.dayId = d.id " +
+            "WHERE d.id = :dayId " +
+            "ORDER BY e.id ASC")
+    LiveData<List<ExerciseItem>> getExerciseItems(int dayId);
 
 }

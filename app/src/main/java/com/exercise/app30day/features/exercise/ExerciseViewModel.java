@@ -4,17 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.exercise.app30day.data.models.CompleteDay;
-import com.exercise.app30day.data.models.CompleteExercise;
-import com.exercise.app30day.data.models.User;
-import com.exercise.app30day.data.repositories.CompleteDayRepository;
-import com.exercise.app30day.data.repositories.CompleteExerciseRepository;
+import com.exercise.app30day.data.repositories.DayExerciseRepository;
+import com.exercise.app30day.data.repositories.DayRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
-import com.exercise.app30day.keys.DataStoreKeys;
 import com.exercise.app30day.utils.TimeUtils;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
 
@@ -41,14 +36,14 @@ public class ExerciseViewModel extends ViewModel {
 
     private boolean playExercise = true;
 
-    private final CompleteExerciseRepository completeExerciseRepository;
+    private final DayRepository dayRepository;
 
-    private final CompleteDayRepository completeDayRepository;
+    private final DayExerciseRepository dayExerciseRepository;
 
     @Inject
-    public ExerciseViewModel(CompleteExerciseRepository completeExerciseRepository, CompleteDayRepository completeDayRepository) {
-        this.completeExerciseRepository = completeExerciseRepository;
-        this.completeDayRepository = completeDayRepository;
+    public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository) {
+        this.dayRepository = dayRepository;
+        this.dayExerciseRepository = dayExerciseRepository;
     }
 
 
@@ -65,15 +60,14 @@ public class ExerciseViewModel extends ViewModel {
         timeCounter = 0;
         ExerciseUiState state = _onExerciseUiState.getValue();
         if(state != null){
-            User user = Hawk.get(DataStoreKeys.INSTANCE_USER_KEY, new User());
             if(state.getExercisePosition() < listExerciseItem.size() - 1){
                 state.setExerciseState(ExerciseState.REST);
                 state.setExercisePosition(state.getExercisePosition() + 1);
                 _onExerciseUiState.setValue(state);
-                completeExerciseRepository.insertCompleteExercise(new CompleteExercise(user.getId(), dayItem.getId(), "completed"));
+                dayExerciseRepository.updateDayExercise(dayItem.getId(), listExerciseItem.get(getExercisePosition()).getId(), true);
                 listener.onCompleteExercise(listExerciseItem.get(state.getExercisePosition()));
             }else{
-                completeDayRepository.insertCompleteDay(new CompleteDay(user.getId(), courseItem.getId(), dayItem.getDay()));
+                dayRepository.updateDay(dayItem.getId(), true);
                 listener.onCompleteDay();
             }
         }

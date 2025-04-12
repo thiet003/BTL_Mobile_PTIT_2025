@@ -7,5 +7,5 @@ import com.exercise.app30day.items.ExerciseItem;
 import java.util.List;
 
 public interface ExerciseRepository {
-    LiveData<List<ExerciseItem>> getListExerciseItem(int courseId, int orderNumber);
+    LiveData<List<ExerciseItem>> getExerciseItems(int dayId);
 }

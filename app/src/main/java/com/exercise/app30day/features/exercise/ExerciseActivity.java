@@ -19,7 +19,8 @@ import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
-import com.exercise.app30day.keys.IntentKeys;
+import com.exercise.app30day.utils.GlideUtils;
+import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
 
 import java.util.ArrayList;
@@ -68,12 +69,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     private void setPrepareLayout(ExerciseItem item) {
         binding.layoutPrepare.setVisibility(View.VISIBLE);
         binding.layoutExercise.setVisibility(View.GONE);
-        int resId = ResourceUtils.getDrawableId(this, item.getAnimationFileName());
-        if(item.getAnimationFileType().equals("gif")){
-            Glide.with(this).asGif().load(resId).into(binding.ivAnimation);
-        }else{
-            Glide.with(this).load(resId).into(binding.ivAnimation);
-        }
+        GlideUtils.loadImage(this, binding.ivAnimation, item.getFileName());
         binding.tvExerciseName.setText(item.getName());
         long prepareDuration = AppConfig.getExercisePrepareDuration();
         prepareRunnable = () -> {
@@ -99,12 +95,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
         binding.tvExerciseName2.setText(item.getName());
 
-        int resId = ResourceUtils.getDrawableId(this, item.getAnimationFileName());
-        if(item.getAnimationFileType().equals("gif")) {
-            Glide.with(this).asGif().load(resId).into(binding.ivAnimation);
-        }else {
-            Glide.with(this).load(resId).into(binding.ivAnimation);
-        }
+        GlideUtils.loadImage(this, binding.ivAnimation, item.getFileName());
 
         long totalDuration = viewModel.calculateDuration(item);
 

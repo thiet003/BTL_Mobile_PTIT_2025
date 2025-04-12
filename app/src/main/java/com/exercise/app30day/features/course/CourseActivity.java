@@ -12,8 +12,7 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityCourseBinding;
 import com.exercise.app30day.features.day.DayActivity;
-import com.exercise.app30day.items.CourseItem;
-import com.exercise.app30day.keys.IntentKeys;
+import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -38,10 +37,9 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
             int imgRes = ResourceUtils.getDrawableId(CourseActivity.this, "img_course_" + courseItem.getDifficultLevel().toLowerCase());
             binding.imgCourse.setImageResource(imgRes);
             binding.tvName.setText(courseItem.getName());
-            binding.rbCourse.setRating(viewModel.getLevel(courseItem.getDifficultLevel()));
+            binding.rbCourse.setRating(courseItem.getLevel());
             binding.tvLevel.setText(courseItem.getDifficultLevel());
-            int daysRemain = viewModel.calculateDaysRemain(courseItem.getNumberOfCompletedDays(), courseItem.getNumberOfDays());
-            binding.tvRemain.setText(getString(R.string.days_remain, daysRemain));
+            binding.tvRemain.setText(getString(R.string.days_remain, courseItem.getRemainDays()));
             binding.tvTopBarCourseName.setText(courseItem.getName());
             viewModel.setCourseItem(courseItem);
         });
@@ -51,7 +49,7 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
         binding.rvDay.setLayoutManager(linearLayoutManager);
         binding.rvDay.setAdapter(dayAdapter);
 
-        viewModel.getListDay(courseId).observe(this, dayItems -> {
+        viewModel.getDayItems(courseId).observe(this, dayItems -> {
             readyToStartDayPosition = viewModel.findReadyToStartDayPosition(dayItems);
             binding.btnContinue.setText(readyToStartDayPosition == 0 ? R.string.start : R.string.text_continue);
             dayAdapter.setData(dayItems);

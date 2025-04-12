@@ -10,7 +10,7 @@ import androidx.room.Index;
         inheritSuperIndices = true,
         foreignKeys = {
                 @ForeignKey(
-                        entity = CourseDayExercise.class,
+                        entity = Day.class,
                         parentColumns = "id",
                         childColumns = "courseDayExerciseId",
                         onDelete = ForeignKey.CASCADE

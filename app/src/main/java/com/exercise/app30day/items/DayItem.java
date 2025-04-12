@@ -10,7 +10,8 @@ public class DayItem extends BaseItem {
 
     private int numberOfExercises;
 
-    private boolean isCompleted;
+    private boolean completed;
+
     public DayItem(int id) {
         super(id);
     }
@@ -32,20 +33,10 @@ public class DayItem extends BaseItem {
     }
 
     public boolean isCompleted() {
-        return isCompleted;
+        return completed;
     }
 
     public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "CourseDayExerciseItem{" +
-                "day=" + day +
-                ", numberOfExercises=" + numberOfExercises +
-                ", isCompleted=" + isCompleted +
-                '}';
+        this.completed = completed;
     }
 }

@@ -23,7 +23,7 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
     }
 
     @Override
-    public LiveData<List<ExerciseItem>> getListExerciseItem(int courseId, int orderNumber) {
-        return exerciseDao.getListExerciseItem(courseId, orderNumber);
+    public LiveData<List<ExerciseItem>> getExerciseItems(int dayId) {
+        return exerciseDao.getExerciseItems(dayId);
     }
 }

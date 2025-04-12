@@ -3,8 +3,8 @@ package com.exercise.app30day.features.course;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.exercise.app30day.data.repositories.CourseDayExerciseRepository;
 import com.exercise.app30day.data.repositories.CourseRepository;
+import com.exercise.app30day.data.repositories.DayRepository;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.CourseItem;
 
@@ -19,37 +19,22 @@ public class CourseViewModel extends ViewModel {
 
     private final CourseRepository courseRepository;
 
-    private final CourseDayExerciseRepository courseDayExerciseRepository;
+    private final DayRepository dayRepository;
 
     private CourseItem courseItem;
 
     @Inject
-    public CourseViewModel(CourseRepository courseRepository, CourseDayExerciseRepository courseDayExerciseRepository) {
+    public CourseViewModel(CourseRepository courseRepository, DayRepository dayRepository) {
         this.courseRepository = courseRepository;
-        this.courseDayExerciseRepository = courseDayExerciseRepository;
+        this.dayRepository = dayRepository;
     }
 
     public LiveData<CourseItem> getCourseItemById(int courseId) {
         return courseRepository.getCourseItemById(courseId);
     }
 
-    public int calculateDaysRemain(int numberOfCompletedDays, int numberOfDays){
-        return Math.max(numberOfDays - numberOfCompletedDays, 0);
-    }
-
-    public int getLevel(String difficultLevel) {
-        switch (difficultLevel) {
-            case "Beginner":
-                return 1;
-            case "Intermediate":
-                return 2;
-            default:
-                return 3;
-        }
-    }
-
-    public LiveData<List<DayItem>> getListDay(int courseId) {
-        return courseDayExerciseRepository.getListDay(courseId);
+    public LiveData<List<DayItem>> getDayItems(int courseId) {
+        return dayRepository.getDayItems(courseId);
     }
 
 

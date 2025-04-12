@@ -2,16 +2,14 @@ package com.exercise.app30day.utils;
 
 import android.content.Context;
 
-import com.exercise.app30day.MainApplication;
-import com.exercise.app30day.keys.DataStoreKeys;
 import com.exercise.app30day.data.AppDatabase;
-import com.exercise.app30day.data.models.ConcentrationArea;
 import com.exercise.app30day.data.models.Course;
-import com.exercise.app30day.data.models.CourseDayExercise;
+import com.exercise.app30day.data.models.Day;
+import com.exercise.app30day.data.models.DayExercise;
 import com.exercise.app30day.data.models.Exercise;
-import com.exercise.app30day.data.models.ExerciseAttachment;
-import com.exercise.app30day.data.models.ExerciseConcentrationArea;
 import com.exercise.app30day.data.models.User;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.hawk.Hawk;
@@ -25,49 +23,48 @@ import java.util.List;
 
 public final class DatabaseUtils {
 
-    public static void seedData(AppDatabase db) {
+    public static void fetchData(AppDatabase db) {
+        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(0)
+                .build();
+        remoteConfig.setConfigSettingsAsync(configSettings);
+        remoteConfig.fetchAndActivate().addOnCanceledListener(() -> {
 
-        Context context = MainApplication.INSTANCE;
-        // Insert concentration areas
-        String areasJson = readJsonFromAsset(context, "concentration_areas.json");
-        Type areasType = new TypeToken<List<ConcentrationArea>>(){}.getType();
-        List<ConcentrationArea> areas = new Gson().fromJson(areasJson, areasType);
-        db.concentrationAreaDao().insertConcentrationAreas(areas);
+        }).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                remoteConfig.activate();
+                String coursesJson = remoteConfig.getString("courses_data");
+                String exercisesJson = remoteConfig.getString("exercises_data");
+                String daysJson = remoteConfig.getString("days_data");
+                String dayExercisesJson = remoteConfig.getString("day_exercises_data");
 
-        // Insert courses
-        String coursesJson = readJsonFromAsset(context, "courses.json");
-        Type coursesType = new TypeToken<List<Course>>(){}.getType();
-        List<Course> courses = new Gson().fromJson(coursesJson, coursesType);
-        db.courseDao().insertCourses(courses);
+                new Thread(()->{
+                    System.out.println("coursesJson: " + coursesJson);
+                    Type coursesType = new TypeToken<List<Course>>(){}.getType();
+                    List<Course> courses = new Gson().fromJson(coursesJson, coursesType);
+                    db.courseDao().insertCourses(courses);
 
-        // Insert exercises
-        String exercisesJson = readJsonFromAsset(context, "exercises.json");
-        Type exercisesType = new TypeToken<List<Exercise>>(){}.getType();
-        List<Exercise> exercises = new Gson().fromJson(exercisesJson, exercisesType);
-        db.exerciseDao().insertExercises(exercises);
+                    Type exercisesType = new TypeToken<List<Exercise>>(){}.getType();
+                    List<Exercise> exercises = new Gson().fromJson(exercisesJson, exercisesType);
+                    db.exerciseDao().insertExercises(exercises);
 
-        // Insert exercise attachments
-        String attachmentsJson = readJsonFromAsset(context, "exercise_attachments.json");
-        Type attachmentsType = new TypeToken<List<ExerciseAttachment>>(){}.getType();
-        List<ExerciseAttachment> attachments = new Gson().fromJson(attachmentsJson, attachmentsType);
-        db.exerciseAttachmentDao().insertExerciseAttachments(attachments);
+                    Type daysType = new TypeToken<List<Day>>(){}.getType();
+                    List<Day> days = new Gson().fromJson(daysJson, daysType);
+                    db.dayDao().insertDays(days);
 
-        // Insert exercise-concentration area mappings
-        String exerciseConcentrationAreasJson = readJsonFromAsset(context, "exercise_concentration_areas.json");
-        Type exerciseConcentrationAreasType = new TypeToken<List<ExerciseConcentrationArea>>(){}.getType();
-        List<ExerciseConcentrationArea> exerciseConcentrationAreas = new Gson().fromJson(exerciseConcentrationAreasJson, exerciseConcentrationAreasType);
-        db.exerciseConcentrationAreaDao().insertExerciseConcentrationAreas(exerciseConcentrationAreas);
+                    Type dayExerciseType = new TypeToken<List<DayExercise>>(){}.getType();
+                    List<DayExercise> dayExercises = new Gson().fromJson(dayExercisesJson, dayExerciseType);
+                    db.dayExerciseDao().insertDayExercises(dayExercises);
+                    Hawk.put(HawkKeys.DATABASE_INITIALIZED, true);
 
-        // Insert course day exercises
-        String courseDayExercisesJson = readJsonFromAsset(context, "course_day_exercises.json");
-        Type courseDayExercisesType = new TypeToken<List<CourseDayExercise>>(){}.getType();
-        List<CourseDayExercise> courseDayExercises = new Gson().fromJson(courseDayExercisesJson, courseDayExercisesType);
-        db.courseDayExerciseDao().insertCourseDayExercises(courseDayExercises);
-
-        User user = new User();
-        user.setId(1);
-        db.userDao().insertUser(user);
-        Hawk.put(DataStoreKeys.INSTANCE_USER_KEY, user);
+                    User user = new User();
+                    user.setId(1);
+                    db.userDao().insertUser(user);
+                    Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
+                }).start();
+            }
+        });
     }
 
     private static String readJsonFromAsset(Context context, String fileName) {

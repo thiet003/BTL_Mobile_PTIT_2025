@@ -97,7 +97,7 @@
         android:layout_height="250dp"
         android:layout_marginTop="18dp"
         android:contentDescription="@null"
-        android:src="@drawable/img_bicycle_crunches"
+        android:src="@drawable/gif_bicycle_crunches"
         android:adjustViewBounds="true"
         android:background="@null"
         android:scaleType="fitXY"

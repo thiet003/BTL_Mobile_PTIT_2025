@@ -12,7 +12,7 @@ import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.features.exercise.ExerciseActivity;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
-import com.exercise.app30day.keys.IntentKeys;
+import com.exercise.app30day.utils.IntentKeys;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.rvExercise.setLayoutManager(linearLayoutManager);
         binding.rvExercise.setAdapter(exerciseAdapter);
-        viewModel.getListExerciseItem(courseItem.getId(),dayItem.getDay()).observe(this, exerciseItems -> {
+        viewModel.getExerciseItems(dayItem.getId()).observe(this, exerciseItems -> {
             binding.itemExercise.tvValue.setText(String.valueOf(exerciseItems.size()));
             binding.itemTime.tvValue.setText(getString(R.string.minute_number, viewModel.calculateMinutes(exerciseItems)));
             binding.itemCalo.tvValue.setText(getString(R.string.calo_number, viewModel.calculateAndFormatCalories(exerciseItems)));

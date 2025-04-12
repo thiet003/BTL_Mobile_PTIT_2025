@@ -4,10 +4,10 @@ import com.exercise.app30day.base.adapter.BaseItem;
 
 public class CourseItem extends BaseItem {
     private String name;
-    private String difficultLevel;
+    private String image;
     private int numberOfDays;
-
     private int numberOfCompletedDays;
+    private int level;
 
     public CourseItem(int id) {
         super(id);
@@ -21,12 +21,12 @@ public class CourseItem extends BaseItem {
         this.name = name;
     }
 
-    public String getDifficultLevel() {
-        return difficultLevel;
+    public String getImage() {
+        return image;
     }
 
-    public void setDifficultLevel(String difficultLevel) {
-        this.difficultLevel = difficultLevel;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getNumberOfDays() {
@@ -43,5 +43,33 @@ public class CourseItem extends BaseItem {
 
     public void setNumberOfCompletedDays(int numberOfCompletedDays) {
         this.numberOfCompletedDays = numberOfCompletedDays;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getDayProgress() {
+        return (int) (numberOfCompletedDays * 100.0 / numberOfDays);
+    }
+
+    public String getDifficultLevel() {
+        switch (level){
+            case 1:
+                return "Beginner";
+            case 2:
+                return "Intermediate";
+            case 3:
+                return "Advanced";
+            default:
+                return "Unknown";
+        }
+    }
+    public int getRemainDays(){
+        return Math.max(numberOfDays - numberOfCompletedDays, 0);
     }
 }

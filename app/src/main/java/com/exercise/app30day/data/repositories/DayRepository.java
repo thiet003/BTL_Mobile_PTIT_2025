@@ -6,6 +6,8 @@ import com.exercise.app30day.items.DayItem;
 
 import java.util.List;
 
-public interface CourseDayExerciseRepository {
-    LiveData<List<DayItem>> getListDay(int courseId);
+public interface DayRepository {
+    LiveData<List<DayItem>> getDayItems(int courseId);
+
+    void updateDay(int dayId, boolean completed);
 }

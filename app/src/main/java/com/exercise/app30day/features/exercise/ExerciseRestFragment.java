@@ -12,6 +12,7 @@ import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.FragmentExerciseRestBinding;
 import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.ExerciseItem;
+import com.exercise.app30day.utils.GlideUtils;
 import com.exercise.app30day.utils.ResourceUtils;
 import com.exercise.app30day.utils.TimeUtils;
 
@@ -59,12 +60,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             ExerciseItem item = listExerciseItem.get(exercisePosition);
             binding.stepSeekBar.setNumSteps(listExerciseItem.size());
             binding.stepSeekBar.setProgress(exerciseUiState.getExercisePosition() + 1);
-            int resId = ResourceUtils.getDrawableId(requireContext(), item.getAnimationFileName());
-            if(item.getAnimationFileType().equals("gif")){
-                Glide.with(this).asGif().load(resId).into(binding.ivAnimation);
-            }else{
-                Glide.with(this).load(resId).into(binding.ivAnimation);
-            }
+            GlideUtils.loadImage(getContext(), binding.ivAnimation, item.getFileName());
             binding.tvPage.setText(requireContext().getString(R.string.page, exercisePosition + 1, listExerciseItem.size()));
             binding.tvExerciseName.setText(item.getName());
             binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));

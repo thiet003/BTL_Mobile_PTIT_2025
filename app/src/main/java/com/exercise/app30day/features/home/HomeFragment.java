@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.databinding.FragmentHomeBinding;
 import com.exercise.app30day.features.course.CourseActivity;
-import com.exercise.app30day.keys.IntentKeys;
+import com.exercise.app30day.utils.IntentKeys;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

@@ -6,35 +6,39 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 
 @Entity(
-        tableName = "exercise_concentration_area",
+        tableName = "day_exercise",
         inheritSuperIndices = true,
         foreignKeys = {
                 @ForeignKey(
                         entity = Exercise.class,
                         parentColumns = "id",
                         childColumns = "exerciseId",
-                        onDelete = ForeignKey.CASCADE
+                        onDelete = androidx.room.ForeignKey.CASCADE
                 ),
                 @ForeignKey(
-                        entity = ConcentrationArea.class,
+                        entity = Day.class,
                         parentColumns = "id",
-                        childColumns = "concentrationAreaId",
-                        onDelete = ForeignKey.CASCADE
+                        childColumns = "dayId",
+                        onDelete = androidx.room.ForeignKey.CASCADE
                 )
         },
         indices = {
                 @Index(value = "exerciseId"),
-                @Index(value = "concentrationAreaId")
+                @Index(value = "dayId")
         }
 )
-public class ExerciseConcentrationArea extends BaseEntity {
-    private int exerciseId;
-    private int concentrationAreaId;
+public class DayExercise extends BaseEntity{
 
-    public ExerciseConcentrationArea(int exerciseId, int concentrationAreaId) {
-        super();
+    private int exerciseId;
+
+    private int dayId;
+
+    private boolean completed;
+
+    public DayExercise(int exerciseId, int dayId, boolean completed) {
         this.exerciseId = exerciseId;
-        this.concentrationAreaId = concentrationAreaId;
+        this.dayId = dayId;
+        this.completed = completed;
     }
 
     public int getExerciseId() {
@@ -45,11 +49,19 @@ public class ExerciseConcentrationArea extends BaseEntity {
         this.exerciseId = exerciseId;
     }
 
-    public int getConcentrationAreaId() {
-        return concentrationAreaId;
+    public int getDayId() {
+        return dayId;
     }
 
-    public void setConcentrationAreaId(int concentrationAreaId) {
-        this.concentrationAreaId = concentrationAreaId;
+    public void setDayId(int dayId) {
+        this.dayId = dayId;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

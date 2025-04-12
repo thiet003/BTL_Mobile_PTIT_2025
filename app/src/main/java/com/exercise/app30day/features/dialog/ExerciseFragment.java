@@ -6,6 +6,7 @@ import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.databinding.FragmentExerciseBinding;
 import com.exercise.app30day.items.ExerciseItem;
+import com.exercise.app30day.utils.GlideUtils;
 import com.exercise.app30day.utils.ResourceUtils;
 import com.exercise.app30day.utils.TimeUtils;
 
@@ -24,12 +25,7 @@ public class ExerciseFragment extends BaseFragment<FragmentExerciseBinding, None
         binding.tvDurationValue.setText(exerciseItem.getTime() != 0 ? TimeUtils.formatMillisecondsToMMSS(exerciseItem.getTime()) : "x" + exerciseItem.getLoopNumber());
         binding.tvDuration.setText(requireContext().getString(exerciseItem.getTime() != 0 ? R.string.duration : R.string.repeat));
         binding.tvInstructions.setText(exerciseItem.getDescription());
-        int resId = ResourceUtils.getDrawableId(requireContext(), exerciseItem.getAnimationFileName());
-        if(exerciseItem.getAnimationFileType().equals("gif")){
-            Glide.with(requireContext()).asGif().load(resId).into(binding.ivAnim);
-        }else{
-            Glide.with(requireContext()).load(resId).into(binding.ivAnim);
-        }
+        GlideUtils.loadImage(getContext(), binding.ivAnim, exerciseItem.getFileName());
     }
 
     @Override

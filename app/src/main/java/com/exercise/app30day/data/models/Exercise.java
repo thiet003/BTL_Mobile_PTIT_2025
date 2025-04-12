@@ -13,13 +13,16 @@ public class Exercise extends BaseEntity {
 
     private int loopNumber;
 
-    public Exercise(String name, String description, long time, double kcal, int loopNumber) {
+    private String fileName;
+
+    public Exercise(String name, String description, long time, double kcal, int loopNumber, String fileName) {
         super();
         this.name = name;
         this.description = description;
         this.time = time;
         this.kcal = kcal;
         this.loopNumber = loopNumber;
+        this.fileName = fileName;
     }
 
     public String getName() {
@@ -60,5 +63,13 @@ public class Exercise extends BaseEntity {
 
     public void setLoopNumber(int loopNumber) {
         this.loopNumber = loopNumber;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

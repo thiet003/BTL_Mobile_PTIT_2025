@@ -16,23 +16,21 @@ public interface CourseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCourses(List<Course> courses);
 
-    @Query("SELECT c.id, c.name, c.difficultLevel, " +
-            "COUNT(DISTINCT cde.orderNumber) AS numberOfDays, " +
-            "COUNT(DISTINCT cd.orderNumber) AS numberOfCompletedDays " +
+    @Query("SELECT c.id, c.name, c.image, c.level, " +
+            "COUNT(d.id) as numberOfDays, " +
+            "COUNT(CASE WHEN d.completed = 1 THEN 1 ELSE NULL END) AS numberOfCompletedDays " +
             "FROM course c " +
-            "LEFT JOIN course_day_exercise cde ON c.id = cde.courseId " +
-            "LEFT JOIN complete_day cd ON c.id = cd.courseId " +
+            "LEFT JOIN day AS d ON c.id = d.courseId " +
             "GROUP BY c.id " +
             "ORDER BY c.id ASC")
     LiveData<List<CourseItem>> getAllCourseItems();
 
 
-    @Query("SELECT c.id, c.name, c.difficultLevel, " +
-            "COUNT(DISTINCT cde.orderNumber) AS numberOfDays, " +
-            "COUNT(DISTINCT cd.orderNumber) AS numberOfCompletedDays " +
+    @Query("SELECT c.id, c.name, c.image, c.level, " +
+            "COUNT(d.id) as numberOfDays, " +
+            "COUNT(CASE WHEN d.completed = 1 THEN 1 ELSE NULL END) AS numberOfCompletedDays " +
             "FROM course c " +
-            "LEFT JOIN course_day_exercise cde ON c.id = cde.courseId " +
-            "LEFT JOIN complete_day cd ON c.id = cd.courseId " +
+            "LEFT JOIN day AS d ON c.id = d.courseId " +
             "WHERE c.id = :courseId " +
             "GROUP BY c.id " +
             "ORDER BY c.id ASC")
