@@ -1,33 +1,45 @@
 package com.exercise.app30day.features.complete;
 
+import java.util.Calendar;
+
 public class UserUiState {
-    private int genderFocusedIndex = 2;
+    private int userGenderIndex = 2;
 
-    private int weightPickerIndex = 40;
+    private int weight = 70;
 
-    private int heightPickerIndex = 40;
+    private int height = 170;
 
-    public int getGenderFocusedIndex() {
-        return genderFocusedIndex;
+    private Calendar calendar = Calendar.getInstance();
+
+    public int getUserGenderIndex() {
+        return userGenderIndex;
     }
 
-    public void setGenderFocusedIndex(int genderFocusedIndex) {
-        this.genderFocusedIndex = genderFocusedIndex;
+    public void setUserGenderIndex(int userGenderIndex) {
+        this.userGenderIndex = userGenderIndex;
     }
 
-    public int getWeightPickerIndex() {
-        return weightPickerIndex;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setWeightPickerIndex(int weightPickerIndex) {
-        this.weightPickerIndex = weightPickerIndex;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
-    public int getHeightPickerIndex() {
-        return heightPickerIndex;
+    public int getHeight() {
+        return height;
     }
 
-    public void setHeightPickerIndex(int heightPickerIndex) {
-        this.heightPickerIndex = heightPickerIndex;
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 }

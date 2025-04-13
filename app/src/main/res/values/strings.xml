@@ -59,4 +59,11 @@
     <string name="your_health">Your health</string>
     <string name="you_are_healthy">You are healthy</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normal BMI weight range for the height: 18.5 – 24.9</string>
+
+    <string name="bmi_underweight">You are Underweight</string>
+    <string name="bmi_normal">Your weight is Normal</string>
+    <string name="bmi_pre_obese">You are in Pre-obese category</string>
+    <string name="bmi_obese_class_1">You have Obesity Class I</string>
+    <string name="bmi_obese_class_2">You have Obesity Class II</string>
+    <string name="bmi_obese_class_3">You have Obesity Class III (Severe)</string>
 </resources>

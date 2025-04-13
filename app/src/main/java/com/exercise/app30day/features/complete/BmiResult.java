@@ -1,13 +1,19 @@
 package com.exercise.app30day.features.complete;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
+
 public class BmiResult {
     private double bmi;
-    private String colorHex;
-    private String healthStatus;
+    @ColorRes
+    private int color;
 
-    public BmiResult(double bmi, String colorHex, String healthStatus) {
+    @StringRes
+    private int healthStatus;
+
+    public BmiResult(double bmi, int color, int healthStatus) {
         this.bmi = bmi;
-        this.colorHex = colorHex;
+        this.color = color;
         this.healthStatus = healthStatus;
     }
 
@@ -19,19 +25,21 @@ public class BmiResult {
         this.bmi = bmi;
     }
 
-    public String getColorHex() {
-        return colorHex;
+    public int getColor() {
+        return color;
     }
 
-    public void setColorHex(String colorHex) {
-        this.colorHex = colorHex;
+    public void setColor(int color) {
+        this.color = color;
     }
 
-    public String getHealthStatus() {
+    public int getHealthStatus() {
         return healthStatus;
     }
 
-    public void setHealthStatus(String healthStatus) {
+    public void setHealthStatus(int healthStatus) {
         this.healthStatus = healthStatus;
     }
+
+
 }

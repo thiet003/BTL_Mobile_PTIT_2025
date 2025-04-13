@@ -2,18 +2,16 @@ package com.exercise.app30day.features.complete;
 
 import android.content.Context;
 
+import androidx.annotation.ColorRes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.R;
-import com.exercise.app30day.items.WeightPickerItem;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 
@@ -24,134 +22,125 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 public class ExerciseCompleteViewModel extends ViewModel {
 
     private final MutableLiveData<UserUiState> _onUserUiState = new MutableLiveData<>(new UserUiState());
-    public LiveData<UserUiState> onUserUiState = _onUserUiState;
+    public final LiveData<UserUiState> onUserUiState = _onUserUiState;
 
-    private final MutableLiveData<BmiResult> _onBmiResult = new MutableLiveData<>();
-    public LiveData<BmiResult> onBmiResult = _onBmiResult;
+    private final int maxWeight = 200, minWeight = 30, maxHeight = 250, minHeight = 100;
 
-    private final Observer<UserUiState> userObserver = this::updateBmi;
+    private final List<String> genders;
 
     private final Context context;
 
     @Inject
     public ExerciseCompleteViewModel(@ApplicationContext Context context) {
-        this.context = context;
-        onUserUiState.observeForever(userObserver);
-    }
-
-    public int getGenderFocusedIndex() {
-        return Objects.requireNonNull(onUserUiState.getValue()).getGenderFocusedIndex();
-    }
-
-    public void setGenderFocusedIndex(int genderFocusedIndex) {
-        UserUiState userUiState = Objects.requireNonNull(_onUserUiState.getValue());
-        userUiState.setGenderFocusedIndex(genderFocusedIndex);
-        _onUserUiState.setValue(userUiState);
-    }
-
-    public List<String> getGenders() {
-        return List.of(
+        genders = List.of(
                 context.getString(R.string.female),
                 context.getString(R.string.other),
                 context.getString(R.string.male)
         );
+        this.context = context;
     }
 
-    public int getWeightPickerIndex() {
-        return Objects.requireNonNull(_onUserUiState.getValue()).getWeightPickerIndex();
+    public List<String> getGenders() {
+        return genders;
     }
 
-    public void setWeightPickerIndex(int weightPickerIndex) {
+    public int getUserGenderIndex() {
+        return Objects.requireNonNull(_onUserUiState.getValue()).getUserGenderIndex();
+    }
+
+    public void setUserGenderIndex(int index) {
+        if(index < 0 || index > genders.size()){
+            return;
+        }
         UserUiState userUiState = Objects.requireNonNull(_onUserUiState.getValue());
-        userUiState.setWeightPickerIndex(weightPickerIndex);
+        userUiState.setUserGenderIndex(index);
         _onUserUiState.setValue(userUiState);
     }
 
-    public int getHeightPickerIndex() {
-        return Objects.requireNonNull(_onUserUiState.getValue()).getHeightPickerIndex();
+    public int getUserHeight(){
+        return Objects.requireNonNull(_onUserUiState.getValue()).getHeight();
     }
 
-    public void setHeightPickerIndex(int heightPickerIndex) {
+    public void setUserHeight(int height) {
+        if(height < minHeight || height > maxHeight){
+            return;
+        }
         UserUiState userUiState = Objects.requireNonNull(_onUserUiState.getValue());
-        userUiState.setHeightPickerIndex(heightPickerIndex);
+        userUiState.setHeight(height);
         _onUserUiState.setValue(userUiState);
     }
 
-    public List<WeightPickerItem> getWeights() {
-        return IntStream.range(30, 200)
-                .mapToObj(i -> new WeightPickerItem(i - 29, i))
-                .collect(Collectors.toList());
+    public int getUserWeight(){
+        return Objects.requireNonNull(_onUserUiState.getValue()).getWeight();
     }
 
-    public List<CharSequence> getHeights(){
-        return IntStream.range(130, 250)
-                .mapToObj(String::valueOf)
-                .collect(Collectors.toList());
+    public void setUserWeight(int weight){
+        if(weight < minWeight || weight > maxWeight){
+            return;
+        }
+        UserUiState userUiState = Objects.requireNonNull(_onUserUiState.getValue());
+        userUiState.setWeight(weight);
+        _onUserUiState.setValue(userUiState);
     }
 
-    private void updateBmi(UserUiState userUiState){
-        BmiResult result = calculateBmi(userUiState.getGenderFocusedIndex(),
-                getWeights().get(userUiState.getWeightPickerIndex()).getValue(),
-                Integer.parseInt(getHeights().get(userUiState.getHeightPickerIndex()).toString()));
-        _onBmiResult.setValue(result);
+    public void setCalendar(Calendar calendar) {
+        UserUiState userUiState = Objects.requireNonNull(_onUserUiState.getValue());
+        userUiState.setCalendar(calendar);
+        _onUserUiState.setValue(userUiState);
     }
 
-    private BmiResult calculateBmi(int gender, double weightKg, double heightCm) {
+    public Calendar getCalendar() {
+        return Objects.requireNonNull(_onUserUiState.getValue()).getCalendar();
+    }
+
+    public int getMaxWeight() {
+        return maxWeight;
+    }
+
+    public int getMinWeight() {
+        return minWeight;
+    }
+
+    public int getMaxHeight() {
+        return maxHeight;
+    }
+
+    public int getMinHeight() {
+        return minHeight;
+    }
+
+    public BmiResult calculateBmi(UserUiState userUiState) {
+
+        double weightKg = userUiState.getWeight();
+        double heightCm = userUiState.getHeight();
+
         double heightM = heightCm / 100.0;
         double bmi = weightKg / (heightM * heightM);
-        String status;
-        String color;
 
-        if (gender == 0) {
-            if (bmi < 18.5) {
-                status = "You are Underweight";
-                color = "#2196F3"; // Blue
-            } else if (bmi < 23) {
-                status = "You are Healthy";
-                color = "#4CAF50"; // Green
-            } else if (bmi < 27) {
-                status = "You are Overweight";
-                color = "#FF9800"; // Orange
-            } else {
-                status = "You are Suffering from Obesity";
-                color = "#F44336"; // Red
-            }
-        } else if (gender == 2) {
-            if (bmi < 18.5) {
-                status = "You are Underweight";
-                color = "#2196F3";
-            } else if (bmi < 25) {
-                status = "You are Healthy";
-                color = "#4CAF50";
-            } else if (bmi < 30) {
-                status = "You are Overweight";
-                color = "#FF9800";
-            } else {
-                status = "You are Suffering from Obesity";
-                color = "#F44336";
-            }
-        } else { // "other" or non-binary
-            if (bmi < 18.5) {
-                status = "You are Underweight";
-                color = "#2196F3";
-            } else if (bmi < 24) {
-                status = "You are Healthy";
-                color = "#4CAF50";
-            } else if (bmi < 28) {
-                status = "You are Overweight";
-                color = "#FF9800";
-            } else {
-                status = "You are Suffering from Obesity";
-                color = "#F44336";
-            }
+        int status;
+        int color;
+
+        if (bmi < 18.5) {
+            status = R.string.bmi_underweight;
+            color = R.color.blue; // Blue
+        } else if (bmi < 25) {
+            status = R.string.bmi_normal;
+            color = R.color.green; // Green
+        } else if (bmi < 30) {
+            status = R.string.bmi_pre_obese;
+            color = R.color.orange; // Orange
+        } else if (bmi < 35) {
+            status = R.string.bmi_obese_class_1;
+            color = R.color.red; // Red
+        } else if (bmi < 40) {
+            status = R.string.bmi_obese_class_2;
+            color = R.color.dark_red; // Dark Red
+        } else {
+            status = R.string.bmi_obese_class_3;
+            color = R.color.deep_dark_red; // Deep Dark Red
         }
 
         return new BmiResult(bmi, color, status);
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        onUserUiState.removeObserver(userObserver);
-    }
 }

@@ -12,4 +12,11 @@
     <color name="iconPrimaryColor">#2A3335</color>
     <color name="iconSecondaryColor">#FFFFFF</color>
     <color name="iconTertiaryColor">#595959</color>
+
+    <color name="blue">#2196F3</color>
+    <color name="green">#4CAF50</color>
+    <color name="orange">#FF9800</color>
+    <color name="red">#F44336</color>
+    <color name="dark_red">#D32F2F</color>
+    <color name="deep_dark_red">#D32F2F</color>
 </resources>

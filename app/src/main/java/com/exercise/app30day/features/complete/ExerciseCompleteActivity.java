@@ -1,18 +1,14 @@
 package com.exercise.app30day.features.complete;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 
-import androidx.core.view.ViewCompat;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
-import com.cncoderx.wheelview.OnWheelChangedListener;
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityExerciseCompleteBinding;
@@ -21,16 +17,18 @@ import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
 import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.TimeUtils;
+import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import me.sujanpoudel.wheelview.WheelView;
-import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager;
 
 @AndroidEntryPoint
-public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompleteBinding, ExerciseCompleteViewModel> implements View.OnClickListener{
+public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompleteBinding, ExerciseCompleteViewModel>
+        implements View.OnClickListener, NumberPicker.OnValueChangeListener{
 
     DayItem dayItem;
 
@@ -40,9 +38,8 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
 
     WheelView genderWheelView;
 
-    WeightPickerAdapter weightPickerAdapter;
+    NumberPicker weightPicker, heightPicker;
 
-    RecyclerView weightRecyclerBtn;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -59,7 +56,6 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         binding.layoutTime.tvLabel.setText(R.string.time);
         binding.layoutExercise.tvLabel.setText(R.string.exercises);
         binding.layoutCalo.tvValue.setText(String.valueOf(listExerciseItem.size()));
-        binding.tvTime.setText(TimeUtils.convertMillisToDate(System.currentTimeMillis()));
 
         genderWheelView = binding.genderWheelView;
 
@@ -68,23 +64,25 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
             genderWheelView.setFocusedByDefault(true);
         }
         genderWheelView.setSelected(true);
-        genderWheelView.setFocusedIndex(viewModel.getGenderFocusedIndex());
+        genderWheelView.setFocusedIndex(viewModel.getUserGenderIndex());
 
 
-        weightRecyclerBtn = binding.weightRecyclerBtn;
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(weightRecyclerBtn);
-        weightPickerAdapter = new WeightPickerAdapter();
-        weightPickerAdapter.setData(viewModel.getWeights());
-        weightRecyclerBtn.setLayoutManager(getPickerLayoutManager());
-        weightRecyclerBtn.setAdapter(weightPickerAdapter);
+        weightPicker = binding.weightPicker;
+        heightPicker = binding.heightPicker;
 
-        binding.heightWheel.setEntries(viewModel.getHeights());
-        binding.heightWheel.setCurrentIndex(viewModel.getHeightPickerIndex());
+        weightPicker.setMaxValue(viewModel.getMaxWeight());
+        weightPicker.setMinValue(viewModel.getMinWeight());
+        weightPicker.setValue(viewModel.getUserWeight());
 
-        viewModel.onBmiResult.observe(this, bmiResult -> {
+        heightPicker.setMaxValue(viewModel.getMaxHeight());
+        heightPicker.setMinValue(viewModel.getMinHeight());
+        heightPicker.setValue(viewModel.getUserHeight());
+
+        viewModel.onUserUiState.observe(this, userUiState -> {
+            binding.tvTime.setText(TimeUtils.formatDate(userUiState.getCalendar()));
+            BmiResult bmiResult = viewModel.calculateBmi(userUiState);
             binding.tvBmi.setText(String.format("%.1f", bmiResult.getBmi()));
-            int color = Color.parseColor(bmiResult.getColorHex());
+            int color = ContextCompat.getColor(this, bmiResult.getColor());
             binding.bmiColor.setBackgroundTintList(ColorStateList.valueOf(color));
             binding.healthStatus.setText(bmiResult.getHealthStatus());
         });
@@ -93,37 +91,51 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
     @Override
     protected void initListener() {
         genderWheelView.setSelectListener(integer -> {
-            viewModel.setGenderFocusedIndex(integer);
+            viewModel.setUserGenderIndex(integer);
             return null;
         });
-        binding.heightWheel.setOnWheelChangedListener((view, oldIndex, newIndex) -> {
-            viewModel.setHeightPickerIndex(newIndex);
-        });
+        heightPicker.setOnValueChangedListener(this);
+        weightPicker.setOnValueChangedListener(this);
         binding.btnUp.setOnClickListener(this);
         binding.btnDown.setOnClickListener(this);
-    }
-
-    private PickerLayoutManager getPickerLayoutManager() {
-        PickerLayoutManager pickerLayoutManager = new PickerLayoutManager(this, PickerLayoutManager.HORIZONTAL, false);
-        pickerLayoutManager.setChangeAlpha(true);
-        pickerLayoutManager.setScaleDownBy(0.99f);
-        pickerLayoutManager.setScaleDownDistance(0.8f);
-        pickerLayoutManager.setInitialPrefetchItemCount(3);
-        pickerLayoutManager.setSmoothScrollbarEnabled(true);
-        pickerLayoutManager.scrollToPosition(viewModel.getWeightPickerIndex());
-        pickerLayoutManager.setOnScrollStopListener(view -> {
-            int position = weightRecyclerBtn.getChildAdapterPosition(view);
-            viewModel.setWeightPickerIndex(position);
-        });
-        return pickerLayoutManager;
+        binding.tvTime.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v == binding.btnUp){
-            binding.heightWheel.setCurrentIndex(binding.heightWheel.getCurrentIndex() - 1);
+            int newValue = heightPicker.getValue() - 1;
+            heightPicker.setValue(newValue);
+            viewModel.setUserHeight(newValue);
         }else if(v == binding.btnDown){
-            binding.heightWheel.setCurrentIndex(binding.heightWheel.getCurrentIndex() + 1);
+            int newValue = heightPicker.getValue() + 1;
+            heightPicker.setValue(newValue);
+            viewModel.setUserHeight(newValue);
+        }else if(v == binding.tvTime){
+            DatePickerDialog datePickerDialog = getDatePickerDialog();
+            datePickerDialog.show();
+        }
+    }
+
+    @NonNull
+    private DatePickerDialog getDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        return new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    Calendar selectedDate = Calendar.getInstance();
+                    selectedDate.set(selectedYear, selectedMonth, selectedDay);
+                    viewModel.setCalendar(selectedDate);
+                }, year, month, day);
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        if(picker == weightPicker) {
+            viewModel.setUserWeight(newVal);
         }
     }
 }
