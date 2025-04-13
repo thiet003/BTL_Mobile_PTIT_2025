@@ -9,8 +9,6 @@ import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.data.AppDatabase;
 import com.exercise.app30day.databinding.ActivitySplashBinding;
 import com.exercise.app30day.features.main.MainActivity;
-import com.exercise.app30day.utils.HawkKeys;
-import com.orhanobut.hawk.Hawk;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneViewModel> {
@@ -20,14 +18,14 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
 
     @Override
     protected void initView() {
-        if(!Hawk.get(HawkKeys.DATABASE_INITIALIZED, false)) {
-            AppDatabase.getInstance(this).initializeData(() -> Hawk.put(HawkKeys.DATABASE_INITIALIZED, true));
+        if(!AppDatabase.isDataInitialized()) {
+            AppDatabase.initializeData(this);
         }
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 countTimeSplash++;
-                if (countTimeSplash > 3 && Hawk.get(HawkKeys.DATABASE_INITIALIZED, false)) {
+                if (countTimeSplash > 3 && AppDatabase.isDataInitialized()) {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
                 }

@@ -60,7 +60,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             ExerciseItem item = listExerciseItem.get(exercisePosition);
             binding.stepSeekBar.setNumSteps(listExerciseItem.size());
             binding.stepSeekBar.setProgress(exerciseUiState.getExercisePosition() + 1);
-            GlideUtils.loadImage(getContext(), binding.ivAnimation, item.getFileName());
+            GlideUtils.loadImage(getContext(), binding.ivAnimation, item.getAnimationFileName());
             binding.tvPage.setText(requireContext().getString(R.string.page, exercisePosition + 1, listExerciseItem.size()));
             binding.tvExerciseName.setText(item.getName());
             binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));

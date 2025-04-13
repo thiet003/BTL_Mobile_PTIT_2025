@@ -45,9 +45,18 @@
 
     <string name="course_day">Day %d - %s</string>
     <string name="congratulations_on_your_completion">Congratulations on your completion</string>
-    <string name="weights">Weights</string>
-    <string name="kg">kg</string>
-    <string name="heights">Heights</string>
-    <string name="cm">cm</string>
+    <string name="weight">Weight</string>
+    <string name="kg">(kg)</string>
+    <string name="height">Height</string>
+    <string name="cm">(cm)</string>
     <string name="bmi">BMI (kg/m²)</string>
+    <string name="save">Save</string>
+
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="gender">Gender</string>
+    <string name="your_health">Your health</string>
+    <string name="you_are_healthy">You are healthy</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normal BMI weight range for the height: 18.5 – 24.9</string>
 </resources>

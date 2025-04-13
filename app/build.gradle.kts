@@ -73,7 +73,10 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.8.8")
     implementation("com.github.addisonElliott:SegmentedButton:3.1.9")
     implementation("com.github.jakob-grabner:Circle-Progress-View:1.2.8")
-    implementation("com.github.kevalpatel2106:android-ruler-picker:v1.1")
+    implementation("com.github.psuzn:WheelView:v1.0.2")
+    implementation("com.github.adityagohad:HorizontalPicker:1.0.1")
+    implementation("com.github.CNCoderX:WheelView:1.2.6")
+
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
     implementation("com.google.firebase:firebase-analytics")
 }

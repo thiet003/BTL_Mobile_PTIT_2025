@@ -69,7 +69,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     private void setPrepareLayout(ExerciseItem item) {
         binding.layoutPrepare.setVisibility(View.VISIBLE);
         binding.layoutExercise.setVisibility(View.GONE);
-        GlideUtils.loadImage(this, binding.ivAnimation, item.getFileName());
+        GlideUtils.loadImage(this, binding.ivAnimation, item.getAnimationFileName());
         binding.tvExerciseName.setText(item.getName());
         long prepareDuration = AppConfig.getExercisePrepareDuration();
         prepareRunnable = () -> {
@@ -95,7 +95,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
         binding.tvExerciseName2.setText(item.getName());
 
-        GlideUtils.loadImage(this, binding.ivAnimation, item.getFileName());
+        GlideUtils.loadImage(this, binding.ivAnimation, item.getAnimationFileName());
 
         long totalDuration = viewModel.calculateDuration(item);
 

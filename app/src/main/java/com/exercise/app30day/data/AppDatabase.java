@@ -62,7 +62,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return instance;
     }
 
-    public void initializeData(OnInitializationListener listener) {
+    public static void initializeData(Context context) {
         FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setMinimumFetchIntervalInSeconds(0)
@@ -83,34 +83,35 @@ public abstract class AppDatabase extends RoomDatabase {
                     Type coursesType = new TypeToken<List<Course>>() {
                     }.getType();
                     List<Course> courses = new Gson().fromJson(coursesJson, coursesType);
-                    courseDao().insertCourses(courses);
+                    getInstance(context).courseDao().insertCourses(courses);
 
                     Type exercisesType = new TypeToken<List<Exercise>>() {
                     }.getType();
                     List<Exercise> exercises = new Gson().fromJson(exercisesJson, exercisesType);
-                    exerciseDao().insertExercises(exercises);
+                    getInstance(context).exerciseDao().insertExercises(exercises);
 
                     Type daysType = new TypeToken<List<Day>>() {
                     }.getType();
                     List<Day> days = new Gson().fromJson(daysJson, daysType);
-                    dayDao().insertDays(days);
+                    getInstance(context).dayDao().insertDays(days);
 
                     Type dayExerciseType = new TypeToken<List<DayExercise>>() {
                     }.getType();
                     List<DayExercise> dayExercises = new Gson().fromJson(dayExercisesJson, dayExerciseType);
-                    dayExerciseDao().insertDayExercises(dayExercises);
+                    getInstance(context).dayExerciseDao().insertDayExercises(dayExercises);
+
                     User user = new User();
                     user.setId(1);
-                    userDao().insertUser(user);
+                    getInstance(context).userDao().insertUser(user);
                     Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
 
-                    listener.onInitializationCompleted();
+                    Hawk.put(HawkKeys.DATABASE_DATA_INITIALIZED_KEY, true);
                 }).start();
             }
         });
     }
 
-    public interface OnInitializationListener {
-        void onInitializationCompleted();
+    public static boolean isDataInitialized() {
+        return Hawk.get(HawkKeys.DATABASE_DATA_INITIALIZED_KEY, false);
     }
 }

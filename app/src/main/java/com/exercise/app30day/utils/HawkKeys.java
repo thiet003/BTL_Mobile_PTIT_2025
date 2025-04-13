@@ -7,5 +7,5 @@ public final class HawkKeys {
 
     public static final String REST_DURATION_KEY = "rest_duration_key";
 
-    public static final String DATABASE_INITIALIZED = "database_initialized";
+    public static final String DATABASE_DATA_INITIALIZED_KEY = "database_data_initialized_key";
 }

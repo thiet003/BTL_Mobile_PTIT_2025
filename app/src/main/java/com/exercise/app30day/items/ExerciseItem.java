@@ -12,7 +12,7 @@ public class ExerciseItem extends BaseItem {
 
     private int loopNumber;
 
-    private String fileName;
+    private String animationFileName;
 
     public ExerciseItem(int id) {
         super(id);
@@ -58,11 +58,11 @@ public class ExerciseItem extends BaseItem {
         this.loopNumber = loopNumber;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getAnimationFileName() {
+        return animationFileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setAnimationFileName(String animationFileName) {
+        this.animationFileName = animationFileName;
     }
 }

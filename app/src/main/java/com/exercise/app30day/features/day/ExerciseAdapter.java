@@ -13,6 +13,6 @@ public class ExerciseAdapter extends BaseRecyclerViewAdapter<ExerciseItem, ItemE
     protected void bindData(ItemExerciseBinding binding, ExerciseItem item, int position) {
         binding.tvExercise.setText(item.getName());
         binding.tvTimeOrLoop.setText(item.getTime() != 0 ? TimeUtils.formatMillisecondsToMMSS(item.getTime()) : "x" + item.getLoopNumber());
-        GlideUtils.loadImage(getContext(), binding.ivAnim, item.getFileName());
+        GlideUtils.loadImage(getContext(), binding.ivAnim, item.getAnimationFileName());
     }
 }

@@ -25,7 +25,7 @@ public class ExerciseFragment extends BaseFragment<FragmentExerciseBinding, None
         binding.tvDurationValue.setText(exerciseItem.getTime() != 0 ? TimeUtils.formatMillisecondsToMMSS(exerciseItem.getTime()) : "x" + exerciseItem.getLoopNumber());
         binding.tvDuration.setText(requireContext().getString(exerciseItem.getTime() != 0 ? R.string.duration : R.string.repeat));
         binding.tvInstructions.setText(exerciseItem.getDescription());
-        GlideUtils.loadImage(getContext(), binding.ivAnim, exerciseItem.getFileName());
+        GlideUtils.loadImage(getContext(), binding.ivAnim, exerciseItem.getAnimationFileName());
     }
 
     @Override

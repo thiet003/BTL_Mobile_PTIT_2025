@@ -46,6 +46,7 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
 
         dayAdapter = new DayAdapter(viewModel);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
         binding.rvDay.setLayoutManager(linearLayoutManager);
         binding.rvDay.setAdapter(dayAdapter);
 
