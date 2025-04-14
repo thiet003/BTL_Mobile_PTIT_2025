@@ -3,7 +3,7 @@ package com.exercise.app30day.data.models;
 
 import androidx.room.Entity;
 
-@Entity(tableName = "course", inheritSuperIndices = true)
+@Entity(tableName = "course")
 public class Course extends BaseEntity {
     private String name;
 

@@ -6,7 +6,6 @@ import androidx.room.Index;
 
 @Entity(
         tableName = "day",
-        inheritSuperIndices = true,
         foreignKeys = @ForeignKey(
                 entity = Course.class,
                 parentColumns = "id",

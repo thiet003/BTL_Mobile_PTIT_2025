@@ -2,10 +2,13 @@ package com.exercise.app30day.features.exercise;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.exercise.app30day.data.models.DayTime;
 import com.exercise.app30day.data.repositories.DayExerciseRepository;
 import com.exercise.app30day.data.repositories.DayRepository;
+import com.exercise.app30day.data.repositories.DayTimeRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
@@ -26,24 +29,29 @@ public class ExerciseViewModel extends ViewModel {
 
     private long timeCounter = 0;
 
-    private final long exerciseStartTime = System.currentTimeMillis();
-
     private DayItem dayItem;
 
     private CourseItem courseItem;
 
     private List<ExerciseItem> listExerciseItem;
 
+    private DayTime dayTime;
+
     private boolean playExercise = true;
+
+    private final Observer<ExerciseUiState> exerciseUiStateObserver = this::updateDayTimeExerciseItem;
 
     private final DayRepository dayRepository;
 
     private final DayExerciseRepository dayExerciseRepository;
 
+    private final DayTimeRepository dayTimeRepository;
+
     @Inject
-    public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository) {
+    public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository, DayTimeRepository dayTimeRepository) {
         this.dayRepository = dayRepository;
         this.dayExerciseRepository = dayExerciseRepository;
+        this.dayTimeRepository = dayTimeRepository;
     }
 
 
@@ -117,16 +125,46 @@ public class ExerciseViewModel extends ViewModel {
         return item.getTime() != 0 ? item.getTime() : item.getLoopNumber() * 3000L;
     }
 
+    public void initData(List<ExerciseItem> listExerciseItem, DayItem dayItem, CourseItem courseItem, int currentExercisePosition){
+        this.listExerciseItem = listExerciseItem;
+        this.dayItem = dayItem;
+        this.courseItem = courseItem;
+        this.dayTime = new DayTime(dayItem.getId(), currentExercisePosition);
+
+        _onExerciseUiState.observeForever(exerciseUiStateObserver);
+
+        ExerciseUiState exerciseUiState = _onExerciseUiState.getValue();
+        if(exerciseUiState != null){
+            if(currentExercisePosition == 0 || currentExercisePosition == listExerciseItem.size() - 1){
+                exerciseUiState.setExercisePosition(0);
+            }else{
+                exerciseUiState.setExercisePosition(currentExercisePosition);
+            }
+            _onExerciseUiState.setValue(exerciseUiState);
+        }
+    }
+
+    private void updateDayTimeExerciseItem(ExerciseUiState exerciseUiState) {
+        this.dayTime.setExercisePosition(exerciseUiState.getExercisePosition());
+    }
+
+    public void saveStopTime(){
+        this.dayTime.setStopTime(System.currentTimeMillis());
+        this.dayTimeRepository.insertDayTime(this.dayTime);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        _onExerciseUiState.removeObserver(this.exerciseUiStateObserver);
+    }
+
     public long getTimeCounter() {
         return timeCounter;
     }
 
     public void updateTimeCounter(long timeCounter) {
         this.timeCounter = timeCounter;
-    }
-
-    public long getExerciseStartTime() {
-        return exerciseStartTime;
     }
 
     public DayItem getDayItem() {

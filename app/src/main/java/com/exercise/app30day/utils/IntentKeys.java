@@ -8,4 +8,6 @@ public final class IntentKeys {
     public static final String EXTRA_DAY = "extra_day";
 
     public static final String EXTRA_EXERCISE_LIST = "extra_exercise_list";
+
+    public static final String EXTRA_CURRENT_EXERCISE_POSITION = "extra_current_exercise_position";
 }

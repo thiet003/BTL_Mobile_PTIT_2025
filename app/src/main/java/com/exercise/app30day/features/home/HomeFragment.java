@@ -17,7 +17,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     CourseAdapter courseAdapter;
     @Override
     protected void initView() {
-        courseAdapter = new CourseAdapter(viewModel);
+        courseAdapter = new CourseAdapter();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.rvCourse.setLayoutManager(layoutManager);
         binding.rvCourse.setAdapter(courseAdapter);
@@ -33,5 +33,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             intent.putExtra(IntentKeys.EXTRA_COURSE_ID, item.getId());
             requireContext().startActivity(intent);
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        System.out.println("HomeFragment onStart");
     }
 }

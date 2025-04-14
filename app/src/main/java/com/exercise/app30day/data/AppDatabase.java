@@ -9,15 +9,15 @@ import androidx.room.RoomDatabase;
 import com.exercise.app30day.data.dao.CourseDao;
 import com.exercise.app30day.data.dao.DayDao;
 import com.exercise.app30day.data.dao.DayExerciseDao;
+import com.exercise.app30day.data.dao.DayTimeDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
-import com.exercise.app30day.data.dao.TrainingHistoryDao;
 import com.exercise.app30day.data.dao.UserDao;
 import com.exercise.app30day.data.dao.WeightDao;
 import com.exercise.app30day.data.models.Course;
 import com.exercise.app30day.data.models.Day;
 import com.exercise.app30day.data.models.DayExercise;
+import com.exercise.app30day.data.models.DayTime;
 import com.exercise.app30day.data.models.Exercise;
-import com.exercise.app30day.data.models.TrainingHistory;
 import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.models.Weight;
 import com.exercise.app30day.utils.HawkKeys;
@@ -35,19 +35,19 @@ import java.util.List;
         Exercise.class, 
         User.class,
         Weight.class,
-        TrainingHistory.class,
         Day.class,
-        DayExercise.class
+        DayExercise.class,
+        DayTime.class
 }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
     public abstract CourseDao courseDao();
     public abstract ExerciseDao exerciseDao();
-    public abstract TrainingHistoryDao trainingHistoryDao();
     public abstract UserDao userDao();
     public abstract WeightDao weightDao();
     public abstract DayDao dayDao();
     public abstract DayExerciseDao dayExerciseDao();
+    public abstract DayTimeDao dayTimeDao();
     
     public static AppDatabase getInstance(Context context) {
         if(instance == null){

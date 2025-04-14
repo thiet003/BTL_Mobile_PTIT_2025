@@ -6,7 +6,6 @@ import androidx.room.Index;
 
 @Entity(
         tableName = "weight",
-        inheritSuperIndices = true,
         foreignKeys = @ForeignKey(
                 entity = User.class,
                 parentColumns = "id",

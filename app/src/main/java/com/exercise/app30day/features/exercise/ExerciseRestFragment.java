@@ -1,10 +1,12 @@
 package com.exercise.app30day.features.exercise;
 
+import static com.exercise.app30day.config.AppConfig.DEFAULT_DELAY_MILLIS;
+
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.base.NoneViewModel;
@@ -13,7 +15,6 @@ import com.exercise.app30day.databinding.FragmentExerciseRestBinding;
 import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.ExerciseItem;
 import com.exercise.app30day.utils.GlideUtils;
-import com.exercise.app30day.utils.ResourceUtils;
 import com.exercise.app30day.utils.TimeUtils;
 
 import java.util.List;
@@ -21,13 +22,11 @@ import java.util.List;
 
 public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBinding, NoneViewModel> implements View.OnClickListener {
 
-    private final ExerciseViewModel viewModel;
+    private ExerciseViewModel viewModel;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private Runnable restRunnable;
-
-    private final long delayMillis = 100;
 
     private boolean inBackground = false;
 
@@ -42,13 +41,13 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
         restRunnable = () -> {
             if(viewModel.getTimeCounter() < restDuration){
                 if(!inBackground) {
-                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + delayMillis);
-                    if((viewModel.getTimeCounter() / delayMillis) % (1000 / delayMillis) == 0){
+                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + DEFAULT_DELAY_MILLIS);
+                    if((viewModel.getTimeCounter() / DEFAULT_DELAY_MILLIS) % (1000 / DEFAULT_DELAY_MILLIS) == 0){
                         long remainTime = restDuration - viewModel.getTimeCounter();
                         binding.tvRestingTime.setText(TimeUtils.formatMillisecondsToMMSS(remainTime));
                     }
                 }
-                handler.postDelayed(restRunnable, delayMillis);
+                handler.postDelayed(restRunnable, DEFAULT_DELAY_MILLIS);
             }else{
                 moveRestToExercise();
             }
@@ -64,7 +63,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             binding.tvPage.setText(requireContext().getString(R.string.page, exercisePosition + 1, listExerciseItem.size()));
             binding.tvExerciseName.setText(item.getName());
             binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
-            handler.postDelayed(restRunnable, delayMillis);
+            handler.postDelayed(restRunnable, DEFAULT_DELAY_MILLIS);
         });
     }
 

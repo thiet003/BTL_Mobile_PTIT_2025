@@ -7,19 +7,18 @@ import androidx.room.Index;
 
 @Entity(
         tableName = "day_exercise",
-        inheritSuperIndices = true,
         foreignKeys = {
                 @ForeignKey(
                         entity = Exercise.class,
                         parentColumns = "id",
                         childColumns = "exerciseId",
-                        onDelete = androidx.room.ForeignKey.CASCADE
+                        onDelete = ForeignKey.CASCADE
                 ),
                 @ForeignKey(
                         entity = Day.class,
                         parentColumns = "id",
                         childColumns = "dayId",
-                        onDelete = androidx.room.ForeignKey.CASCADE
+                        onDelete = ForeignKey.CASCADE
                 )
         },
         indices = {

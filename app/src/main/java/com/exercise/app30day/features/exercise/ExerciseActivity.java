@@ -1,5 +1,11 @@
 package com.exercise.app30day.features.exercise;
 
+import static com.exercise.app30day.config.AppConfig.DEFAULT_DELAY_MILLIS;
+import static com.exercise.app30day.utils.IntentKeys.EXTRA_COURSE;
+import static com.exercise.app30day.utils.IntentKeys.EXTRA_CURRENT_EXERCISE_POSITION;
+import static com.exercise.app30day.utils.IntentKeys.EXTRA_DAY;
+import static com.exercise.app30day.utils.IntentKeys.EXTRA_EXERCISE_LIST;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
@@ -9,7 +15,6 @@ import android.view.View;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.bumptech.glide.Glide;
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.config.AppConfig;
@@ -20,8 +25,6 @@ import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
 import com.exercise.app30day.utils.GlideUtils;
-import com.exercise.app30day.utils.IntentKeys;
-import com.exercise.app30day.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,6 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable prepareRunnable, exerciseRunnable;
     private boolean inBackground = false;
-    private final long delayMillis = 100;
 
     @Override
     protected void initView() {
@@ -54,16 +56,15 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     }
 
     private void initData(){
-        List<ExerciseItem> listExerciseItem = (ArrayList<ExerciseItem>) getIntent().getSerializableExtra(IntentKeys.EXTRA_EXERCISE_LIST);
-        DayItem dayItem = (DayItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_DAY);
-        CourseItem courseItem = (CourseItem) getIntent().getSerializableExtra(IntentKeys.EXTRA_COURSE);
+        List<ExerciseItem> listExerciseItem = (ArrayList<ExerciseItem>) getIntent().getSerializableExtra(EXTRA_EXERCISE_LIST);
+        DayItem dayItem = (DayItem) getIntent().getSerializableExtra(EXTRA_DAY);
+        CourseItem courseItem = (CourseItem) getIntent().getSerializableExtra(EXTRA_COURSE);
+        int currentExerciseId = getIntent().getIntExtra(EXTRA_CURRENT_EXERCISE_POSITION, 0);
         if(listExerciseItem == null || listExerciseItem.isEmpty() || dayItem == null || courseItem == null){
             finish();
             return;
         }
-        viewModel.setListExerciseItem(listExerciseItem);
-        viewModel.setDayItem(dayItem);
-        viewModel.setCourseItem(courseItem);
+        viewModel.initData(listExerciseItem, dayItem, courseItem, currentExerciseId);
     }
 
     private void setPrepareLayout(ExerciseItem item) {
@@ -75,18 +76,18 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         prepareRunnable = () -> {
             if(viewModel.getTimeCounter() < prepareDuration){
                 if(!inBackground){
-                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + delayMillis);
-                    if((viewModel.getTimeCounter() / delayMillis) % (1000 / delayMillis) == 0){
+                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + DEFAULT_DELAY_MILLIS);
+                    if((viewModel.getTimeCounter() / DEFAULT_DELAY_MILLIS) % (1000 / DEFAULT_DELAY_MILLIS) == 0){
                         binding.tvProgress.setText(String.valueOf((viewModel.getTimeCounter()/1000)));
                     }
                     binding.circleView.setValue((float) (viewModel.getTimeCounter() * 100) / prepareDuration);
                 }
-                handler.postDelayed(prepareRunnable, delayMillis);
+                handler.postDelayed(prepareRunnable, DEFAULT_DELAY_MILLIS);
             }else{
                 movePrepareToExercise();
             }
         };
-        handler.postDelayed(prepareRunnable, delayMillis);
+        handler.postDelayed(prepareRunnable, DEFAULT_DELAY_MILLIS);
     }
 
     private void setExerciseLayout(ExerciseItem item){
@@ -102,15 +103,15 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         exerciseRunnable = () -> {
             if(viewModel.getTimeCounter() < totalDuration) {
                 if (!inBackground && viewModel.isPlayExercise()) {
-                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + delayMillis);
+                    viewModel.updateTimeCounter(viewModel.getTimeCounter() + DEFAULT_DELAY_MILLIS);
                     binding.sbExercise.setProgress((int) (viewModel.getTimeCounter() * 100 / totalDuration));
                 }
-                handler.postDelayed(exerciseRunnable, delayMillis);
+                handler.postDelayed(exerciseRunnable, DEFAULT_DELAY_MILLIS);
             }else{
                 moveExerciseToRest();
             }
         };
-        handler.postDelayed(exerciseRunnable, delayMillis);
+        handler.postDelayed(exerciseRunnable, DEFAULT_DELAY_MILLIS);
 
     }
 
@@ -202,6 +203,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
+        viewModel.saveStopTime();
     }
 
     @SuppressLint("MissingSuperCall")
@@ -218,9 +220,9 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     @Override
     public void onCompleteDay() {
         Intent intent = new Intent(this, ExerciseCompleteActivity.class);
-        intent.putExtra(IntentKeys.EXTRA_DAY, viewModel.getDayItem());
-        intent.putExtra(IntentKeys.EXTRA_COURSE, viewModel.getCourseItem());
-        intent.putExtra(IntentKeys.EXTRA_EXERCISE_LIST, new ArrayList<>(viewModel.getListExerciseItem()));
+        intent.putExtra(EXTRA_DAY, viewModel.getDayItem());
+        intent.putExtra(EXTRA_COURSE, viewModel.getCourseItem());
+        intent.putExtra(EXTRA_EXERCISE_LIST, new ArrayList<>(viewModel.getListExerciseItem()));
         startActivity(intent);
         finish();
     }

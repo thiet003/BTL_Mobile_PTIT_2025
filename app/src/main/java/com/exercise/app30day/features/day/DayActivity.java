@@ -3,6 +3,8 @@ package com.exercise.app30day.features.day;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.exercise.app30day.R;
@@ -15,6 +17,7 @@ import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.utils.IntentKeys;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -70,11 +73,23 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
         if(v == binding.ibBack){
             finish();
         }else if(v == binding.btnStart){
-            Intent intent = new Intent(this, ExerciseActivity.class);
-            intent.putExtra(IntentKeys.EXTRA_EXERCISE_LIST, new ArrayList<>(exerciseAdapter.getDataList()));
-            intent.putExtra(IntentKeys.EXTRA_DAY, dayItem);
-            intent.putExtra(IntentKeys.EXTRA_COURSE, courseItem);
-            startActivity(intent);
+            gotoExercise();
         }
+    }
+
+    private void gotoExercise(){
+        LiveData<Integer> onCurrentExercisePosition = viewModel.getCurrentExercisePosition(dayItem.getId());
+        onCurrentExercisePosition.observe(this, new Observer<>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Intent intent = new Intent(DayActivity.this, ExerciseActivity.class);
+                intent.putExtra(IntentKeys.EXTRA_EXERCISE_LIST, new ArrayList<>(exerciseAdapter.getDataList()));
+                intent.putExtra(IntentKeys.EXTRA_DAY, dayItem);
+                intent.putExtra(IntentKeys.EXTRA_COURSE, courseItem);
+                intent.putExtra(IntentKeys.EXTRA_CURRENT_EXERCISE_POSITION, integer);
+                DayActivity.this.startActivity(intent);
+                onCurrentExercisePosition.removeObserver(this);
+            }
+        });
     }
 }

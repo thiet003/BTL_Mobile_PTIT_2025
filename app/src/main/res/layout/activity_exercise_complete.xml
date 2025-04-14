@@ -444,6 +444,7 @@
         android:layout_alignParentBottom="true">
 
         <Button
+            android:id="@+id/btnSkip"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_weight="1"
@@ -454,11 +455,12 @@
             android:textAllCaps="false"
             />
 
-        <View
+        <Space
             android:layout_width="@dimen/_10sdp"
             android:layout_height="0dp" />
 
         <Button
+            android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_weight="1"

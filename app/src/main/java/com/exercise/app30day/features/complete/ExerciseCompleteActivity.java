@@ -1,7 +1,12 @@
 package com.exercise.app30day.features.complete;
 
+import static com.exercise.app30day.config.AppConfig.MAX_HEIGHT;
+import static com.exercise.app30day.config.AppConfig.MAX_WEIGHT;
+import static com.exercise.app30day.config.AppConfig.MIN_WEIGHT;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.view.View;
@@ -12,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityExerciseCompleteBinding;
+import com.exercise.app30day.features.course.CourseActivity;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
@@ -55,7 +61,8 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         binding.layoutCalo.tvLabel.setText(R.string.calo);
         binding.layoutTime.tvLabel.setText(R.string.time);
         binding.layoutExercise.tvLabel.setText(R.string.exercises);
-        binding.layoutCalo.tvValue.setText(String.valueOf(listExerciseItem.size()));
+        binding.layoutExercise.tvValue.setText(String.valueOf(listExerciseItem.size()));
+        binding.layoutCalo.tvValue.setText(String.valueOf(viewModel.calculateAndFormatCalories(listExerciseItem)));
 
         genderWheelView = binding.genderWheelView;
 
@@ -70,12 +77,12 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         weightPicker = binding.weightPicker;
         heightPicker = binding.heightPicker;
 
-        weightPicker.setMaxValue(viewModel.getMaxWeight());
-        weightPicker.setMinValue(viewModel.getMinWeight());
+        weightPicker.setMaxValue(MAX_WEIGHT);
+        weightPicker.setMinValue(MIN_WEIGHT);
         weightPicker.setValue(viewModel.getUserWeight());
 
-        heightPicker.setMaxValue(viewModel.getMaxHeight());
-        heightPicker.setMinValue(viewModel.getMinHeight());
+        heightPicker.setMaxValue(MAX_HEIGHT);
+        heightPicker.setMinValue(MIN_WEIGHT);
         heightPicker.setValue(viewModel.getUserHeight());
 
         viewModel.onUserUiState.observe(this, userUiState -> {
@@ -99,6 +106,7 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         binding.btnUp.setOnClickListener(this);
         binding.btnDown.setOnClickListener(this);
         binding.tvTime.setOnClickListener(this);
+        binding.btnSkip.setOnClickListener(this);
     }
 
     @Override
@@ -114,12 +122,14 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         }else if(v == binding.tvTime){
             DatePickerDialog datePickerDialog = getDatePickerDialog();
             datePickerDialog.show();
+        }else if(v == binding.btnSkip){
+            goBackToCourseActivity();
         }
     }
 
     @NonNull
     private DatePickerDialog getDatePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = viewModel.getCalendar();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -137,5 +147,11 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         if(picker == weightPicker) {
             viewModel.setUserWeight(newVal);
         }
+    }
+
+    private void goBackToCourseActivity(){
+        Intent intent = new Intent(ExerciseCompleteActivity.this, CourseActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

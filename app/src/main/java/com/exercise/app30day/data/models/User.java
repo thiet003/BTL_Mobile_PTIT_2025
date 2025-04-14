@@ -3,14 +3,10 @@ package com.exercise.app30day.data.models;
 
 import androidx.room.Entity;
 
-@Entity(tableName = "user", inheritSuperIndices = true)
+@Entity(tableName = "user")
 public class User extends BaseEntity {
     private double height = 0;
     private double weight = 0;
-
-    public User() {
-        super();
-    }
 
     public double getHeight() {
         return height;
