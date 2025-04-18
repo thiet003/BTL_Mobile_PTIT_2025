@@ -20,7 +20,7 @@ import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.ActivityExerciseBinding;
 import com.exercise.app30day.features.complete.ExerciseCompleteActivity;
-import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.exercise_dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
@@ -124,7 +124,6 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         transaction.replace(binding.mainLayout.getId(), restFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
     }
 
     private void moveExerciseToRest(){

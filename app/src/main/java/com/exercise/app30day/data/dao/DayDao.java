@@ -16,10 +16,13 @@ public interface DayDao {
     @Insert
     void insertDays(List<Day> days);
 
-    @Query("SELECT d.id, d.day, COUNT(de.id) as numberOfExercises, d.completed " +
+    @Query("SELECT d.id, d.day, " +
+            "COUNT(de.id) as numberOfExercises, " +
+            "d.completed, " +
+            "CASE WHEN d.completed = 1 OR COUNT(CASE WHEN de.completed = 1 THEN 1 ELSE NULL END) = 0 THEN 0 ELSE 1 END AS pending " +
             "FROM day AS d " +
             "LEFT JOIN day_exercise AS de ON d.id = de.dayId " +
-            "WHERE courseId = :courseId " +
+            "WHERE d.courseId = :courseId " +
             "GROUP BY d.id " +
             "ORDER BY d.day ASC")
     LiveData<List<DayItem>> getDayItems(int courseId);

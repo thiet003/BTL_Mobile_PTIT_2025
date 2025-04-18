@@ -21,10 +21,13 @@ public class DayTime extends BaseEntity{
 
     private long stopTime;
 
+    private long restTime;
+
     public DayTime(int dayId, int exercisePosition) {
         this.dayId = dayId;
         this.exercisePosition = exercisePosition;
         this.stopTime = 0;
+        this.restTime = 0;
     }
 
     public int getDayId() {
@@ -49,5 +52,13 @@ public class DayTime extends BaseEntity{
 
     public void setStopTime(long stopTime) {
         this.stopTime = stopTime;
+    }
+
+    public long getRestTime() {
+        return restTime;
+    }
+
+    public void setRestTime(long restTime) {
+        this.restTime = restTime;
     }
 }

@@ -1,5 +1,7 @@
 package com.exercise.app30day.features.day;
 
+import static com.exercise.app30day.config.AppConfig.LOOP_DURATION_MILLIS;
+
 import android.annotation.SuppressLint;
 
 import androidx.lifecycle.LiveData;
@@ -49,7 +51,7 @@ public class DayViewModel extends ViewModel {
     public long calculateMinutes(List<ExerciseItem> exerciseItems){
         long totalTime = 0;
         for (ExerciseItem item : exerciseItems){
-            totalTime += item.getTime() + item.getLoopNumber() * 3000L;
+            totalTime += item.getTime() + item.getLoopNumber() * LOOP_DURATION_MILLIS;
         }
         totalTime += (exerciseItems.size() - 1) * 15000L;
         return Math.round(totalTime / 60000.0);

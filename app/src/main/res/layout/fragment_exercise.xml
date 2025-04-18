@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".features.dialog.ExerciseFragment">
+    tools:context=".features.exercise_dialog.ExerciseFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,23 +16,14 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_10sdp">
 
-            <TextView
-                android:id="@+id/tvExerciseName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Exercise name"
-                android:textSize="@dimen/_18sdp"
-                android:fontFamily="@font/vn_bold"
-                android:textAllCaps="true"
-                tools:ignore="HardcodedText" />
-
             <ImageView
                 android:id="@+id/ivAnim"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_220sdp"
                 android:contentDescription="@null"
                 android:src="@drawable/gif_arm_circles"
                 android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 android:layout_marginTop="@dimen/_8sdp"
                 />
 

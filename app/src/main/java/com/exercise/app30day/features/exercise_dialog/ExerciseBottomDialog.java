@@ -1,4 +1,4 @@
-package com.exercise.app30day.features.dialog;
+package com.exercise.app30day.features.exercise_dialog;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,11 +24,14 @@ public class ExerciseBottomDialog extends BottomSheetDialogFragment implements V
     BottomDialogExerciseBinding binding;
 
     private final List<ExerciseFragment> listFragment;
+
+    private final List<ExerciseItem> listExerciseItem;
     
     private final int startPosition;
 
     public ExerciseBottomDialog(List<ExerciseItem> listExerciseItem, int startPosition) {
         this.startPosition = startPosition;
+        this.listExerciseItem = listExerciseItem;
         listFragment = new ArrayList<>();
         for(ExerciseItem item : listExerciseItem){
             listFragment.add(new ExerciseFragment(item));
@@ -41,12 +44,14 @@ public class ExerciseBottomDialog extends BottomSheetDialogFragment implements V
         binding = BottomDialogExerciseBinding.inflate(inflater, container, false);
         ExerciseViewPagerAdapter exerciseViewPagerAdapter = new ExerciseViewPagerAdapter(requireActivity() , listFragment);
         binding.vpExercise.setAdapter(exerciseViewPagerAdapter);
-        binding.vpExercise.setCurrentItem(startPosition);
+        binding.vpExercise.setCurrentItem(startPosition, false);
+        binding.tvExerciseName.setText(listExerciseItem.get(startPosition).getName());
         binding.vpExercise.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 binding.tvPage.setText(requireContext().getString(R.string.page, position + 1, listFragment.size()));
+                binding.tvExerciseName.setText(listExerciseItem.get(position).getName());
             }
         });
         binding.tvPage.setText(requireContext().getString(R.string.page, startPosition + 1, listFragment.size()));

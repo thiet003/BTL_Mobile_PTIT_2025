@@ -17,7 +17,7 @@ public interface DayTimeDao {
     @Insert
     void insertDayTime(DayTime dayTime);
 
-    @Query("SELECT dt.id, dt.dayId, dt.exercisePosition, dt.createdAt as startTime, dt.stopTime " +
+    @Query("SELECT dt.id, dt.dayId, dt.exercisePosition, dt.createdAt as startTime, dt.stopTime, dt.restTime " +
             "FROM day_time AS dt " +
             "WHERE dayId = :dayId " +
             "ORDER BY startTime ASC")

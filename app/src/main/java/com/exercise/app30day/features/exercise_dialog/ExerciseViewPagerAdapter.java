@@ -1,4 +1,4 @@
-package com.exercise.app30day.features.dialog;
+package com.exercise.app30day.features.exercise_dialog;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

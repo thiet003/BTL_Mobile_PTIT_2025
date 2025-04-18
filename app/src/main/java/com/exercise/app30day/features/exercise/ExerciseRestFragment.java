@@ -12,7 +12,7 @@ import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.FragmentExerciseRestBinding;
-import com.exercise.app30day.features.dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.exercise_dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.ExerciseItem;
 import com.exercise.app30day.utils.GlideUtils;
 import com.exercise.app30day.utils.TimeUtils;
@@ -32,6 +32,11 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
 
     private long restDuration = AppConfig.getExerciseRestDuration();
 
+    private long totalRestTime = 0;
+
+    public ExerciseRestFragment() {
+    }
+
     public ExerciseRestFragment(ExerciseViewModel viewModel) {
         this.viewModel = viewModel;
     }
@@ -42,6 +47,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             if(viewModel.getTimeCounter() < restDuration){
                 if(!inBackground) {
                     viewModel.updateTimeCounter(viewModel.getTimeCounter() + DEFAULT_DELAY_MILLIS);
+                    totalRestTime += DEFAULT_DELAY_MILLIS;
                     if((viewModel.getTimeCounter() / DEFAULT_DELAY_MILLIS) % (1000 / DEFAULT_DELAY_MILLIS) == 0){
                         long remainTime = restDuration - viewModel.getTimeCounter();
                         binding.tvRestingTime.setText(TimeUtils.formatMillisecondsToMMSS(remainTime));
@@ -81,12 +87,14 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             dialog.show(requireActivity().getSupportFragmentManager(), dialog.getTag());
         }else if(v == binding.btnAddTime){
             restDuration += 30000;
+            viewModel.addRestTime(30000);
         }else if(v == binding.btnSkip){
             moveRestToExercise();
         }
     }
 
     private void moveRestToExercise() {
+        viewModel.addRestTime(totalRestTime);
         handler.removeCallbacks(restRunnable);
         viewModel.moveRestToExercise();
         requireActivity().getSupportFragmentManager().popBackStack();

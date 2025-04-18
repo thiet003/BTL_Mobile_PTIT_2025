@@ -12,6 +12,8 @@ public class DayTimeItem extends BaseItem {
 
     private long stopTime;
 
+    private long restTime;
+
     public DayTimeItem(int id) {
         super(id);
     }
@@ -46,5 +48,13 @@ public class DayTimeItem extends BaseItem {
 
     public void setStopTime(long stopTime) {
         this.stopTime = stopTime;
+    }
+
+    public long getRestTime() {
+        return restTime;
+    }
+
+    public void setRestTime(long restTime) {
+        this.restTime = restTime;
     }
 }

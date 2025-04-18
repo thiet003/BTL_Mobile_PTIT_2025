@@ -12,6 +12,8 @@ public class DayItem extends BaseItem {
 
     private boolean completed;
 
+    private boolean pending;
+
     public DayItem(int id) {
         super(id);
     }
@@ -38,5 +40,13 @@ public class DayItem extends BaseItem {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public boolean isPending() {
+        return pending;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
     }
 }

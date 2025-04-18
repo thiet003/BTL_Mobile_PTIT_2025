@@ -11,6 +11,8 @@ public final class AppConfig {
     public static final int MIN_HEIGHT = 100;
     public static final long DEFAULT_DELAY_MILLIS = 100L;
 
+    public static final long LOOP_DURATION_MILLIS = 3000L;
+
     public static long getExercisePrepareDuration(){
         return Hawk.get(HawkKeys.PREPARE_DURATION_KEY, 15000L);
     }

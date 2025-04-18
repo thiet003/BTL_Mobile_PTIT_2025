@@ -1,5 +1,7 @@
 package com.exercise.app30day.features.exercise;
 
+import static com.exercise.app30day.config.AppConfig.LOOP_DURATION_MILLIS;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -62,6 +64,7 @@ public class ExerciseViewModel extends ViewModel {
             state.setExerciseState(ExerciseState.EXERCISE);
             _onExerciseUiState.setValue(state);
         }
+        this.dayTime.setCreatedAt(System.currentTimeMillis());
     }
 
     public void moveExerciseToRest(OnCompleteListener listener){
@@ -76,6 +79,7 @@ public class ExerciseViewModel extends ViewModel {
                 listener.onCompleteExercise(listExerciseItem.get(state.getExercisePosition()));
             }else{
                 dayRepository.updateDay(dayItem.getId(), true);
+                dayTime.setExercisePosition(0);
                 listener.onCompleteDay();
             }
         }
@@ -122,7 +126,7 @@ public class ExerciseViewModel extends ViewModel {
     }
 
     public long calculateDuration(ExerciseItem item){
-        return item.getTime() != 0 ? item.getTime() : item.getLoopNumber() * 3000L;
+        return item.getTime() != 0 ? item.getTime() : item.getLoopNumber() * LOOP_DURATION_MILLIS;
     }
 
     public void initData(List<ExerciseItem> listExerciseItem, DayItem dayItem, CourseItem courseItem, int currentExercisePosition){
@@ -135,11 +139,7 @@ public class ExerciseViewModel extends ViewModel {
 
         ExerciseUiState exerciseUiState = _onExerciseUiState.getValue();
         if(exerciseUiState != null){
-            if(currentExercisePosition == 0 || currentExercisePosition == listExerciseItem.size() - 1){
-                exerciseUiState.setExercisePosition(0);
-            }else{
-                exerciseUiState.setExercisePosition(currentExercisePosition);
-            }
+            exerciseUiState.setExercisePosition(currentExercisePosition);
             _onExerciseUiState.setValue(exerciseUiState);
         }
     }
@@ -151,6 +151,10 @@ public class ExerciseViewModel extends ViewModel {
     public void saveStopTime(){
         this.dayTime.setStopTime(System.currentTimeMillis());
         this.dayTimeRepository.insertDayTime(this.dayTime);
+    }
+
+    public void addRestTime(long addedTime){
+        this.dayTime.setRestTime(this.dayTime.getRestTime() + addedTime);
     }
 
     @Override

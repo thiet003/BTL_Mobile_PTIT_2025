@@ -26,6 +26,7 @@ public class DayAdapter extends BaseRecyclerViewAdapter<DayItem, ItemDayBinding>
         switch (dayState){
             case READY_TO_START:
                 binding.btnStart.setVisibility(ViewGroup.VISIBLE);
+                binding.btnStart.setText(item.isPending() ? R.string.text_continue : R.string.start);
                 binding.ivCircleCheck.setVisibility(ViewGroup.GONE);
                 binding.ivLock.setVisibility(ViewGroup.GONE);
                 binding.getRoot().setBackground(ContextCompat.getDrawable(getContext(), R.drawable.bg_item_day_selected));
