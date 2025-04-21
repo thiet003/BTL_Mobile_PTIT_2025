@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.day.DayActivity"
+    android:orientation="vertical"
+    android:background="@color/secondaryBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_primary_bottom_corner">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_9sdp">
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_back"
+                app:tint= "@color/iconPrimaryColor"
+                android:background="@null"
+                android:scaleType="fitXY"
+                />
+
+            <TextView
+                android:id="@+id/tv_top_bar_course_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/vn_extra_bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/exercises"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                />
+
+            <ImageButton
+                android:id="@+id/ib_setting"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_setting"
+                app:tint= "@color/iconPrimaryColor"
+                android:background="@null"
+                android:scaleType="fitXY"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_3sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/day"
+                android:textSize="@dimen/_16sdp"
+                android:fontFamily="@font/vn_bold"
+                />
+
+            <TextView
+                android:id="@+id/tv_difficult"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Beginner"
+                android:textSize="@dimen/_16sdp"
+                android:fontFamily="@font/vn_bold"
+                android:textColor="@color/primary"
+                android:textAlignment="textEnd"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <include android:id="@+id/item_exercise" layout="@layout/layout_info_day" />
+            <include android:id="@+id/item_time" layout="@layout/layout_info_day" />
+            <include android:id="@+id/item_calo" layout="@layout/layout_info_day" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/bg_primary_top_corner"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingTop="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/tv_exercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exercises"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/vn_bold"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="@dimen/_5sdp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="2dp"
+            android:id="@+id/rv_exercise"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_exercise"
+            tools:listitem="@layout/item_exercise"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/bg_top_shader"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:background="@color/background">
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:textSize="@dimen/_16sdp"
+            android:paddingVertical="15dp"
+            android:background="@drawable/bg_primary_button"
+            android:textColor="@color/textSecondaryColor"
+            />
+    </FrameLayout>
+</LinearLayout>

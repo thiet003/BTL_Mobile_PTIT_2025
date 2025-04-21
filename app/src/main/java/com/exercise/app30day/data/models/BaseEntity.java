@@ -1,9 +1,7 @@
 package com.exercise.app30day.data.models;
 
-import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "base_entity")
 public abstract class BaseEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;

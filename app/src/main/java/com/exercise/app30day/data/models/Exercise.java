@@ -2,7 +2,7 @@ package com.exercise.app30day.data.models;
 
 import androidx.room.Entity;
 
-@Entity(tableName = "exercise", inheritSuperIndices = true)
+@Entity(tableName = "exercise")
 public class Exercise extends BaseEntity {
     private String name;
     private String description;
@@ -13,13 +13,18 @@ public class Exercise extends BaseEntity {
 
     private int loopNumber;
 
-    public Exercise(String name, String description, long time, double kcal, int loopNumber) {
-        super();
+    private String instructionUrl;
+
+    private String animationUrl;
+
+
+    public Exercise(String name, String description, long time, double kcal, int loopNumber, String animationUrl) {
         this.name = name;
         this.description = description;
         this.time = time;
         this.kcal = kcal;
         this.loopNumber = loopNumber;
+        this.animationUrl = animationUrl;
     }
 
     public String getName() {
@@ -60,5 +65,21 @@ public class Exercise extends BaseEntity {
 
     public void setLoopNumber(int loopNumber) {
         this.loopNumber = loopNumber;
+    }
+
+    public String getInstructionUrl() {
+        return instructionUrl;
+    }
+
+    public void setInstructionUrl(String instructionUrl) {
+        this.instructionUrl = instructionUrl;
+    }
+
+    public String getAnimationUrl() {
+        return animationUrl;
+    }
+
+    public void setAnimationUrl(String animationUrl) {
+        this.animationUrl = animationUrl;
     }
 }

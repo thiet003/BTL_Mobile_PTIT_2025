@@ -1,6 +1,8 @@
 package com.exercise.app30day.base.adapter;
 
-public abstract class BaseItem {
+import java.io.Serializable;
+
+public abstract class BaseItem implements Serializable {
     private int id;
 
     public BaseItem(int id) {

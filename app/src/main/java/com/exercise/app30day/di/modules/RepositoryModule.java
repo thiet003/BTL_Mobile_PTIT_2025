@@ -1,21 +1,44 @@
 package com.exercise.app30day.di.modules;
 
 import com.exercise.app30day.data.repositories.CourseRepository;
+import com.exercise.app30day.data.repositories.DayExerciseRepository;
+import com.exercise.app30day.data.repositories.DayHistoryRepository;
+import com.exercise.app30day.data.repositories.DayRepository;
+import com.exercise.app30day.data.repositories.ExerciseRepository;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.DayExerciseRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.DayHistoryRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.DayRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.ExerciseRepositoryImpl;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 
 @Module
 @InstallIn(SingletonComponent.class)
-public class RepositoryModule {
-    @Provides
+public abstract class RepositoryModule {
+    @Binds
     @Singleton
-    public static CourseRepository provideCourseRepository(CourseRepositoryImpl courseRepository) {
-        return courseRepository;
-    }
+    public abstract CourseRepository bindCourseRepository(CourseRepositoryImpl impl);
+
+    @Binds
+    @Singleton
+    public abstract ExerciseRepository bindExerciseRepository(ExerciseRepositoryImpl impl);
+
+    @Binds
+    @Singleton
+    public abstract DayRepository bindDayRepository(DayRepositoryImpl impl);
+
+    @Binds
+    @Singleton
+    public abstract DayExerciseRepository bindDayExerciseRepository(DayExerciseRepositoryImpl impl);
+
+    @Binds
+    @Singleton
+    public abstract DayHistoryRepository bindDayHistoryRepository(DayHistoryRepositoryImpl impl);
+
 }

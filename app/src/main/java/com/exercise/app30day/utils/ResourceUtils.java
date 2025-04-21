@@ -2,7 +2,7 @@ package com.exercise.app30day.utils;
 
 import android.content.Context;
 
-public class ResourceUtils {
+public final class ResourceUtils {
     public static int getDrawableId(Context context, String name) {
         return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
     }

@@ -1,5 +1,8 @@
 package com.exercise.app30day.features.main;
 
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.exercise.app30day.R;
@@ -15,6 +18,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewMode
     protected void initView() {
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(this);
         binding.mainViewPager.setAdapter(mainViewPagerAdapter);
+        binding.mainViewPager.setOffscreenPageLimit(2);
         binding.mainViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

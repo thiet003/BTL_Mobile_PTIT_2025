@@ -8,7 +8,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.ichime.textcap.addtextonphoto.picture.texteditor.quotecreator" />
+                  <option name="appId" value="com.live.wallpapers.screenwallpapers" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.exercise.app30day" />
+                  <option name="mobileSdkAppId" value="1:431795966233:android:6eaf4ee6333cadbe7ef588" />
+                  <option name="projectId" value="day-shred-15fc7" />
+                  <option name="projectNumber" value="431795966233" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

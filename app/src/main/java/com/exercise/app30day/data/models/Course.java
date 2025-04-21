@@ -3,16 +3,22 @@ package com.exercise.app30day.data.models;
 
 import androidx.room.Entity;
 
-@Entity(tableName = "course", inheritSuperIndices = true)
+@Entity(tableName = "course")
 public class Course extends BaseEntity {
     private String name;
 
-    private String difficultLevel;
+    private int level;
 
-    public Course(String name, String difficultLevel) {
-        super();
+    private String image;
+
+    public Course(String name, int level, String image) {
         this.name = name;
-        this.difficultLevel = difficultLevel;
+        this.level = level;
+        this.image = image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {
@@ -22,12 +28,14 @@ public class Course extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getDifficultLevel() {
-        return difficultLevel;
+    public int getLevel() {
+        return level;
+    }
+    public void setLevel(int level) {
+        this.level = level;
     }
 
-    public void setDifficultLevel(String difficultLevel) {
-        this.difficultLevel = difficultLevel;
+    public String getImage() {
+        return image;
     }
 }
