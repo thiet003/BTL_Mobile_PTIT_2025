@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/_10sdp"
+    android:paddingHorizontal="@dimen/_12sdp">
+
+    <!-- Bên trái: Thông tin và điều hướng -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvExerciseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exercise name"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/vn_bold"
+            android:textAllCaps="true"
+            tools:ignore="HardcodedText"
+            android:textAlignment="center"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_20sdp" />
+
+        <!-- Phần điều hướng -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnPrevious"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_previous"
+                android:scaleType="fitXY"
+                android:background="@null" />
+
+            <TextView
+                android:id="@+id/tvPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3/14"
+                android:textSize="@dimen/_20sdp"
+                android:fontFamily="@font/vn_bold"
+                tools:ignore="HardcodedText"
+                android:layout_marginHorizontal="@dimen/_10sdp"/>
+
+            <ImageButton
+                android:id="@+id/btnNext"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_next"
+                android:scaleType="fitXY"
+                android:background="@null" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_20sdp" />
+
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/close"
+            android:paddingVertical="18dp"
+            android:background="@drawable/bg_primary_button"
+            android:textColor="@color/textSecondaryColor"
+            android:fontFamily="@font/vn_semi_bold"
+            android:textSize="@dimen/_14sdp" />
+    </LinearLayout>
+
+    <!-- Khoảng cách giữa hai phần -->
+    <View
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="0dp" />
+
+    <!-- Bên phải: ViewPager2 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpExercise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2" />
+
+</LinearLayout>

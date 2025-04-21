@@ -1,0 +1,47 @@
+package com.exercise.app30day.features.splash;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Handler;
+
+import com.exercise.app30day.base.BaseActivity;
+import com.exercise.app30day.base.NoneViewModel;
+import com.exercise.app30day.data.AppDatabase;
+import com.exercise.app30day.databinding.ActivitySplashBinding;
+import com.exercise.app30day.features.main.MainActivity;
+
+@SuppressLint("CustomSplashScreen")
+public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneViewModel> {
+
+    int countTimeSplash = 0;
+    Handler handler = new Handler();
+
+    @Override
+    protected void initView() {
+        if(!AppDatabase.isDataInitialized()) {
+            AppDatabase.initializeData(this);
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                countTimeSplash++;
+                if (countTimeSplash > 3 && AppDatabase.isDataInitialized()) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                }
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
+}

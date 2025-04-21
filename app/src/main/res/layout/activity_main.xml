@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    tools:context=".features.main.MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/mainViewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:navGraph="@navigation/nav_graph"
-        app:defaultNavHost="true"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigationView"
+        android:layout_marginBottom="-12dp"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -26,9 +24,11 @@
         android:background="@drawable/bg_bottom_nav"
         android:minHeight="@dimen/_50sdp"
         app:itemIconSize="@dimen/_22sdp"
-        app:itemTextColor="@drawable/bottom_nav_text_color"
-        app:itemIconTint="@drawable/bottom_nav_icon_color"
+        app:itemTextColor="@drawable/color_bottom_nav_text"
+        app:itemIconTint="@drawable/color_bottom_nav_icon"
         app:itemTextAppearanceActive="@style/BottomNavTextActive"
         app:itemTextAppearanceInactive="@style/BottomNavTextInactive"
-        app:itemPaddingBottom="@dimen/_10sdp" />
-</LinearLayout>
+        app:itemPaddingBottom="@dimen/_10sdp"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/_6sdp"
+    android:paddingHorizontal="@dimen/_2sdp"
+    android:layout_marginVertical="@dimen/_3sdp">
+
+    <ImageView
+        android:id="@+id/iv_anim"
+        android:layout_width="@dimen/_48sdp"
+        android:layout_height="@dimen/_48sdp"
+        android:contentDescription="@null"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_exercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_anim"
+        android:layout_alignParentTop="true"
+        android:text="Push up"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/textPrimaryColor"
+        android:layout_marginStart="@dimen/_10sdp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tv_time_or_loop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:20"
+        android:textSize="@dimen/_11sdp"
+        android:layout_toEndOf="@id/iv_anim"
+        android:layout_below="@id/tv_exercise"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        tools:ignore="HardcodedText"
+        android:textColor="@color/textTertiaryColor"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/secondaryBackground"
+        android:layout_toEndOf="@id/iv_anim"
+        android:layout_below="@id/tv_time_or_loop"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        />
+
+
+</RelativeLayout>

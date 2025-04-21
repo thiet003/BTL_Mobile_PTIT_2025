@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_160sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_15sdp"
+    android:layout_marginBottom="15dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_course"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:src="@drawable/img_course_beginner"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_15sdp">
+            <LinearLayout
+                android:id="@+id/rl_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <RatingBar
+                    android:id="@+id/rb_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="3"
+                    android:rating="1"
+                    android:stepSize="1.0"
+                    android:isIndicator="true"
+                    android:progressTint="#FFEB3B"
+                    android:progressBackgroundTint="#F1F1F1"
+                    android:minHeight="40dp"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:layout_marginStart="-16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/beginner"
+                    android:textColor="@color/textSecondaryColor"
+                    android:textSize="@dimen/_13sdp" />
+
+
+                <TextView
+                    android:id="@+id/tv_day"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_number"
+                    android:textColor="@color/textSecondaryColor"
+                    android:textSize="@dimen/_16sdp"
+                    android:fontFamily="@font/vn_bold"
+                    tools:ignore="RelativeOverlap"
+                    android:textAlignment="textEnd"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_top"
+                android:text="Beginner's Fitness Journey"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="@dimen/_18sdp"
+                android:fontFamily="@font/vn_semi_bold"
+                android:layout_marginTop="5dp"
+                tools:ignore="HardcodedText" />
+
+
+            <TextView
+                android:id="@+id/tv_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/progress"
+                android:textColor="@color/textSecondaryColor"
+                android:layout_above="@id/seekbarContainer"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/vn_semi_bold"
+                android:textSize="@dimen/_12sdp"
+                tools:ignore="HardcodedText" />
+
+
+            <FrameLayout
+                android:id="@+id/seekbarContainer"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_5sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true">
+                <com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar
+                    android:id="@+id/progress_course"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:indeterminate="false"
+                    android:progress="40"
+                    android:max="100"
+                    app:progressColor="@color/primary"
+                    app:backgroundColor="@color/secondaryBackground"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    />
+            </FrameLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</androidx.cardview.widget.CardView>

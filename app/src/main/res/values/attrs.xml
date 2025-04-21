@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StepSeekBar">
+        <attr name="numSteps"  format="integer"/>
+        <attr name="progress" format="integer"/>
+        <attr name="progressTint" format="color" />
+        <attr name="progressBackgroundTint" format="color" />
+        <attr name="stepSpacing" format="dimension" />
+        <attr name="stepRadius" format="dimension" />
+    </declare-styleable>
+
+</resources>

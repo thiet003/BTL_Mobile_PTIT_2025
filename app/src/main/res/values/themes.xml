@@ -1,15 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.App30DayShred" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/md_theme_light_primary</item>
-        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
-        <item name="android:colorBackground">@color/md_theme_light_background</item>
-        <item name="fontFamily">@font/vn_medium</item>
-        <item name="android:textColor">@color/md_theme_light_textPrimaryColor</item>
-        <item name="android:statusBarColor">@color/black</item>>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:fontFamily">@font/vn_medium</item>
+        <item name="android:textColor">@color/textPrimaryColor</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:windowAnimationStyle">@style/ActivityFadeAnimation</item>
     </style>
 

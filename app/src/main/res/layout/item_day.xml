@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_item_day_unselected"
+    android:baselineAligned="false"
+    android:padding="@dimen/_10sdp"
+    android:layout_marginVertical="@dimen/_6sdp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="5dp">
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/day"
+            android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/vn_bold"
+            android:layout_marginBottom="@dimen/_10sdp"
+            />
+
+        <TextView
+            android:id="@+id/tv_exercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exercise_number"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/textTertiaryColor"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:background="@drawable/bg_start_exercise_button"
+            android:textColor="@color/textSecondaryColor"
+            android:textAllCaps="false"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:id="@+id/iv_circle_check"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_check_circle"
+            app:tint="@color/primary"
+            android:layout_gravity="end"
+            />
+
+        <ImageView
+            android:id="@+id/iv_lock"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_lock"
+            app:tint="@color/iconTertiaryColor"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            />
+    </FrameLayout>
+
+
+</LinearLayout>

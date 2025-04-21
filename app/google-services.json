@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "431795966233",
+    "project_id": "day-shred-15fc7",
+    "storage_bucket": "day-shred-15fc7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431795966233:android:6eaf4ee6333cadbe7ef588",
+        "android_client_info": {
+          "package_name": "com.exercise.app30day"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtGONZaaHb-z8pOSmN_ZyP0Dyc6L8M2E8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="md_theme_light_primary">#EB5B00</color>
-    <color name="md_theme_light_onPrimary">#FFFFFF</color>
-    <color name="md_theme_light_background">#FFFFFF</color>
-    <color name="md_theme_light_onBackground">#2A3335</color>
-    <color name="md_theme_light_textPrimaryColor">#2A3335</color>
-    <color name="md_theme_light_secondaryBackground">#F1F1F1</color>
+    <color name="primary">#EB5B00</color>
+    <color name="background">#FFFFFF</color>
+    <color name="secondaryBackground">#F1F1F1</color>
+    <color name="tertiaryBackground">#DDDDDD</color>
+    <color name="textPrimaryColor">#2A3335</color>
+    <color name="textSecondaryColor">#FFFFFF</color>
+    <color name="textTertiaryColor">#595959</color>
+    <color name="statusBarColor">#000000</color>
+    <color name="navigationBarColor">#F1F1F1</color>
+    <color name="iconPrimaryColor">#2A3335</color>
+    <color name="iconSecondaryColor">#FFFFFF</color>
+    <color name="iconTertiaryColor">#595959</color>
+
+    <color name="blue">#2196F3</color>
+    <color name="green">#4CAF50</color>
+    <color name="orange">#FF9800</color>
+    <color name="red">#F44336</color>
+    <color name="dark_red">#D32F2F</color>
+    <color name="deep_dark_red">#D32F2F</color>
 </resources>

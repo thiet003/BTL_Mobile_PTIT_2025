@@ -1,8 +1,70 @@
 <resources>
-    <string name="app_name">App30DayShred</string>
+    <string name="app_name">30 Day Shred</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="reports">Reports</string>
     <string name="setting">Setting</string>
+
+    <string name="beginner">Beginner</string>
+    <string name="intermediate">Intermediate</string>
+    <string name="advanced">Advanced</string>
+
+    <string name="day_number">%d Days</string>
+    <string name="progress">Progress: %d%%</string>
+
+    <string name="days_remain">%d days remain</string>
+    <string name="text_continue">Continue</string>
+
+    <string name="day">Day %d</string>
+    <string name="exercise_number">%d exercises</string>
+    <string name="start">Start</string>
+
+    <string name="completed">Completed</string>
+    <string name="exercises">Exercises</string>
+    <string name="time">Time</string>
+    <string name="calo">Calo</string>
+    <string name="minute_number">%d minutes</string>
+    <string name="second_number">%d seconds</string>
+    <string name="calo_number">%s kcal</string>
+    <string name="close">Close</string>
+
+    <string name="animation">Animation</string>
+    <string name="muscle">Muscle</string>
+    <string name="instruction">Instruction</string>
+    <string name="duration">Duration</string>
+    <string name="repeat">Repeat</string>
+    <string name="instructions">Instructions</string>
+    <string name="page">%d/%d</string>
+    <string name="ready_to_practice">Ready to practice</string>
+    <string name="push_up">Push up</string>
+    <string name="next">Next</string>
+    <string name="resting_time">Resting time</string>
+    <string name="skip">Skip</string>
+    <string name="share">Share</string>
+
+    <string name="course_day">Day %d - %s</string>
+    <string name="congratulations_on_your_completion">Congratulations on your completion</string>
+    <string name="weight">Weight</string>
+    <string name="kg">(kg)</string>
+    <string name="height">Height</string>
+    <string name="cm">(cm)</string>
+    <string name="bmi">BMI (kg/m²)</string>
+    <string name="save">Save</string>
+
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="gender">Gender</string>
+    <string name="your_health">Your health</string>
+    <string name="you_are_healthy">You are healthy</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normal BMI weight range for the height: 18.5 – 24.9</string>
+
+    <string name="bmi_underweight">You are Underweight</string>
+    <string name="bmi_normal">Your weight is Normal</string>
+    <string name="bmi_pre_obese">You are in Pre-obese category</string>
+    <string name="bmi_obese_class_1">You have Obesity Class I</string>
+    <string name="bmi_obese_class_2">You have Obesity Class II</string>
+    <string name="bmi_obese_class_3">You have Obesity Class III (Severe)</string>
+    <string name="exercise_programs">Exercise programs</string>
 </resources>
