@@ -32,8 +32,6 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
 
     private long restDuration = AppConfig.getExerciseRestDuration();
 
-    private long totalRestTime = 0;
-
     public ExerciseRestFragment() {
     }
 
@@ -47,7 +45,6 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             if(viewModel.getTimeCounter() < restDuration){
                 if(!inBackground) {
                     viewModel.updateTimeCounter(viewModel.getTimeCounter() + DEFAULT_DELAY_MILLIS);
-                    totalRestTime += DEFAULT_DELAY_MILLIS;
                     if((viewModel.getTimeCounter() / DEFAULT_DELAY_MILLIS) % (1000 / DEFAULT_DELAY_MILLIS) == 0){
                         long remainTime = restDuration - viewModel.getTimeCounter();
                         binding.tvRestingTime.setText(TimeUtils.formatMillisecondsToMMSS(remainTime));
@@ -65,7 +62,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             ExerciseItem item = listExerciseItem.get(exercisePosition);
             binding.stepSeekBar.setNumSteps(listExerciseItem.size());
             binding.stepSeekBar.setProgress(exerciseUiState.getExercisePosition() + 1);
-            GlideUtils.loadImage(getContext(), binding.ivAnimation, item.getAnimationFileName());
+            binding.mediaPlayer.display(item.getAnimationUrl());
             binding.tvPage.setText(requireContext().getString(R.string.page, exercisePosition + 1, listExerciseItem.size()));
             binding.tvExerciseName.setText(item.getName());
             binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
@@ -87,14 +84,13 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             dialog.show(requireActivity().getSupportFragmentManager(), dialog.getTag());
         }else if(v == binding.btnAddTime){
             restDuration += 30000;
-            viewModel.addRestTime(30000);
         }else if(v == binding.btnSkip){
             moveRestToExercise();
         }
     }
 
     private void moveRestToExercise() {
-        viewModel.addRestTime(totalRestTime);
+        viewModel.addRestTime(viewModel.getTimeCounter());
         handler.removeCallbacks(restRunnable);
         viewModel.moveRestToExercise();
         requireActivity().getSupportFragmentManager().popBackStack();
@@ -114,6 +110,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
 
     @Override
     public void onDestroy() {
+        binding.mediaPlayer.onDestroy();
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
     }

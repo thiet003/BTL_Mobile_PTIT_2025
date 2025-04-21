@@ -12,7 +12,9 @@ public class ExerciseItem extends BaseItem {
 
     private int loopNumber;
 
-    private String animationFileName;
+    private String instructionUrl;
+
+    private String animationUrl;
 
     public ExerciseItem(int id) {
         super(id);
@@ -58,11 +60,19 @@ public class ExerciseItem extends BaseItem {
         this.loopNumber = loopNumber;
     }
 
-    public String getAnimationFileName() {
-        return animationFileName;
+    public String getInstructionUrl() {
+        return instructionUrl;
     }
 
-    public void setAnimationFileName(String animationFileName) {
-        this.animationFileName = animationFileName;
+    public void setInstructionUrl(String instructionUrl) {
+        this.instructionUrl = instructionUrl;
+    }
+
+    public String getAnimationUrl() {
+        return animationUrl;
+    }
+
+    public void setAnimationUrl(String animationUrl) {
+        this.animationUrl = animationUrl;
     }
 }

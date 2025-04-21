@@ -22,7 +22,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/gif_bicycle_crunches"
             android:adjustViewBounds="true"
             android:background="@null"
             android:scaleType="fitCenter" />

@@ -70,7 +70,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     private void setPrepareLayout(ExerciseItem item) {
         binding.layoutPrepare.setVisibility(View.VISIBLE);
         binding.layoutExercise.setVisibility(View.GONE);
-        GlideUtils.loadImage(this, binding.ivAnimation, item.getAnimationFileName());
+        binding.mediaPlayer.display(item.getAnimationUrl());
         binding.tvExerciseName.setText(item.getName());
         long prepareDuration = AppConfig.getExercisePrepareDuration();
         prepareRunnable = () -> {
@@ -95,9 +95,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         binding.layoutExercise.setVisibility(View.VISIBLE);
         binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
         binding.tvExerciseName2.setText(item.getName());
-
-        GlideUtils.loadImage(this, binding.ivAnimation, item.getAnimationFileName());
-
+        binding.mediaPlayer.display(item.getAnimationUrl());
         long totalDuration = viewModel.calculateDuration(item);
 
         exerciseRunnable = () -> {
@@ -145,13 +143,15 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         binding.btnNext.setOnClickListener(this);
         binding.btnPrevious.setOnClickListener(this);
         binding.viewProgress.setOnClickListener(this);
+        binding.tvExerciseName.setOnClickListener(this);
+        binding.tvExerciseName2.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v == binding.btnBack){
             finish();
-        }else if(v == binding.btnInfo || v == binding.btnInfo2){
+        }else if(v == binding.btnInfo || v == binding.btnInfo2 || v == binding.tvExerciseName || v == binding.tvExerciseName2){
             ExerciseBottomDialog exerciseBottomDialog = new ExerciseBottomDialog(viewModel.getListExerciseItem(), viewModel.getExercisePosition());
             exerciseBottomDialog.show(getSupportFragmentManager(), exerciseBottomDialog.getTag());
         }else if(v == binding.btnSkipPrepare){
@@ -200,6 +200,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
 
     @Override
     protected void onDestroy() {
+        binding.mediaPlayer.onDestroy();
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
         viewModel.saveStopTime();

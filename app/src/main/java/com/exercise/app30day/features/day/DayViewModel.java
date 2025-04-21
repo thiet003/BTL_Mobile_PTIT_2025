@@ -1,18 +1,14 @@
 package com.exercise.app30day.features.day;
 
-import static com.exercise.app30day.config.AppConfig.LOOP_DURATION_MILLIS;
-
 import android.annotation.SuppressLint;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.exercise.app30day.data.repositories.DayTimeRepository;
+import com.exercise.app30day.data.repositories.DayHistoryRepository;
 import com.exercise.app30day.data.repositories.ExerciseRepository;
-import com.exercise.app30day.items.CourseItem;
-import com.exercise.app30day.items.DayItem;
-import com.exercise.app30day.items.DayTimeItem;
+import com.exercise.app30day.items.DayHistoryItem;
 import com.exercise.app30day.items.ExerciseItem;
 
 import java.util.List;
@@ -20,19 +16,18 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import kotlin.jvm.functions.Function1;
 
 @HiltViewModel
 public class DayViewModel extends ViewModel {
 
     private final ExerciseRepository exerciseRepository;
 
-    private final DayTimeRepository dayTimeRepository;
+    private final DayHistoryRepository dayHistoryRepository;
 
     @Inject
-    public DayViewModel(ExerciseRepository exerciseRepository, DayTimeRepository dayTimeRepository) {
+    public DayViewModel(ExerciseRepository exerciseRepository, DayHistoryRepository dayHistoryRepository) {
         this.exerciseRepository = exerciseRepository;
-        this.dayTimeRepository = dayTimeRepository;
+        this.dayHistoryRepository = dayHistoryRepository;
     }
 
     public LiveData<List<ExerciseItem>> getExerciseItems(int dayId){
@@ -51,20 +46,20 @@ public class DayViewModel extends ViewModel {
     public long calculateMinutes(List<ExerciseItem> exerciseItems){
         long totalTime = 0;
         for (ExerciseItem item : exerciseItems){
-            totalTime += item.getTime() + item.getLoopNumber() * LOOP_DURATION_MILLIS;
+            totalTime += item.getTime();
         }
         totalTime += (exerciseItems.size() - 1) * 15000L;
         return Math.round(totalTime / 60000.0);
     }
 
     public LiveData<Integer> getCurrentExercisePosition(int dayId){
-        LiveData<List<DayTimeItem>> onDayTimeItem = dayTimeRepository.getDayTimes(dayId);
-        return Transformations.map(onDayTimeItem, dayTimeItems -> {
-            if (dayTimeItems == null || dayTimeItems.isEmpty()) {
+        LiveData<List<DayHistoryItem>> onDayHistoryItem = dayHistoryRepository.getDayHistoryItems(dayId);
+        return Transformations.map(onDayHistoryItem, dayHistoryItems -> {
+            if (dayHistoryItems == null || dayHistoryItems.isEmpty()) {
                 return 0;
             }
-            DayTimeItem lastDayTimeItem = dayTimeItems.get(dayTimeItems.size() - 1);
-            return lastDayTimeItem.getExercisePosition();
+            DayHistoryItem lastDayHistoryItem = dayHistoryItems.get(dayHistoryItems.size() - 1);
+            return lastDayHistoryItem.getExercisePosition();
         });
     }
 }

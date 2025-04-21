@@ -13,15 +13,18 @@ public class Exercise extends BaseEntity {
 
     private int loopNumber;
 
-    private String animationFileName;
+    private String instructionUrl;
 
-    public Exercise(String name, String description, long time, double kcal, int loopNumber, String animationFileName) {
+    private String animationUrl;
+
+
+    public Exercise(String name, String description, long time, double kcal, int loopNumber, String animationUrl) {
         this.name = name;
         this.description = description;
         this.time = time;
         this.kcal = kcal;
         this.loopNumber = loopNumber;
-        this.animationFileName = animationFileName;
+        this.animationUrl = animationUrl;
     }
 
     public String getName() {
@@ -64,11 +67,19 @@ public class Exercise extends BaseEntity {
         this.loopNumber = loopNumber;
     }
 
-    public String getAnimationFileName() {
-        return animationFileName;
+    public String getInstructionUrl() {
+        return instructionUrl;
     }
 
-    public void setAnimationFileName(String animationFileName) {
-        this.animationFileName = animationFileName;
+    public void setInstructionUrl(String instructionUrl) {
+        this.instructionUrl = instructionUrl;
+    }
+
+    public String getAnimationUrl() {
+        return animationUrl;
+    }
+
+    public void setAnimationUrl(String animationUrl) {
+        this.animationUrl = animationUrl;
     }
 }

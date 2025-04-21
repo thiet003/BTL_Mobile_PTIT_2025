@@ -75,6 +75,9 @@ dependencies {
     implementation("com.github.jakob-grabner:Circle-Progress-View:1.2.8")
     implementation("com.github.psuzn:WheelView:v1.0.2")
     implementation("com.github.ShawnLin013:NumberPicker:v2.4.12")
+    implementation("com.github.saisasanksunkavalli:RoundedHorizontalProgressBar:ee69406c40")
+    implementation("androidx.media3:media3-exoplayer:1.6.1")
+    implementation("androidx.media3:media3-ui:1.6.1")
 
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
     implementation("com.google.firebase:firebase-analytics")

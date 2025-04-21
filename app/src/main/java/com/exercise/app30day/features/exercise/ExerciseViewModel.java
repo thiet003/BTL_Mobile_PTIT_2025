@@ -7,10 +7,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
-import com.exercise.app30day.data.models.DayTime;
+import com.exercise.app30day.data.models.DayHistory;
 import com.exercise.app30day.data.repositories.DayExerciseRepository;
+import com.exercise.app30day.data.repositories.DayHistoryRepository;
 import com.exercise.app30day.data.repositories.DayRepository;
-import com.exercise.app30day.data.repositories.DayTimeRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
@@ -37,23 +37,23 @@ public class ExerciseViewModel extends ViewModel {
 
     private List<ExerciseItem> listExerciseItem;
 
-    private DayTime dayTime;
+    private DayHistory dayHistory;
 
     private boolean playExercise = true;
 
-    private final Observer<ExerciseUiState> exerciseUiStateObserver = this::updateDayTimeExerciseItem;
+    private final Observer<ExerciseUiState> exerciseUiStateObserver = this::updateDayHistoryExerciseItem;
 
     private final DayRepository dayRepository;
 
     private final DayExerciseRepository dayExerciseRepository;
 
-    private final DayTimeRepository dayTimeRepository;
+    private final DayHistoryRepository dayHistoryRepository;
 
     @Inject
-    public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository, DayTimeRepository dayTimeRepository) {
+    public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository, DayHistoryRepository dayHistoryRepository) {
         this.dayRepository = dayRepository;
         this.dayExerciseRepository = dayExerciseRepository;
-        this.dayTimeRepository = dayTimeRepository;
+        this.dayHistoryRepository = dayHistoryRepository;
     }
 
 
@@ -64,7 +64,7 @@ public class ExerciseViewModel extends ViewModel {
             state.setExerciseState(ExerciseState.EXERCISE);
             _onExerciseUiState.setValue(state);
         }
-        this.dayTime.setCreatedAt(System.currentTimeMillis());
+        this.dayHistory.setCreatedAt(System.currentTimeMillis());
     }
 
     public void moveExerciseToRest(OnCompleteListener listener){
@@ -79,7 +79,7 @@ public class ExerciseViewModel extends ViewModel {
                 listener.onCompleteExercise(listExerciseItem.get(state.getExercisePosition()));
             }else{
                 dayRepository.updateDay(dayItem.getId(), true);
-                dayTime.setExercisePosition(0);
+                dayHistory.setExercisePosition(0);
                 listener.onCompleteDay();
             }
         }
@@ -122,18 +122,18 @@ public class ExerciseViewModel extends ViewModel {
     }
 
     public String getLoopOrDuration(ExerciseItem item){
-        return item.getTime() != 0 ? TimeUtils.formatMillisecondsToMMSS(item.getTime()) : "x" + item.getLoopNumber();
+        return item.getLoopNumber() != 0 ? "x" + item.getLoopNumber() : TimeUtils.formatMillisecondsToMMSS(item.getTime());
     }
 
     public long calculateDuration(ExerciseItem item){
-        return item.getTime() != 0 ? item.getTime() : item.getLoopNumber() * LOOP_DURATION_MILLIS;
+        return item.getTime();
     }
 
     public void initData(List<ExerciseItem> listExerciseItem, DayItem dayItem, CourseItem courseItem, int currentExercisePosition){
         this.listExerciseItem = listExerciseItem;
         this.dayItem = dayItem;
         this.courseItem = courseItem;
-        this.dayTime = new DayTime(dayItem.getId(), currentExercisePosition);
+        this.dayHistory = new DayHistory(dayItem.getId(), currentExercisePosition);
 
         _onExerciseUiState.observeForever(exerciseUiStateObserver);
 
@@ -144,17 +144,17 @@ public class ExerciseViewModel extends ViewModel {
         }
     }
 
-    private void updateDayTimeExerciseItem(ExerciseUiState exerciseUiState) {
-        this.dayTime.setExercisePosition(exerciseUiState.getExercisePosition());
+    private void updateDayHistoryExerciseItem(ExerciseUiState exerciseUiState) {
+        this.dayHistory.setExercisePosition(exerciseUiState.getExercisePosition());
     }
 
     public void saveStopTime(){
-        this.dayTime.setStopTime(System.currentTimeMillis());
-        this.dayTimeRepository.insertDayTime(this.dayTime);
+        this.dayHistory.setStopTime(System.currentTimeMillis());
+        this.dayHistoryRepository.insertDayHistory(this.dayHistory);
     }
 
     public void addRestTime(long addedTime){
-        this.dayTime.setRestTime(this.dayTime.getRestTime() + addedTime);
+        this.dayHistory.setRestTime(this.dayHistory.getRestTime() + addedTime);
     }
 
     @Override

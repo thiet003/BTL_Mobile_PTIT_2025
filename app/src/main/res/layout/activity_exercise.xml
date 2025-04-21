@@ -69,17 +69,11 @@
             android:layout_gravity="end"
             />
 
-        <ImageView
-            android:id="@+id/ivAnimation"
+        <com.exercise.app30day.widgets.MediaPlayer
+            android:id="@+id/media_player"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/gif_bicycle_crunches"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitXY"
-            />
+            android:layout_height="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_15sdp"/>
 
         <View
             android:layout_width="match_parent"

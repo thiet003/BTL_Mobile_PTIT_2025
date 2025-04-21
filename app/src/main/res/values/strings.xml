@@ -66,4 +66,5 @@
     <string name="bmi_obese_class_1">You have Obesity Class I</string>
     <string name="bmi_obese_class_2">You have Obesity Class II</string>
     <string name="bmi_obese_class_3">You have Obesity Class III (Severe)</string>
+    <string name="exercise_programs">Exercise programs</string>
 </resources>

@@ -54,6 +54,16 @@
             android:translationY="@dimen/_2sdp"
             />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_programs"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/vn_semi_bold"
+        android:textAlignment="textStart"
+        android:layout_marginBottom="@dimen/_8sdp"
+        />
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_course"

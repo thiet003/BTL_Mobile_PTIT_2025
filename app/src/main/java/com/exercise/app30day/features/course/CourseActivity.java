@@ -12,6 +12,7 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityCourseBinding;
 import com.exercise.app30day.features.day.DayActivity;
+import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.ResourceUtils;
 
@@ -29,6 +30,8 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
 
     int readyToStartDayPosition;
 
+    private CourseItem courseItem;
+
     @Override
     protected void initView() {
 
@@ -41,7 +44,7 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
             binding.tvLevel.setText(courseItem.getDifficultLevel());
             binding.tvRemain.setText(getString(R.string.days_remain, courseItem.getRemainDays()));
             binding.tvTopBarCourseName.setText(courseItem.getName());
-            viewModel.setCourseItem(courseItem);
+            CourseActivity.this.courseItem = courseItem;
         });
 
         dayAdapter = new DayAdapter(viewModel);
@@ -116,9 +119,9 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
     }
 
     private void gotoDayActivity(){
-        if(viewModel.getCourseItem() == null) return;
+        if(courseItem == null) return;
         Intent intent = new Intent(CourseActivity.this, DayActivity.class);
-        intent.putExtra(IntentKeys.EXTRA_COURSE, viewModel.getCourseItem());
+        intent.putExtra(IntentKeys.EXTRA_COURSE, courseItem);
         intent.putExtra(IntentKeys.EXTRA_DAY, dayAdapter.getItem(readyToStartDayPosition));
         startActivity(intent);
     }

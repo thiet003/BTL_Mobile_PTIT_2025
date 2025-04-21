@@ -9,14 +9,14 @@ import androidx.room.RoomDatabase;
 import com.exercise.app30day.data.dao.CourseDao;
 import com.exercise.app30day.data.dao.DayDao;
 import com.exercise.app30day.data.dao.DayExerciseDao;
-import com.exercise.app30day.data.dao.DayTimeDao;
+import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
 import com.exercise.app30day.data.dao.UserDao;
 import com.exercise.app30day.data.dao.WeightDao;
 import com.exercise.app30day.data.models.Course;
 import com.exercise.app30day.data.models.Day;
 import com.exercise.app30day.data.models.DayExercise;
-import com.exercise.app30day.data.models.DayTime;
+import com.exercise.app30day.data.models.DayHistory;
 import com.exercise.app30day.data.models.Exercise;
 import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.models.Weight;
@@ -37,7 +37,7 @@ import java.util.List;
         Weight.class,
         Day.class,
         DayExercise.class,
-        DayTime.class
+        DayHistory.class
 }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
@@ -47,7 +47,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract WeightDao weightDao();
     public abstract DayDao dayDao();
     public abstract DayExerciseDao dayExerciseDao();
-    public abstract DayTimeDao dayTimeDao();
+    public abstract DayHistoryDao dayHistoryDao();
     
     public static AppDatabase getInstance(Context context) {
         if(instance == null){

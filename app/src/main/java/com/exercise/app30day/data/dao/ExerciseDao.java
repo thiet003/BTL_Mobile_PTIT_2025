@@ -20,7 +20,7 @@ public interface ExerciseDao {
     void insertExercises(List<Exercise> exercises);
 
 
-    @Query("SELECT e.id, e.name, e.description, e.time, e.kcal, e.loopNumber, e.animationFileName FROM exercise AS e " +
+    @Query("SELECT e.id, e.name, e.description, e.time, e.kcal, e.loopNumber, e.instructionUrl , e.animationUrl FROM exercise AS e " +
             "JOIN day_exercise AS de ON e.id = de.exerciseId " +
             "JOIN day AS d ON de.dayId = d.id " +
             "WHERE d.id = :dayId " +

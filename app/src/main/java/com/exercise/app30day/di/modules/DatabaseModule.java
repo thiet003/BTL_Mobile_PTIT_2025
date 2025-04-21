@@ -6,7 +6,7 @@ import com.exercise.app30day.data.AppDatabase;
 import com.exercise.app30day.data.dao.CourseDao;
 import com.exercise.app30day.data.dao.DayDao;
 import com.exercise.app30day.data.dao.DayExerciseDao;
-import com.exercise.app30day.data.dao.DayTimeDao;
+import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
 import com.exercise.app30day.data.dao.UserDao;
 import com.exercise.app30day.data.dao.WeightDao;
@@ -61,8 +61,8 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    public static DayTimeDao provideDayTimeDao(@ApplicationContext Context context) {
-        return AppDatabase.getInstance(context).dayTimeDao();
+    public static DayHistoryDao provideDayHistoryDao(@ApplicationContext Context context) {
+        return AppDatabase.getInstance(context).dayHistoryDao();
     }
     
 }

@@ -1,6 +1,5 @@
 package com.exercise.app30day.features.complete;
 
-import static com.exercise.app30day.config.AppConfig.LOOP_DURATION_MILLIS;
 import static com.exercise.app30day.config.AppConfig.MAX_HEIGHT;
 import static com.exercise.app30day.config.AppConfig.MAX_WEIGHT;
 import static com.exercise.app30day.config.AppConfig.MIN_HEIGHT;
@@ -9,16 +8,13 @@ import static com.exercise.app30day.config.AppConfig.MIN_WEIGHT;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-import androidx.annotation.ColorRes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.R;
-import com.exercise.app30day.config.AppConfig;
-import com.exercise.app30day.data.repositories.DayTimeRepository;
-import com.exercise.app30day.items.DayTimeItem;
+import com.exercise.app30day.data.repositories.DayHistoryRepository;
+import com.exercise.app30day.items.DayHistoryItem;
 import com.exercise.app30day.items.ExerciseItem;
 import com.exercise.app30day.utils.TimeUtils;
 
@@ -37,12 +33,12 @@ public class ExerciseCompleteViewModel extends ViewModel {
     private final MutableLiveData<UserUiState> _onUserUiState = new MutableLiveData<>(new UserUiState());
     public final LiveData<UserUiState> onUserUiState = _onUserUiState;
 
-    private final DayTimeRepository dayTimeRepository;
+    private final DayHistoryRepository dayHistoryRepository;
     private final List<String> genders;
 
     @Inject
-    public ExerciseCompleteViewModel(@ApplicationContext Context context, DayTimeRepository dayTimeRepository) {
-        this.dayTimeRepository = dayTimeRepository;
+    public ExerciseCompleteViewModel(@ApplicationContext Context context, DayHistoryRepository dayHistoryRepository) {
+        this.dayHistoryRepository = dayHistoryRepository;
         genders = List.of(
                 context.getString(R.string.female),
                 context.getString(R.string.other),
@@ -180,17 +176,17 @@ public class ExerciseCompleteViewModel extends ViewModel {
     }
 
     @SuppressLint("DefaultLocale")
-    public String calculateAndFormatCalories(List<ExerciseItem> exerciseItems, List<DayTimeItem> dayTimeItems){
+    public String calculateAndFormatCalories(List<ExerciseItem> exerciseItems, List<DayHistoryItem> dayHistoryItems){
+        if(exerciseItems == null || exerciseItems.isEmpty() || dayHistoryItems == null || dayHistoryItems.isEmpty()){
+            return "0.0";
+        }
         long totalActualExerciseTime = 0;
-        for (DayTimeItem item : dayTimeItems){
-            System.out.println("Stop time: " + item.getStopTime());
-            System.out.println("Start time: " + item.getStartTime());
-            System.out.println("Rest time: " + item.getRestTime());
+        for (DayHistoryItem item : dayHistoryItems){
             totalActualExerciseTime += item.getStopTime() - item.getStartTime() - item.getRestTime();
         }
         long totalTime = 0;
         for (ExerciseItem item : exerciseItems){
-            totalTime += item.getTime() != 0 ? item.getTime() : item.getLoopNumber() * LOOP_DURATION_MILLIS;
+            totalTime += item.getTime();
         }
         double totalCalo = 0;
         for (ExerciseItem item : exerciseItems){
@@ -201,16 +197,16 @@ public class ExerciseCompleteViewModel extends ViewModel {
         return String.format("%.1f", totalActualExerciseTime * averageCalo).replace(",", ".");
     }
 
-    public String calculateAndFormatTotalTime(List<DayTimeItem> dayTimeItems){
+    public String calculateAndFormatTotalTime(List<DayHistoryItem> dayHistoryItems){
         long totalTime = 0;
-        for (DayTimeItem item : dayTimeItems){
+        for (DayHistoryItem item : dayHistoryItems){
             totalTime += item.getStopTime() - item.getStartTime();
         }
         return TimeUtils.formatMillisecondsToMMSS(totalTime);
 
     }
 
-    public LiveData<List<DayTimeItem>> getDayTimes(int dayId){
-        return dayTimeRepository.getDayTimes(dayId);
+    public LiveData<List<DayHistoryItem>> getDayHistoryItems(int dayId){
+        return dayHistoryRepository.getDayHistoryItems(dayId);
     }
 }

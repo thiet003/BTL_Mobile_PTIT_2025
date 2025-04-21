@@ -62,9 +62,9 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         binding.layoutTime.tvLabel.setText(R.string.time);
         binding.layoutExercise.tvLabel.setText(R.string.exercises);
         binding.layoutExercise.tvValue.setText(String.valueOf(listExerciseItem.size()));
-        viewModel.getDayTimes(dayItem.getId()).observe(this, dayTimeItems -> {
-            binding.layoutTime.tvValue.setText(viewModel.calculateAndFormatTotalTime(dayTimeItems));
-            binding.layoutCalo.tvValue.setText(String.valueOf(viewModel.calculateAndFormatCalories(listExerciseItem, dayTimeItems)));
+        viewModel.getDayHistoryItems(dayItem.getId()).observe(this, dayHistoryItems -> {
+            binding.layoutTime.tvValue.setText(viewModel.calculateAndFormatTotalTime(dayHistoryItems));
+            binding.layoutCalo.tvValue.setText(String.valueOf(viewModel.calculateAndFormatCalories(listExerciseItem, dayHistoryItems)));
         });
 
         genderWheelView = binding.genderWheelView;
