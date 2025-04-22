@@ -1,9 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.setting.SettingFragment"
-    android:background="#9C27B0">
+    android:orientation="vertical">
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:text="@string/settings"
+        android:gravity="center"
+        android:textSize="@dimen/_20sdp"
+        android:fontFamily="@font/vn_extra_bold"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_15sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/bg_round_corner_small"
+                android:backgroundTint="@color/primary"
+                android:paddingHorizontal="@dimen/_13sdp">
+
+                <ImageView
+                    android:id="@+id/iv_language"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_global"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/iv_language"
+                    android:layout_centerVertical="true"
+                    android:text="@string/languages"
+                    android:textColor="@color/textSecondaryColor"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    tools:ignore="RelativeOverlap"
+                    android:gravity="center"
+                    />
+
+
+
+                <ImageView
+                    android:layout_width="@dimen/_33sdp"
+                    android:layout_height="@dimen/_33sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_flag_english"
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/bg_round_corner_small"
+                android:backgroundTint="@color/primary"
+                android:paddingHorizontal="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <ImageView
+                    android:id="@+id/iv_setting"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_health"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@id/iv_setting"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/languages"
+                        android:textColor="@color/textSecondaryColor"
+                        android:textSize="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/music_amp_reminder_amp_coach_etc"
+                        android:textColor="@color/textSecondaryColor"
+                        android:textSize="@dimen/_11sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:fontFamily="@font/vn_light"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/bg_round_corner_small"
+                android:backgroundTint="@color/primary"
+                android:paddingHorizontal="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/iv_notification"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_bell"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/iv_notification"
+                    android:layout_centerVertical="true"
+                    android:text="@string/remind_me_to_practice"
+                    android:textColor="@color/textSecondaryColor"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    tools:ignore="RelativeOverlap"
+                    android:textAlignment="textStart"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/bg_round_corner_small"
+                android:backgroundTint="@color/primary"
+                android:paddingHorizontal="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/iv_recovery"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_recovery"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/iv_recovery"
+                    android:layout_centerVertical="true"
+                    android:text="@string/restart_the_process"
+                    android:textColor="@color/textSecondaryColor"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    tools:ignore="RelativeOverlap"
+                    android:textAlignment="textStart"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
