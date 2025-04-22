@@ -9,6 +9,8 @@ public class Course extends BaseEntity {
 
     private int level;
 
+    private String type;
+
     private String image;
 
     public Course(String name, int level, String image) {
@@ -33,6 +35,14 @@ public class Course extends BaseEntity {
     }
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getImage() {

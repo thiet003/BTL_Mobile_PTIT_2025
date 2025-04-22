@@ -84,6 +84,9 @@ public class MediaPlayer extends FrameLayout implements ExoPlayer.Listener {
                     ContextCompat.getColor(context, R.color.blue),
                     android.graphics.PorterDuff.Mode.SRC_IN);
             playerView = new PlayerView(context);
+            playerView.setClipChildren(true);
+            playerView.setClipToPadding(true);
+            playerView.setClipToOutline(true);
             playerView.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
             playerView.setLayoutParams(layoutParams);

@@ -38,7 +38,7 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
             return;
         }
         binding.tvDay.setText(getString(R.string.day, dayItem.getDay()));
-        binding.tvDifficult.setText(courseItem.getDifficultLevel());
+        binding.tvDifficult.setText(courseItem.getType());
         binding.itemExercise.tvLabel.setText(R.string.exercises);
         binding.itemCalo.tvLabel.setText(R.string.calo);
         binding.itemTime.tvLabel.setText(R.string.time);

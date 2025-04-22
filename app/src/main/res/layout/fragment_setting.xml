@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.setting.SettingFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/_6sdp">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:text="@string/settings"
         android:gravity="center"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_18sdp"
+        android:paddingVertical="@dimen/_6sdp"
         android:fontFamily="@font/vn_extra_bold"
         />
 
@@ -26,12 +28,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/item_language"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/bg_round_corner_small"
                 android:backgroundTint="@color/primary"
-                android:paddingHorizontal="@dimen/_13sdp">
+                android:paddingHorizontal="@dimen/_13sdp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/iv_language"
@@ -40,37 +45,29 @@
                     android:contentDescription="@null"
                     android:src="@drawable/ic_global"
                     android:scaleType="fitXY"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
                     />
 
                 <TextView
                     android:id="@+id/tv_language"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/iv_language"
-                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:text="@string/languages"
                     android:textColor="@color/textSecondaryColor"
                     android:textSize="@dimen/_15sdp"
                     android:layout_marginStart="@dimen/_10sdp"
-                    tools:ignore="RelativeOverlap"
-                    android:gravity="center"
                     />
 
-
-
                 <ImageView
+                    android:id="@+id/iv_flag"
                     android:layout_width="@dimen/_33sdp"
                     android:layout_height="@dimen/_33sdp"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_flag_english"
                     android:scaleType="centerCrop"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
                     />
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -117,6 +114,8 @@
                         android:gravity="center"
                         android:fontFamily="@font/vn_light"
                         android:layout_marginTop="@dimen/_3sdp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         />
 
                 </LinearLayout>
@@ -139,6 +138,8 @@
                     android:scaleType="fitXY"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     />
 
                 <TextView
@@ -186,9 +187,22 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     tools:ignore="RelativeOverlap"
                     android:textAlignment="textStart"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     />
 
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_version_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/version_s"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#B32A3335"
+                />
 
         </LinearLayout>
 
