@@ -67,4 +67,9 @@
     <string name="bmi_obese_class_2">You have Obesity Class II</string>
     <string name="bmi_obese_class_3">You have Obesity Class III (Severe)</string>
     <string name="exercise_programs">Exercise programs</string>
+    <string name="settings">Settings</string>
+    <string name="languages">Languages</string>
+    <string name="music_amp_reminder_amp_coach_etc"><![CDATA[Music & reminder & coach, etc.]]></string>
+    <string name="remind_me_to_practice">Remind me to practice</string>
+    <string name="restart_the_process">Restart the process</string>
 </resources>
