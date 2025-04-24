@@ -21,6 +21,8 @@ import com.exercise.app30day.data.models.Exercise;
 import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.models.Weight;
 import com.exercise.app30day.utils.HawkKeys;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.CustomSignals;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.Gson;
@@ -28,7 +30,9 @@ import com.google.gson.reflect.TypeToken;
 import com.orhanobut.hawk.Hawk;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Database(entities = {
         Course.class,
@@ -48,6 +52,16 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract DayDao dayDao();
     public abstract DayExerciseDao dayExerciseDao();
     public abstract DayHistoryDao dayHistoryDao();
+
+    public static String COURSES_DATA = "courses_data";
+
+    public static String EXERCISES_DATA = "exercises_data";
+
+    public static String DAYS_DATA = "days_data";
+
+    public static String DAY_EXERCISES_DATA = "day_exercises_data";
+
+    private static String LANGUAGE_CODE = "language_code";
     
     public static AppDatabase getInstance(Context context) {
         if(instance == null){
@@ -73,13 +87,12 @@ public abstract class AppDatabase extends RoomDatabase {
         }).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 remoteConfig.activate();
-                String coursesJson = remoteConfig.getString("courses_data");
-                String exercisesJson = remoteConfig.getString("exercises_data");
-                String daysJson = remoteConfig.getString("days_data");
-                String dayExercisesJson = remoteConfig.getString("day_exercises_data");
+                String coursesJson = remoteConfig.getString(COURSES_DATA);
+                String exercisesJson = remoteConfig.getString(EXERCISES_DATA);
+                String daysJson = remoteConfig.getString(DAYS_DATA);
+                String dayExercisesJson = remoteConfig.getString(DAY_EXERCISES_DATA);
 
                 new Thread(() -> {
-                    System.out.println("coursesJson: " + coursesJson);
                     Type coursesType = new TypeToken<List<Course>>() {
                     }.getType();
                     List<Course> courses = new Gson().fromJson(coursesJson, coursesType);
@@ -113,5 +126,44 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static boolean isDataInitialized() {
         return Hawk.get(HawkKeys.DATABASE_DATA_INITIALIZED_KEY, false);
+    }
+
+    public static void updateLanguage(Context context, OnUpdateListener listener){
+        if(!isDataInitialized()) return;
+        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(0)
+                .build();
+        CustomSignals customSignals = new CustomSignals.Builder()
+                .put(LANGUAGE_CODE, Hawk.get(HawkKeys.LANGUAGE_CODE_SNIP_KEY))
+                .build();
+        remoteConfig.setCustomSignals(customSignals);
+        remoteConfig.setConfigSettingsAsync(configSettings);
+        remoteConfig.fetchAndActivate().addOnCanceledListener(() -> {
+
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                remoteConfig.activate();
+                String coursesJson = remoteConfig.getString(COURSES_DATA);
+                String exercisesJson = remoteConfig.getString(EXERCISES_DATA);
+
+                new Thread(() -> {
+                    Type coursesType = new TypeToken<List<Course>>() {
+                    }.getType();
+                    List<Course> courses = new Gson().fromJson(coursesJson, coursesType);
+                    getInstance(context).courseDao().updateCourses(courses);
+
+                    Type exercisesType = new TypeToken<List<Exercise>>() {
+                    }.getType();
+                    List<Exercise> exercises = new Gson().fromJson(exercisesJson, exercisesType);
+                    getInstance(context).exerciseDao().updateExercises(exercises);
+                    listener.onCompleted();
+                }).start();
+            }
+        });
+    }
+
+    public interface OnUpdateListener{
+        void onCompleted();
     }
 }

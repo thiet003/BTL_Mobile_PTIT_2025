@@ -37,11 +37,11 @@ public class CourseActivity extends BaseActivity<ActivityCourseBinding, CourseVi
 
         courseId = getIntent().getIntExtra(IntentKeys.EXTRA_COURSE_ID,1);
         viewModel.getCourseItemById(courseId).observe(this, courseItem -> {
-            int imgRes = ResourceUtils.getDrawableId(CourseActivity.this, "img_course_" + courseItem.getDifficultLevel().toLowerCase());
+            int imgRes = ResourceUtils.getDrawableId(CourseActivity.this, courseItem.getImage());
             binding.imgCourse.setImageResource(imgRes);
             binding.tvName.setText(courseItem.getName());
             binding.rbCourse.setRating(courseItem.getLevel());
-            binding.tvLevel.setText(courseItem.getDifficultLevel());
+            binding.tvLevel.setText(courseItem.getType());
             binding.tvRemain.setText(getString(R.string.days_remain, courseItem.getRemainDays()));
             binding.tvTopBarCourseName.setText(courseItem.getName());
             CourseActivity.this.courseItem = courseItem;

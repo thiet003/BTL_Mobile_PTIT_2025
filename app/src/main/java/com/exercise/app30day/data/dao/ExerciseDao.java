@@ -19,6 +19,9 @@ public interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExercises(List<Exercise> exercises);
 
+    @Update
+    void updateExercises(List<Exercise> exercises);
+
 
     @Query("SELECT e.id, e.name, e.description, e.time, e.kcal, e.loopNumber, e.instructionUrl , e.animationUrl FROM exercise AS e " +
             "JOIN day_exercise AS de ON e.id = de.exerciseId " +

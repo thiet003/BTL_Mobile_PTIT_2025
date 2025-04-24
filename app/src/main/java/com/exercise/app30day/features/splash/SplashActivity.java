@@ -1,5 +1,7 @@
 package com.exercise.app30day.features.splash;
 
+import static com.exercise.app30day.utils.IntentKeys.EXTRA_LANGUAGE_CHANGED;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
@@ -18,20 +20,39 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
 
     @Override
     protected void initView() {
-        if(!AppDatabase.isDataInitialized()) {
-            AppDatabase.initializeData(this);
-        }
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                countTimeSplash++;
-                if (countTimeSplash > 3 && AppDatabase.isDataInitialized()) {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    finish();
-                }
-                handler.postDelayed(this, 1000);
+
+        boolean languageChanged = getIntent().getBooleanExtra(EXTRA_LANGUAGE_CHANGED, false);
+
+        if(languageChanged){
+            AppDatabase.updateLanguage(this, ()->{
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        countTimeSplash++;
+                        if (countTimeSplash > 3) {
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            finish();
+                        }
+                        handler.postDelayed(this, 1000);
+                    }
+                }, 1000);
+            });
+        }else{
+            if(!AppDatabase.isDataInitialized()) {
+                AppDatabase.initializeData(this);
             }
-        }, 1000);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    countTimeSplash++;
+                    if (countTimeSplash > 3 && AppDatabase.isDataInitialized()) {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        finish();
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            }, 1000);
+        }
     }
 
     @Override
