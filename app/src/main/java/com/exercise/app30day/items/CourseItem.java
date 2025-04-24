@@ -7,6 +7,8 @@ public class CourseItem extends BaseItem {
     private String image;
     private int numberOfDays;
     private int numberOfCompletedDays;
+
+    private String type;
     private int level;
 
     public CourseItem(int id) {
@@ -53,22 +55,18 @@ public class CourseItem extends BaseItem {
         this.level = level;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public int getDayProgress() {
         return (int) (numberOfCompletedDays * 100.0 / numberOfDays);
     }
 
-    public String getDifficultLevel() {
-        switch (level){
-            case 1:
-                return "Beginner";
-            case 2:
-                return "Intermediate";
-            case 3:
-                return "Advanced";
-            default:
-                return "Unknown";
-        }
-    }
     public int getRemainDays(){
         return Math.max(numberOfDays - numberOfCompletedDays, 0);
     }

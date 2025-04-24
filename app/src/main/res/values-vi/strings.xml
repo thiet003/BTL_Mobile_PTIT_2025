@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Trang chủ</string>
+    <string name="reports">Báo cáo</string>
+    <string name="setting">Cài đặt</string>
+
+    <string name="beginner">Người mới bắt đầu</string>
+    <string name="intermediate">Trung cấp</string>
+    <string name="advanced">Nâng cao</string>
+
+    <string name="day_number">%d ngày</string>
+    <string name="progress">Tiến độ: %d%%</string>
+
+    <string name="days_remain">Còn lại %d ngày</string>
+    <string name="text_continue">Tiếp tục</string>
+
+    <string name="day">Ngày %d</string>
+    <string name="exercise_number">%d bài tập</string>
+    <string name="start">Bắt đầu</string>
+
+    <string name="completed">Hoàn thành</string>
+    <string name="exercises">Bài tập</string>
+    <string name="time">Thời gian</string>
+    <string name="calo">Calo</string>
+    <string name="minute_number">%d phút</string>
+    <string name="second_number">%d giây</string>
+    <string name="calo_number">%s kcal</string>
+    <string name="close">Đóng</string>
+
+    <string name="animation">Hình minh họa</string>
+    <string name="muscle">Cơ</string>
+    <string name="instruction">Hướng dẫn</string>
+    <string name="duration">Thời lượng</string>
+    <string name="repeat">Lặp lại</string>
+    <string name="instructions">Hướng dẫn</string>
+    <string name="page">%d/%d</string>
+    <string name="ready_to_practice">Sẵn sàng tập luyện</string>
+    <string name="push_up">Chống đẩy</string>
+    <string name="next">Tiếp theo</string>
+    <string name="resting_time">Thời gian nghỉ</string>
+    <string name="skip">Bỏ qua</string>
+    <string name="share">Chia sẻ</string>
+
+    <string name="course_day">Ngày %d - %s</string>
+    <string name="congratulations_on_your_completion">Chúc mừng bạn đã hoàn thành</string>
+    <string name="weight">Cân nặng</string>
+    <string name="kg">(kg)</string>
+    <string name="height">Chiều cao</string>
+    <string name="cm">(cm)</string>
+    <string name="bmi">BMI (kg/m²)</string>
+    <string name="save">Lưu</string>
+
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="other">Khác</string>
+    <string name="gender">Giới tính</string>
+    <string name="your_health">Sức khỏe của bạn</string>
+    <string name="you_are_healthy">Bạn đang khỏe mạnh</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Khoảng cân nặng BMI bình thường cho chiều cao: 18.5 – 24.9</string>
+
+    <string name="bmi_underweight">Bạn đang thiếu cân</string>
+    <string name="bmi_normal">Cân nặng của bạn bình thường</string>
+    <string name="bmi_pre_obese">Bạn đang ở mức tiền béo phì</string>
+    <string name="bmi_obese_class_1">Bạn thuộc béo phì độ I</string>
+    <string name="bmi_obese_class_2">Bạn thuộc béo phì độ II</string>
+    <string name="bmi_obese_class_3">Bạn thuộc béo phì độ III (Nặng)</string>
+    <string name="exercise_programs">Chương trình tập luyện</string>
+    <string name="settings">Cài đặt</string>
+    <string name="languages">Ngôn ngữ</string>
+    <string name="music_amp_reminder_amp_coach_etc"><![CDATA[Nhạc & nhắc nhở & huấn luyện viên, v.v.]]></string>
+    <string name="remind_me_to_practice">Nhắc tôi tập luyện</string>
+    <string name="restart_the_process">Khởi động lại quá trình</string>
+    <string name="version_s">Phiên bản %s</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="english">Tiếng Anh</string>
+</resources>

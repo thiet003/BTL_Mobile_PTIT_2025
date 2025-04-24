@@ -13,7 +13,7 @@ public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCours
         binding.imgCourse.setImageResource(imgRes);
         binding.tvName.setText(item.getName());
         binding.tvDay.setText(getContext().getString(R.string.day_number, item.getNumberOfDays()));
-        binding.tvLevel.setText(item.getDifficultLevel());
+        binding.tvLevel.setText(item.getType());
         binding.rbCourse.setRating(item.getLevel());
         int dayProgress = item.getDayProgress();
         System.out.println(position + " Day progress: " + dayProgress);

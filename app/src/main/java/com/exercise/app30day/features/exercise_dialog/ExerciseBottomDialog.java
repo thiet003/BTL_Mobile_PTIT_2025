@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -67,8 +68,6 @@ public class ExerciseBottomDialog extends BottomSheetDialogFragment implements V
         View view = getView();
         if (view != null) {
             FrameLayout parent = (FrameLayout) view.getParent();
-            parent.setClipChildren(true);
-            parent.setClipToPadding(true);
             view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (ScreenUtils.getScreenHeight() * 0.85)));
             parent.setBackgroundResource(R.drawable.bg_primary_top_corner);
             BottomSheetBehavior<FrameLayout> behavior = BottomSheetBehavior.from(parent);

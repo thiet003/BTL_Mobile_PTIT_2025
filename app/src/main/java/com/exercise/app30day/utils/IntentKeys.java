@@ -10,4 +10,6 @@ public final class IntentKeys {
     public static final String EXTRA_EXERCISE_LIST = "extra_exercise_list";
 
     public static final String EXTRA_CURRENT_EXERCISE_POSITION = "extra_current_exercise_position";
+
+    public static final String EXTRA_LANGUAGE_CHANGED = "extra_language_changed";
 }

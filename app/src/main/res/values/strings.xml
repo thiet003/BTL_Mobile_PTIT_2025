@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">30 Day Shred</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">30 Day Shred</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="reports">Reports</string>
     <string name="setting">Setting</string>
@@ -72,4 +71,7 @@
     <string name="music_amp_reminder_amp_coach_etc"><![CDATA[Music & reminder & coach, etc.]]></string>
     <string name="remind_me_to_practice">Remind me to practice</string>
     <string name="restart_the_process">Restart the process</string>
+    <string name="version_s">Version %s</string>
+    <string name="vietnamese">Vietnamese</string>
+    <string name="english">English</string>
 </resources>
