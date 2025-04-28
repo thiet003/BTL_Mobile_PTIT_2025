@@ -74,4 +74,10 @@
     <string name="version_s">Version %s</string>
     <string name="vietnamese">Vietnamese</string>
     <string name="english">English</string>
+
+    <string-array translatable="false" name="history_filter_options">
+        <item>Tất cả</item>
+        <item>Tháng này</item>
+        <item>Tuần qua</item>
+    </string-array>
 </resources>

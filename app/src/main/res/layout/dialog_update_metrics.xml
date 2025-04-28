@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="@dimen/_24sdp">
+
+    <!-- Handle -->
+    <View
+        android:id="@+id/handle"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@color/tertiaryBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
+        android:text="Cập nhật chỉ số cơ thể"
+        android:textColor="@color/textPrimaryColor"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/handle" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:text="Theo dõi sự thay đổi cân nặng và chiều cao của bạn"
+        android:textColor="@color/textTertiaryColor"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <!-- Pickers Container -->
+    <LinearLayout
+        android:id="@+id/container_pickers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
+
+        <!-- Weight Picker -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cân nặng (kg)"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/weight_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:np_dividerColor="@color/primary"
+                app:np_dividerDistance="@dimen/_40sdp"
+                app:np_dividerThickness="@dimen/_1sdp"
+                app:np_max="150"
+                app:np_min="30"
+                app:np_selectedTextColor="@color/primary"
+                app:np_selectedTextSize="@dimen/_20sdp"
+                app:np_textColor="@color/textTertiaryColor"
+                app:np_textSize="@dimen/_14sdp"
+                app:np_value="70"
+                app:np_wheelItemCount="5" />
+        </LinearLayout>
+
+        <!-- Height Picker -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chiều cao (cm)"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/height_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:np_dividerColor="@color/primary"
+                app:np_dividerDistance="@dimen/_40sdp"
+                app:np_dividerThickness="@dimen/_1sdp"
+                app:np_max="220"
+                app:np_min="120"
+                app:np_selectedTextColor="@color/primary"
+                app:np_selectedTextSize="@dimen/_20sdp"
+                app:np_textColor="@color/textTertiaryColor"
+                app:np_textSize="@dimen/_14sdp"
+                app:np_value="170"
+                app:np_wheelItemCount="5" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/container_pickers">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_round_conner"
+            android:backgroundTint="@color/tertiaryBackground"
+            android:paddingVertical="@dimen/_12sdp"
+            android:text="Hủy"
+            android:textColor="@color/textPrimaryColor" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_primary_button"
+            android:paddingVertical="@dimen/_12sdp"
+            android:text="Lưu"
+            android:textColor="@color/textSecondaryColor" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
