@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_8sdp"
+    app:cardBackgroundColor="@color/secondaryBackground"
+    app:cardCornerRadius="@dimen/_12sdp"
+    app:cardElevation="@dimen/_2sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp">
+
+        <!-- Header Section -->
+        <ImageView
+            android:id="@+id/iv_course_image"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:padding="@dimen/_8sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_fitness"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_course_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Full Body"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tv_workout_date"
+            app:layout_constraintStart_toEndOf="@+id/iv_course_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_course_image"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_day_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/day"
+            android:textColor="@color/textTertiaryColor"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_workout_date"
+            app:layout_constraintStart_toEndOf="@+id/iv_course_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_course_name" />
+
+        <TextView
+            android:id="@+id/tv_workout_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="29/04/2025"
+            android:textColor="@color/textTertiaryColor"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_course_image"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/tertiaryBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_course_image" />
+
+        <!-- Stats Section -->
+        <!-- Duration -->
+        <TextView
+            android:id="@+id/label_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/duration"
+            android:textColor="@color/textTertiaryColor"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toStartOf="@+id/label_calories"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/d_minutes"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/label_duration"
+            app:layout_constraintStart_toStartOf="@+id/label_duration"
+            app:layout_constraintTop_toBottomOf="@+id/label_duration" />
+
+        <!-- Calories -->
+        <TextView
+            android:id="@+id/label_calories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/calories"
+            android:textColor="@color/textTertiaryColor"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toStartOf="@+id/label_rest"
+            app:layout_constraintStart_toEndOf="@+id/label_duration"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/tv_calories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/f_kcal"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/label_calories"
+            app:layout_constraintStart_toStartOf="@+id/label_calories"
+            app:layout_constraintTop_toBottomOf="@+id/label_calories" />
+
+        <!-- Rest Time -->
+        <TextView
+            android:id="@+id/label_rest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/rest"
+            android:textColor="@color/textTertiaryColor"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toStartOf="@+id/label_exercises"
+            app:layout_constraintStart_toEndOf="@+id/label_calories"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/tv_rest_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/d_seconds"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/label_rest"
+            app:layout_constraintStart_toStartOf="@+id/label_rest"
+            app:layout_constraintTop_toBottomOf="@+id/label_rest" />
+
+        <!-- Exercises Count -->
+        <TextView
+            android:id="@+id/label_exercises"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/exercises"
+            android:textColor="@color/textTertiaryColor"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_rest"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/tv_exercises_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="8"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/label_exercises"
+            app:layout_constraintStart_toStartOf="@+id/label_exercises"
+            app:layout_constraintTop_toBottomOf="@+id/label_exercises"
+            tools:ignore="HardcodedText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

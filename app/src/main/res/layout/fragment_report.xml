@@ -19,7 +19,7 @@
             android:id="@+id/tv_report_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Báo cáo tập luyện"
+            android:text="@string/exercise_report"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_18sdp"
             android:textStyle="bold"
@@ -60,7 +60,7 @@
                         android:src="@drawable/ic_fitness"
                         app:tint="@color/iconSecondaryColor" />
 
-                    <TextView
+                    <com.daasuu.cat.CountAnimationTextView
                         android:id="@+id/tv_total_workouts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -68,13 +68,14 @@
                         android:text="0"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_20sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:text="Tổng buổi tập"
+                        android:text="@string/workouts"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
@@ -105,7 +106,7 @@
                         android:src="@drawable/ic_calendar"
                         app:tint="@color/iconSecondaryColor" />
 
-                    <TextView
+                    <com.daasuu.cat.CountAnimationTextView
                         android:id="@+id/tv_completed_days"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -113,13 +114,14 @@
                         android:text="0"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_20sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:text="Ngày hoàn thành"
+                        android:text="@string/completed_days"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
@@ -152,7 +154,7 @@
                         android:src="@drawable/ic_fire"
                         app:tint="@color/iconSecondaryColor" />
 
-                    <TextView
+                    <com.daasuu.cat.CountAnimationTextView
                         android:id="@+id/tv_total_calories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -160,13 +162,14 @@
                         android:text="0"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_20sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:text="Kcal đã đốt"
+                        android:text="@string/kcal_burned"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
@@ -198,7 +201,7 @@
                         android:src="@drawable/ic_clock"
                         app:tint="@color/iconSecondaryColor" />
 
-                    <TextView
+                    <com.daasuu.cat.CountAnimationTextView
                         android:id="@+id/tv_total_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -206,13 +209,14 @@
                         android:text="0"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_20sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:text="Phút tập luyện"
+                        android:text="@string/workout_minutes"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
@@ -225,7 +229,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="Chỉ số cơ thể"
+            android:text="@string/body_indices"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
@@ -262,7 +266,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chiều cao"
+                            android:text="@string/heights"
                             android:textColor="@color/textTertiaryColor"
                             android:textSize="@dimen/_12sdp" />
 
@@ -271,7 +275,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
-                            android:text="0 cm"
+                            android:text="@string/f_cm"
                             android:textColor="@color/textPrimaryColor"
                             android:textSize="@dimen/_16sdp"
                             android:textStyle="bold" />
@@ -286,7 +290,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cân nặng hiện tại"
+                            android:text="@string/current_weight"
                             android:textColor="@color/textTertiaryColor"
                             android:textSize="@dimen/_12sdp" />
 
@@ -295,7 +299,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
-                            android:text="0 kg"
+                            android:text="@string/f_kg"
                             android:textColor="@color/textPrimaryColor"
                             android:textSize="@dimen/_16sdp"
                             android:textStyle="bold" />
@@ -307,7 +311,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:text="Lịch sử cân nặng"
+                    android:text="@string/weight_history"
                     android:textColor="@color/textPrimaryColor"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
@@ -320,12 +324,12 @@
 
                 <!-- Update Weight Button -->
                 <Button
-                    android:id="@+id/btn_update_weight"
+                    android:id="@+id/btn_update_metrics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:background="@drawable/bg_primary_button"
-                    android:text="Cập nhật cân nặng"
+                    android:text="@string/update_metrics"
                     android:textColor="@color/textSecondaryColor"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>
@@ -337,7 +341,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="Tiến độ hàng tuần"
+            android:text="@string/weekly_progress"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
@@ -369,7 +373,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:gravity="center"
-                    android:text="Số phút tập luyện mỗi ngày trong tuần"
+                    android:text="@string/calories_burned_each_day_of_the_week"
                     android:textColor="@color/textTertiaryColor"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>
@@ -381,7 +385,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="Hoàn thành khóa học"
+            android:text="@string/courses_progress"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
@@ -406,14 +410,15 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/chart_course_completion"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp" />
+                    android:layout_height="@dimen/_200sdp"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:gravity="center"
-                    android:text="Tỉ lệ hoàn thành các khóa học"
+                    android:text="@string/course_completion_rates"
                     android:textColor="@color/textTertiaryColor"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>
@@ -425,7 +430,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="Hoạt động gần đây"
+            android:text="@string/recent_activity"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
@@ -439,7 +444,7 @@
             android:nestedScrollingEnabled="false"
             app:layout_constraintTop_toBottomOf="@id/tv_recent_activity_title"
             tools:itemCount="3"
-            tools:listitem="@layout/item_workout_history" />
+            tools:listitem="@layout/item_day_history" />
 
         <!-- View Complete History Button -->
         <Button
@@ -448,7 +453,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/bg_primary_button"
-            android:text="Xem toàn bộ lịch sử"
+            android:text="@string/see_full_history"
             android:textColor="@color/textSecondaryColor"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintTop_toBottomOf="@id/rv_recent_activities" />

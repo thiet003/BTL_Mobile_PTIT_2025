@@ -13,12 +13,12 @@ import com.exercise.app30day.databinding.ActivityMainBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel> {
+public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel>  {
     @Override
     protected void initView() {
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(this);
         binding.mainViewPager.setAdapter(mainViewPagerAdapter);
-        binding.mainViewPager.setOffscreenPageLimit(2);
+        binding.mainViewPager.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
         binding.mainViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

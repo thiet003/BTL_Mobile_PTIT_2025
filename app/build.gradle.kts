@@ -55,7 +55,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("com.intuit.sdp:sdp-android:1.1.1")
-    implementation("com.github.kevalpatel2106:android-ruler-picker:v1.1")
     implementation("com.airbnb.android:lottie:6.6.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -81,6 +80,7 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.github.prolificinteractive:material-calendarview:2.0.1")
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
+    implementation("com.github.MasayukiSuda:CountAnimationTextView:v0.1.2")
 
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
     implementation("com.google.firebase:firebase-analytics")

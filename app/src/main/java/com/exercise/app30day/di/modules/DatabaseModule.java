@@ -8,8 +8,7 @@ import com.exercise.app30day.data.dao.DayDao;
 import com.exercise.app30day.data.dao.DayExerciseDao;
 import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
-import com.exercise.app30day.data.dao.UserDao;
-import com.exercise.app30day.data.dao.WeightDao;
+import com.exercise.app30day.data.dao.WeightHistoryDao;
 
 import javax.inject.Singleton;
 
@@ -37,18 +36,6 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    public static UserDao provideUserDao(@ApplicationContext Context context) {
-        return AppDatabase.getInstance(context).userDao();
-    }
-
-    @Provides
-    @Singleton
-    public static WeightDao provideWeightDao(@ApplicationContext Context context) {
-        return AppDatabase.getInstance(context).weightDao();
-    }
-
-    @Provides
-    @Singleton
     public static DayDao provideDayDao(@ApplicationContext Context context) {
         return AppDatabase.getInstance(context).dayDao();
     }
@@ -63,6 +50,12 @@ public class DatabaseModule {
     @Singleton
     public static DayHistoryDao provideDayHistoryDao(@ApplicationContext Context context) {
         return AppDatabase.getInstance(context).dayHistoryDao();
+    }
+
+    @Provides
+    @Singleton
+    public static WeightHistoryDao provideWeightHistoryDao(@ApplicationContext Context context) {
+        return AppDatabase.getInstance(context).weightHistoryDao();
     }
     
 }

@@ -2,32 +2,22 @@ package com.exercise.app30day.features.report;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.exercise.app30day.R;
-import com.exercise.app30day.data.models.Course;
-import com.exercise.app30day.data.models.Day;
-import com.exercise.app30day.data.models.DayExercise;
-import com.exercise.app30day.data.models.DayHistory;
-import com.exercise.app30day.data.models.Exercise;
+import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.data.models.User;
-import com.exercise.app30day.data.models.Weight;
-import com.exercise.app30day.items.WorkoutHistoryItem;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.PieChart;
+import com.exercise.app30day.databinding.FragmentReportBinding;
+import com.exercise.app30day.features.report.history.WorkoutHistoryActivity;
+import com.exercise.app30day.items.CourseItem;
+import com.exercise.app30day.items.DayHistoryItem;
+import com.exercise.app30day.utils.HawkKeys;
+import com.exercise.app30day.utils.WeightHistoryItem;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -39,185 +29,75 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.orhanobut.hawk.Hawk;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ReportFragment extends Fragment {
+import dagger.hilt.android.AndroidEntryPoint;
 
-    // UI Components
-    private TextView tvTotalWorkouts;
-    private TextView tvCompletedDays;
-    private TextView tvTotalCalories;
-    private TextView tvTotalTime;
-    private TextView tvHeight;
-    private TextView tvCurrentWeight;
-    private LineChart chartWeightHistory;
-    private BarChart chartWeeklyWorkouts;
-    private PieChart chartCourseCompletion;
-    private RecyclerView rvRecentActivities;
-    private Button btnUpdateWeight;
-    private Button btnViewAllHistory;
+@AndroidEntryPoint
+public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportViewModel>
+        implements UserMetricsBottomSheet.OnMetricsUpdatedListener, View.OnClickListener {
 
-    // Dummy data for demonstration
-    private User user;
-    private List<Weight> weightHistory;
-    private List<Course> courses;
-    private List<Day> days;
-    private List<Exercise> exercises;
-    private List<DayExercise> dayExercises;
-    private List<DayHistory> dayHistories;
-    private WorkoutHistoryAdapter adapter;
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_report, container, false);
-        initViews(view);
-        initDummyData();
-        setupUIData();
-        setupCharts();
-        setupRecyclerView();
-        setupListeners();
-        return view;
-    }
+    protected void initView() {
+        DayHistoryAdapter dayHistoryAdapter = new DayHistoryAdapter();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        binding.rvRecentActivities.setLayoutManager(layoutManager);
+        binding.rvRecentActivities.setAdapter(dayHistoryAdapter);
 
-    private void initViews(View view) {
-        // Summary Cards
-        tvTotalWorkouts = view.findViewById(R.id.tv_total_workouts);
-        tvCompletedDays = view.findViewById(R.id.tv_completed_days);
-        tvTotalCalories = view.findViewById(R.id.tv_total_calories);
-        tvTotalTime = view.findViewById(R.id.tv_total_time);
+        viewModel.getAllDayHistoryItems().observe(this, dayHistoryItems -> {
+            binding.tvTotalWorkouts.setAnimationDuration(1000).countAnimation(0, dayHistoryItems.size());
+            binding.tvTotalTime.setAnimationDuration(1000).countAnimation(0, (int) viewModel.calculateTotalMinute(dayHistoryItems));
+            binding.tvTotalCalories.setAnimationDuration(1000).countAnimation(0, (int) viewModel.calculateTotalCalories(dayHistoryItems));
+            setupWeeklyWorkoutsChart(dayHistoryItems);
+            dayHistoryAdapter.setData(viewModel.getLatestDayHistoryItems(dayHistoryItems, 3));
+        });
 
-        // User Metrics
-        tvHeight = view.findViewById(R.id.tv_height);
-        tvCurrentWeight = view.findViewById(R.id.tv_current_weight);
-        chartWeightHistory = view.findViewById(R.id.chart_weight_history);
+        viewModel.countCompletedDays().observe(this, count -> {
+            binding.tvCompletedDays.setAnimationDuration(1000).countAnimation(0, count);
+        });
 
-        // Weekly Progress
-        chartWeeklyWorkouts = view.findViewById(R.id.chart_weekly_workouts);
-
-        // Course Completion
-        chartCourseCompletion = view.findViewById(R.id.chart_course_completion);
-
-        // Recent Activities
-        rvRecentActivities = view.findViewById(R.id.rv_recent_activities);
-
-        // Buttons
-        btnUpdateWeight = view.findViewById(R.id.btn_update_weight);
-        btnViewAllHistory = view.findViewById(R.id.btn_view_all_history);
-    }
-
-    private void initDummyData() {
-        // User data
-        user = new User();
-        user.setHeight(175.0);
-        user.setWeight(70.0);
-
-        // Weight history
-        weightHistory = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        for (int i = 30; i >= 0; i -= 5) {
-            calendar.setTime(new Date());
-            calendar.add(Calendar.DAY_OF_MONTH, -i);
-            double randomWeight = 70.0 + Math.random() * 2 - 1; // Random weight between 69-71
-            weightHistory.add(new Weight(1, randomWeight, calendar.getTimeInMillis()));
-        }
-
-        // Courses
-        courses = new ArrayList<>();
-        courses.add(new Course("Full Body Workout", 2, "workout_full_body.jpg"));
-        courses.add(new Course("Ab Challenge", 1, "workout_abs.jpg"));
-        courses.add(new Course("Cardio Blast", 3, "workout_cardio.jpg"));
-
-        // Days
-        days = new ArrayList<>();
-        for (int i = 0; i < courses.size(); i++) {
-            for (int j = 1; j <= 30; j++) {
-                boolean completed = j <= 15; // First 15 days completed
-                days.add(new Day(i + 1, j, completed));
+        viewModel.getAllWeightHistoryItems().observe(this, weightHistoryItems -> {
+            User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
+            binding.tvHeight.setText(String.format(Locale.getDefault(), getString(R.string.f_cm), user.getHeight()));
+            if(!weightHistoryItems.isEmpty()){
+                double weight = weightHistoryItems.get(weightHistoryItems.size() - 1).getWeight();
+                binding.tvCurrentWeight.setText(String.format(Locale.getDefault(), getString(R.string.f_kg), weight));
+                setupWeightHistoryChart(weightHistoryItems);
             }
-        }
+        });
 
-        // Exercises
-        exercises = new ArrayList<>();
-        exercises.add(new Exercise("Push-ups", "Classic push-ups", 60000, 8.5, 12, "pushup.gif"));
-        exercises.add(new Exercise("Squats", "Standard squats", 60000, 9.2, 15, "squat.gif"));
-        exercises.add(new Exercise("Plank", "Core exercise", 45000, 7.0, 3, "plank.gif"));
-        exercises.add(new Exercise("Jumping Jacks", "Cardio exercise", 60000, 12.0, 30, "jumping_jacks.gif"));
-        exercises.add(new Exercise("Lunges", "Leg exercise", 60000, 10.0, 12, "lunge.gif"));
-
-        // Day Exercises
-        dayExercises = new ArrayList<>();
-        for (int i = 1; i <= days.size(); i++) {
-            for (int j = 1; j <= exercises.size(); j++) {
-                boolean completed = i <= 15; // Exercises for first 15 days completed
-                dayExercises.add(new DayExercise(j, i, completed));
-            }
-        }
-
-        // Day Histories
-        dayHistories = new ArrayList<>();
-        Calendar historyCalendar = Calendar.getInstance();
-        for (int i = 1; i <= 15; i++) { // 15 completed days
-            historyCalendar.setTime(new Date());
-            historyCalendar.add(Calendar.DAY_OF_MONTH, -i);
-
-            for (int j = 0; j < exercises.size(); j++) {
-                DayHistory history = new DayHistory(i, j);
-                history.setStopTime(historyCalendar.getTimeInMillis());
-                history.setRestTime(30000); // 30 seconds rest time
-                dayHistories.add(history);
-            }
-        }
+        viewModel.getAllCourseItems().observe(this, this::setupCourseCompletionChart);
     }
 
-    private void setupUIData() {
-        // Summary Cards
-        int totalWorkouts = dayHistories.size() / exercises.size(); // Number of completed workouts
-        int completedDays = (int) days.stream().filter(Day::isCompleted).count();
-        double totalCalories = exercises.stream().mapToDouble(Exercise::getKcal).sum() * completedDays;
-        long totalMinutes = exercises.stream().mapToLong(Exercise::getTime).sum() * completedDays / 60000; // Convert ms to minutes
-
-        tvTotalWorkouts.setText(String.valueOf(totalWorkouts));
-        tvCompletedDays.setText(String.valueOf(completedDays));
-        tvTotalCalories.setText(String.format(Locale.getDefault(), "%.0f", totalCalories));
-        tvTotalTime.setText(String.valueOf(totalMinutes));
-
-        // User Metrics
-        tvHeight.setText(String.format(Locale.getDefault(), "%.1f cm", user.getHeight()));
-        tvCurrentWeight.setText(String.format(Locale.getDefault(), "%.1f kg", user.getWeight()));
+    @Override
+    protected void initListener() {
+        binding.btnUpdateMetrics.setOnClickListener(this);
+        binding.btnViewAllHistory.setOnClickListener(this);
     }
 
-    private void setupCharts() {
-        // Weight History Chart
-        setupWeightHistoryChart();
-
-        // Weekly Workouts Chart
-        setupWeeklyWorkoutsChart();
-
-        // Course Completion Chart
-        setupCourseCompletionChart();
-    }
-
-    private void setupWeightHistoryChart() {
+    private void setupWeightHistoryChart(List<WeightHistoryItem> weightHistoryItems) {
         List<Entry> entries = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM", Locale.getDefault());
         List<String> xLabels = new ArrayList<>();
 
-        for (int i = 0; i < weightHistory.size(); i++) {
-            Weight weight = weightHistory.get(i);
-            entries.add(new Entry(i, (float) weight.getWeight()));
-            xLabels.add(sdf.format(new Date(weight.getDate())));
+        for (int i = 0; i < weightHistoryItems.size(); i++) {
+            WeightHistoryItem weightHistory = weightHistoryItems.get(i);
+            entries.add(new Entry(i, (float) weightHistory.getWeight()));
+            xLabels.add(sdf.format(new Date(weightHistory.getDate())));
         }
 
-        LineDataSet dataSet = new LineDataSet(entries, "Cân nặng (kg)");
-        dataSet.setColor(getResources().getColor(R.color.primary));
-        dataSet.setCircleColor(getResources().getColor(R.color.primary));
+        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.weight) + " " + getString(R.string.kg) );
+        dataSet.setColor(ContextCompat.getColor(requireContext(), R.color.primary));
+        dataSet.setCircleColor(ContextCompat.getColor(requireContext(), R.color.primary));
         dataSet.setLineWidth(2f);
         dataSet.setCircleRadius(4f);
         dataSet.setDrawValues(true);
@@ -225,70 +105,108 @@ public class ReportFragment extends Fragment {
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 
         LineData lineData = new LineData(dataSet);
-        chartWeightHistory.setData(lineData);
+        binding.chartWeightHistory.setData(lineData);
 
-        XAxis xAxis = chartWeightHistory.getXAxis();
+        XAxis xAxis = binding.chartWeightHistory.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
 
-        chartWeightHistory.getDescription().setEnabled(false);
-        chartWeightHistory.getLegend().setEnabled(false);
-        chartWeightHistory.setExtraBottomOffset(10f);
-        chartWeightHistory.invalidate();
+        binding.chartWeightHistory.getDescription().setEnabled(false);
+        binding.chartWeightHistory.getLegend().setEnabled(false);
+        binding.chartWeightHistory.setExtraBottomOffset(10f);
+        binding.chartWeightHistory.invalidate();
     }
 
-    private void setupWeeklyWorkoutsChart() {
-        String[] weekDays = new String[]{"T2", "T3", "T4", "T5", "T6", "T7", "CN"};
+    private void setupWeeklyWorkoutsChart(List<DayHistoryItem> dayHistoryItems) {
+        String[] weekDays = getWeekdayNames();
         List<BarEntry> entries = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        // Đặt về đầu ngày hôm nay
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
-        // Generate some random workout minutes for each day of the week
+        // Tìm ngày đầu tuần (Thứ 2)
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        // Trong Calendar, Chủ nhật = 1, Thứ 2 = 2... Thứ 7 = 7
+        int daysToSubtract = dayOfWeek == Calendar.SUNDAY ? 6 : dayOfWeek - Calendar.MONDAY;
+        calendar.add(Calendar.DAY_OF_MONTH, -daysToSubtract);
+
+        // Tạo một mảng để lưu trữ lượng calo đốt cho mỗi ngày trong tuần
+        float[] dailyCalories = new float[7];
+
+        // Tạo mảng lưu thời gian bắt đầu của mỗi ngày trong tuần
+        long[] weekDayTimestamps = new long[7];
+
+        // Lưu timestamp bắt đầu của mỗi ngày trong tuần
+        Calendar tempCal = (Calendar) calendar.clone();
         for (int i = 0; i < 7; i++) {
-            float minutes = (float) (Math.random() * 60); // Random minutes (0-60)
-            entries.add(new BarEntry(i, minutes));
+            weekDayTimestamps[i] = tempCal.getTimeInMillis();
+            tempCal.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        BarDataSet dataSet = new BarDataSet(entries, "Phút tập luyện");
-        dataSet.setColors(getResources().getColor(R.color.blue));
+        // Lấy timestamp kết thúc tuần (đầu ngày Thứ 2 tuần sau)
+        long endOfWeekTimestamp = tempCal.getTimeInMillis();
+
+        // Tính tổng calo cho mỗi ngày dựa trên dữ liệu dayHistories
+        for (DayHistoryItem dayHistoryItem : dayHistoryItems) {
+            long completionTime = dayHistoryItem.getStopTime();
+            if (completionTime >= weekDayTimestamps[0] && completionTime < endOfWeekTimestamp) {
+                for (int i = 0; i < 7; i++) {
+                    long nextDayTimestamp = (i < 6) ? weekDayTimestamps[i + 1] : endOfWeekTimestamp;
+                    if (completionTime >= weekDayTimestamps[i] && completionTime < nextDayTimestamp) {
+                        dailyCalories[i] += (float) dayHistoryItem.getKcal();
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Tạo các BarEntry từ dữ liệu calo đã tính
+        for (int i = 0; i < 7; i++) {
+            entries.add(new BarEntry(i, dailyCalories[i]));
+        }
+
+        // Cập nhật biểu đồ với dữ liệu thực
+        BarDataSet dataSet = new BarDataSet(entries, getString(R.string.calo_kcal));
+        dataSet.setColors(ContextCompat.getColor(requireContext(), R.color.primary));
         dataSet.setValueTextSize(10f);
 
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.6f);
 
-        chartWeeklyWorkouts.setData(barData);
-        chartWeeklyWorkouts.setFitBars(true);
+        binding.chartWeeklyWorkouts.setData(barData);
+        binding.chartWeeklyWorkouts.setFitBars(true);
 
-        XAxis xAxis = chartWeeklyWorkouts.getXAxis();
+        XAxis xAxis = binding.chartWeeklyWorkouts.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(weekDays));
 
-        chartWeeklyWorkouts.getDescription().setEnabled(false);
-        chartWeeklyWorkouts.getLegend().setEnabled(false);
-        chartWeeklyWorkouts.setExtraBottomOffset(10f);
-        chartWeeklyWorkouts.invalidate();
+        // Đặt nhãn trục Y để làm rõ đơn vị
+        YAxis leftAxis = binding.chartWeeklyWorkouts.getAxisLeft();
+        leftAxis.setAxisMinimum(0f);
+
+        // Vô hiệu hóa trục Y bên phải
+        binding.chartWeeklyWorkouts.getAxisRight().setEnabled(false);
+
+        binding.chartWeeklyWorkouts.getDescription().setEnabled(false);
+        binding.chartWeeklyWorkouts.getLegend().setEnabled(true);
+        binding.chartWeeklyWorkouts.setExtraBottomOffset(10f);
+        binding.chartWeeklyWorkouts.invalidate();
     }
 
-    private void setupCourseCompletionChart() {
+    private void setupCourseCompletionChart(List<CourseItem> courseItems) {
         List<PieEntry> entries = new ArrayList<>();
-
-        // Calculate course completion percentages
-        for (Course course : courses) {
-            int totalDays = 30; // Each course has 30 days
-            int completedDays = (int) days.stream()
-                    .filter(d -> d.getCourseId() == course.getId() && d.isCompleted())
-                    .count();
-
-            float completionPercentage = (float) completedDays / totalDays * 100;
-            entries.add(new PieEntry(completionPercentage, course.getName()));
+        for (CourseItem courseItem : courseItems) {
+            entries.add(new PieEntry(courseItem.getDayProgress(), courseItem.getName()));
         }
-
         PieDataSet dataSet = new PieDataSet(entries, "");
-        dataSet.setColors(new int[]{
-                getResources().getColor(R.color.primary),
-                getResources().getColor(R.color.blue),
-                getResources().getColor(R.color.green)
-        });
+        dataSet.setColors(ContextCompat.getColor(requireContext(), R.color.primary),
+                ContextCompat.getColor(requireContext(), R.color.blue),
+                ContextCompat.getColor(requireContext(), R.color.green));
         dataSet.setValueTextSize(12f);
         dataSet.setValueTextColor(Color.WHITE);
 
@@ -300,73 +218,47 @@ public class ReportFragment extends Fragment {
             }
         });
 
-        chartCourseCompletion.setData(pieData);
-        chartCourseCompletion.getDescription().setEnabled(false);
-        chartCourseCompletion.setHoleRadius(40f);
-        chartCourseCompletion.setTransparentCircleRadius(45f);
-        chartCourseCompletion.setEntryLabelTextSize(12f);
-        chartCourseCompletion.setEntryLabelColor(Color.WHITE);
-        chartCourseCompletion.setDrawEntryLabels(true);
-        chartCourseCompletion.setDrawCenterText(true);
-        chartCourseCompletion.setCenterText("Hoàn thành\nkhóa học");
-        chartCourseCompletion.setCenterTextSize(14f);
-        chartCourseCompletion.invalidate();
+        binding.chartCourseCompletion.setData(pieData);
+        binding.chartCourseCompletion.getDescription().setEnabled(false);
+        binding.chartCourseCompletion.setHoleRadius(40f);
+        binding.chartCourseCompletion.setTransparentCircleRadius(45f);
+        binding.chartCourseCompletion.setEntryLabelTextSize(12f);
+        binding.chartCourseCompletion.setEntryLabelColor(Color.WHITE);
+        binding.chartCourseCompletion.setDrawEntryLabels(true);
+        binding.chartCourseCompletion.setDrawCenterText(true);
+        binding.chartCourseCompletion.setCenterText(getString(R.string.completed_course));
+        binding.chartCourseCompletion.setCenterTextSize(14f);
+        binding.chartCourseCompletion.invalidate();
     }
 
-    private void setupRecyclerView() {
-        adapter = new WorkoutHistoryAdapter(getRecentWorkoutHistory());
-        rvRecentActivities.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvRecentActivities.setAdapter(adapter);
+    @Override
+    public void onMetricsUpdated(double weight, double height) {
+        viewModel.updateHeight(height);
+        binding.tvHeight.setText(String.format(Locale.getDefault(), getString(R.string.f_cm), height));
+        viewModel.saveWeight(weight);
     }
 
-    private List<WorkoutHistoryItem> getRecentWorkoutHistory() {
-        List<WorkoutHistoryItem> historyItems = new ArrayList<>();
-
-        // Group day histories by day to create workout sessions
+    private String[] getWeekdayNames() {
+        String[] dayNames = new String[7];
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-        for (int i = 0; i < 5; i++) { // Show last 5 workouts
-            if (i >= dayHistories.size() / exercises.size()) break;
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
 
-            calendar.setTime(new Date());
-            calendar.add(Calendar.DAY_OF_MONTH, -(i+1));
-
-            int dayId = i + 1;
-            Course course = courses.get(dayId % courses.size());
-            int dayNumber = (dayId % 30) + 1;
-
-            // Calculate total exercise time for the day
-            long totalTime = exercises.stream().mapToLong(Exercise::getTime).sum();
-            double totalCalories = exercises.stream().mapToDouble(Exercise::getKcal).sum();
-
-            // Get average rest time
-            long avgRestTime = 30000; // 30 seconds (dummy value)
-
-            WorkoutHistoryItem item = new WorkoutHistoryItem(
-                    course.getName(),
-                    dayNumber,
-                    sdf.format(calendar.getTime()),
-                    totalTime / 60000, // Convert to minutes
-                    totalCalories,
-                    avgRestTime / 1000, // Convert to seconds
-                    exercises.size()
-            );
-
-            historyItems.add(item);
+        for (int i = 0; i < 7; i++) {
+            Calendar day = (Calendar) calendar.clone();
+            dayNames[i] = new SimpleDateFormat("EEE", Locale.getDefault()).format(day.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-
-        return historyItems;
+        return dayNames;
     }
 
-    private void setupListeners() {
-        btnUpdateWeight.setOnClickListener(v -> {
-            UpdateMetricsBottomSheet bottomSheet = new UpdateMetricsBottomSheet();
+    @Override
+    public void onClick(View v) {
+        if(v == binding.btnUpdateMetrics){
+            UserMetricsBottomSheet bottomSheet= UserMetricsBottomSheet.newInstance(70, 170, this);
             bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
-        });
-
-        btnViewAllHistory.setOnClickListener(v -> {
+        } else if (v == binding.btnViewAllHistory) {
             startActivity(new Intent(requireContext(), WorkoutHistoryActivity.class));
-        });
+        }
     }
 }

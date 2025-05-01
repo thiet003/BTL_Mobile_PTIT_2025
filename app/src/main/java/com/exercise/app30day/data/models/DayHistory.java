@@ -23,11 +23,14 @@ public class DayHistory extends BaseEntity{
 
     private long restTime;
 
+    private double kcal;
+
     public DayHistory(int dayId, int exercisePosition) {
         this.dayId = dayId;
         this.exercisePosition = exercisePosition;
         this.stopTime = 0;
         this.restTime = 0;
+        this.kcal = 0;
     }
 
     public int getDayId() {
@@ -60,5 +63,13 @@ public class DayHistory extends BaseEntity{
 
     public void setRestTime(long restTime) {
         this.restTime = restTime;
+    }
+
+    public double getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(double kcal) {
+        this.kcal = kcal;
     }
 }

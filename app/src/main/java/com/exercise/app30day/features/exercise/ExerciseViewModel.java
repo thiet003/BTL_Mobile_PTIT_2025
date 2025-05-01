@@ -67,10 +67,16 @@ public class ExerciseViewModel extends ViewModel {
         this.dayHistory.setCreatedAt(System.currentTimeMillis());
     }
 
+    private long exerciseStartTime = 0;
     public void moveExerciseToRest(OnCompleteListener listener){
         timeCounter = 0;
+        long exerciseDuration = System.currentTimeMillis() - exerciseStartTime;
+        exerciseStartTime = 0;
         ExerciseUiState state = _onExerciseUiState.getValue();
         if(state != null){
+            ExerciseItem exerciseItem = listExerciseItem.get(getExercisePosition());
+            double kcal = exerciseItem.getKcal() * (Math.min((double) exerciseDuration/ exerciseItem.getTime(), 1.0));
+            dayHistory.setKcal(dayHistory.getKcal() + kcal);
             if(state.getExercisePosition() < listExerciseItem.size() - 1){
                 state.setExerciseState(ExerciseState.REST);
                 state.setExercisePosition(state.getExercisePosition() + 1);
@@ -87,6 +93,7 @@ public class ExerciseViewModel extends ViewModel {
 
     public void moveRestToExercise(){
         timeCounter = 0;
+        exerciseStartTime = System.currentTimeMillis();
         ExerciseUiState state = _onExerciseUiState.getValue();
         if(state != null){
             state.setExerciseState(ExerciseState.EXERCISE);
@@ -96,6 +103,7 @@ public class ExerciseViewModel extends ViewModel {
 
     public void movePreviousExercise(){
         timeCounter = 0;
+        exerciseStartTime = System.currentTimeMillis();
         ExerciseUiState state = _onExerciseUiState.getValue();
         if(state != null){
             if(state.getExercisePosition() > 0){

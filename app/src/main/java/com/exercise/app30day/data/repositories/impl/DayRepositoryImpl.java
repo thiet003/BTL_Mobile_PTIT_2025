@@ -32,4 +32,9 @@ public class DayRepositoryImpl implements DayRepository {
     public void updateDay(int dayId, boolean completed) {
         new Thread(() -> dayDao.updateDay(dayId, completed)).start();
     }
+
+    @Override
+    public LiveData<Integer> countCompletedDays() {
+        return dayDao.countCompletedDays();
+    }
 }

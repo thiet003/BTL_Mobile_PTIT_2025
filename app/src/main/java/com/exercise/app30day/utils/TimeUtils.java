@@ -9,10 +9,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public final class TimeUtils {
-    public static String convertMillisToDate(long millis) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", new Locale("vi", "VN"));
-        return sdf.format(new Date(millis));
-    }
 
     @SuppressLint("DefaultLocale")
     public static String formatMillisecondsToMMSS(long milliseconds) {
@@ -22,12 +18,12 @@ public final class TimeUtils {
     }
 
     public static String formatDate(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         return sdf.format(calendar.getTime());
     }
 
     public static String formatDate(long millis) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         return sdf.format(new Date(millis));
     }
 
