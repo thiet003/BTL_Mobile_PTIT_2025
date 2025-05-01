@@ -32,4 +32,9 @@ public class DayHistoryRepositoryImpl implements DayHistoryRepository {
     public LiveData<List<DayHistoryItem>> getDayHistoryItems(int dayId) {
         return dayHistoryDao.getDayHistoryItems(dayId);
     }
+
+    @Override
+    public LiveData<List<DayHistoryItem>> getAllDayHistoryItems() {
+        return dayHistoryDao.getAllDayHistoryItems();
+    }
 }

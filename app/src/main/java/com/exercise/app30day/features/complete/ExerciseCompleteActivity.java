@@ -64,7 +64,7 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         binding.layoutExercise.tvValue.setText(String.valueOf(listExerciseItem.size()));
         viewModel.getDayHistoryItems(dayItem.getId()).observe(this, dayHistoryItems -> {
             binding.layoutTime.tvValue.setText(viewModel.calculateAndFormatTotalTime(dayHistoryItems));
-            binding.layoutCalo.tvValue.setText(String.valueOf(viewModel.calculateAndFormatCalories(listExerciseItem, dayHistoryItems)));
+            binding.layoutCalo.tvValue.setText(String.valueOf(viewModel.calculateAndFormatCalories(dayHistoryItems)));
         });
 
         genderWheelView = binding.genderWheelView;
@@ -110,6 +110,7 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         binding.btnDown.setOnClickListener(this);
         binding.tvTime.setOnClickListener(this);
         binding.btnSkip.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
     }
 
     @Override
@@ -126,6 +127,10 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
             DatePickerDialog datePickerDialog = getDatePickerDialog();
             datePickerDialog.show();
         }else if(v == binding.btnSkip){
+            goBackToCourseActivity();
+        }else if(v == binding.btnSave){
+            viewModel.saveWeight(binding.weightPicker.getValue());
+            viewModel.updateHeight(binding.heightPicker.getValue());
             goBackToCourseActivity();
         }
     }

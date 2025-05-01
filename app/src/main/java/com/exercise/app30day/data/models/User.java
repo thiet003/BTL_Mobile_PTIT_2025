@@ -1,12 +1,33 @@
 package com.exercise.app30day.data.models;
 
 
-import androidx.room.Entity;
+public class User{
+    private long id;
 
-@Entity(tableName = "user")
-public class User extends BaseEntity {
-    private double height = 0;
-    private double weight = 0;
+    private String name;
+    private double height;
+
+    public User(long id, String name, double height){
+        this.id = id;
+        this.name = name;
+        this.height = height;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public double getHeight() {
         return height;
@@ -14,13 +35,5 @@ public class User extends BaseEntity {
 
     public void setHeight(double height) {
         this.height = height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 }

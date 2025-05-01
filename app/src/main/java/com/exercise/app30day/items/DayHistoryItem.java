@@ -14,6 +14,12 @@ public class DayHistoryItem extends BaseItem {
 
     private long restTime;
 
+    private double kcal;
+
+    private String courseName;
+
+    private int day;
+
     public DayHistoryItem(int id) {
         super(id);
     }
@@ -56,5 +62,29 @@ public class DayHistoryItem extends BaseItem {
 
     public void setRestTime(long restTime) {
         this.restTime = restTime;
+    }
+
+    public double getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(double kcal) {
+        this.kcal = kcal;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 }
