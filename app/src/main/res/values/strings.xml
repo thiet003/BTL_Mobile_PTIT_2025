@@ -137,7 +137,6 @@
     <string name="body_metrics_subtitle">Track changes in your weight and height</string>
     <string name="weight_kg">Weight (kg)</string>
     <string name="height_cm">Height (cm)</string>
-    <string name="cancel">Cancel</string>
     <string name="calories">Calories</string>
     <string name="rest">Rest</string>
     <string name="d_minutes">%d min</string>

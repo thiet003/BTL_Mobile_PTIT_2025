@@ -136,7 +136,6 @@
     <string name="body_metrics_subtitle">Theo dõi sự thay đổi cân nặng và chiều cao của bạn</string>
     <string name="weight_kg">Cân nặng (kg)</string>
     <string name="height_cm">Chiều cao (cm)</string>
-    <string name="cancel">Hủy</string>
     <string name="calories">Calo </string>
     <string name="rest">Nghỉ ngơi</string>
     <string name="d_minutes">%d phút</string>
