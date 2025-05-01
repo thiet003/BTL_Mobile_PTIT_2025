@@ -1,5 +1,6 @@
 package com.exercise.app30day.config;
 
+import com.exercise.app30day.items.MusicItem;
 import com.exercise.app30day.utils.HawkKeys;
 import com.orhanobut.hawk.Hawk;
 
@@ -10,7 +11,6 @@ public final class AppConfig {
     public static final int MAX_HEIGHT = 250;
     public static final int MIN_HEIGHT = 100;
     public static final long DEFAULT_DELAY_MILLIS = 100L;
-
     public static final long LOOP_DURATION_MILLIS = 3000L;
 
     public static long getExercisePrepareDuration(){
@@ -18,7 +18,7 @@ public final class AppConfig {
     }
 
     public static void setExercisePrepareDuration(long duration){
-        Hawk.put(HawkKeys.REST_DURATION_KEY, duration);
+        Hawk.put(HawkKeys.PREPARE_DURATION_KEY, duration);
     }
 
     public static long getExerciseRestDuration(){
@@ -27,6 +27,14 @@ public final class AppConfig {
 
     public static void setExerciseRestDuration(long duration){
         Hawk.put(HawkKeys.REST_DURATION_KEY, duration);
+    }
+
+    public static boolean isFemaleVoice(){
+        return Hawk.get(HawkKeys.FEMALE_VOICE_KEY, false);
+    }
+
+    public static void setFemaleVoice(boolean femaleVoice){
+        Hawk.put(HawkKeys.FEMALE_VOICE_KEY, femaleVoice);
     }
 
 }

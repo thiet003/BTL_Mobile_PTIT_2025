@@ -24,7 +24,6 @@ import com.exercise.app30day.features.exercise_dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
-import com.exercise.app30day.utils.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.List;
