@@ -29,4 +29,7 @@ public interface DayDao {
 
     @Query("UPDATE day SET completed = :completed WHERE id = :dayId")
     void updateDay(int dayId, boolean completed);
+
+    @Query("SELECT COUNT(*) FROM day WHERE completed = 1")
+    LiveData<Integer> countCompletedDays();
 }

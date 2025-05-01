@@ -57,10 +57,10 @@
     <string name="gender">Gender</string>
     <string name="your_health">Your health</string>
     <string name="you_are_healthy">You are healthy</string>
-    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normal BMI weight range for the height: 18.5 – 24.9</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normal BMI weightHistory range for the height: 18.5 – 24.9</string>
 
     <string name="bmi_underweight">You are Underweight</string>
-    <string name="bmi_normal">Your weight is Normal</string>
+    <string name="bmi_normal">Your weightHistory is Normal</string>
     <string name="bmi_pre_obese">You are in Pre-obese category</string>
     <string name="bmi_obese_class_1">You have Obesity Class I</string>
     <string name="bmi_obese_class_2">You have Obesity Class II</string>
@@ -74,4 +74,42 @@
     <string name="version_s">Version %s</string>
     <string name="vietnamese">Vietnamese</string>
     <string name="english">English</string>
+    <string name="workouts">Workouts</string>
+    <string name="completed_days">Completed days</string>
+    <string name="kcal_burned">Kcal</string>
+    <string name="workout_minutes">Workout minutes</string>
+    <string name="exercise_report">Exercise report</string>
+    <string name="body_indices">Body indices</string>
+    <string name="heights">Heights</string>
+    <string name="current_weight">Current weight</string>
+    <string name="f_kg">%.1f kg</string>
+    <string name="f_cm">%.1f cm</string>
+    <string name="weight_history">Weight history</string>
+    <string name="update_metrics">Update metrics</string>
+    <string name="weekly_progress">Weekly progress</string>
+    <string name="calories_burned_each_day_of_the_week">Calories burned each day of the week</string>
+    <string name="courses_progress">Courses Progress</string>
+    <string name="course_completion_rates">Course completion rates</string>
+    <string name="recent_activity">Recent activity</string>
+    <string name="see_full_history">See full history</string>
+
+    <string name="completed_course">Completed\ncourse</string>
+    <string name="calo_kcal">Calo (kcal)</string>
+
+    <string name="workout_history_title">Workout History</string>
+    <string name="workout_calendar_title">Workout Calendar</string>
+    <string name="total_workouts">Total Workouts</string>
+    <string name="this_month">This Month</string>
+    <string name="consecutive_days">Consecutive Days</string>
+
+    <string name="update_body_metrics">Update Body Metrics</string>
+    <string name="body_metrics_subtitle">Track changes in your weight and height</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="cancel">Cancel</string>
+    <string name="calories">Calories</string>
+    <string name="rest">Rest</string>
+    <string name="d_minutes">%d min</string>
+    <string name="f_kcal">$.1f kcal</string>
+    <string name="d_seconds">%d sec</string>
 </resources>
