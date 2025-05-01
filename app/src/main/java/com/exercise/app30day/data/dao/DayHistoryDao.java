@@ -26,6 +26,8 @@ public interface DayHistoryDao {
             "ORDER BY startTime ASC")
     LiveData<List<DayHistoryItem>> getDayHistoryItems(int dayId);
 
+    @Query("DELETE FROM day_history")
+    void deleteAll();
 
     @Query("SELECT DISTINCT dh.id, dh.dayId, dh.exercisePosition, dh.createdAt as startTime, " +
             "dh.stopTime, dh.restTime, dh.kcal, c.name as courseName, d.day as day " +

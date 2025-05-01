@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_250sdp"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_16sdp"
+    android:background="@drawable/bg_round_corner_medium"
+    android:backgroundTint="@color/background"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rest_time_seconds"
+        android:textAlignment="center"
+        android:textColor="@color/textPrimaryColor"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/secondsPicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:np_orientation="horizontal"
+        app:np_selectedTextColor="@color/primary"
+        app:np_textColor="@color/textPrimaryColor"
+        app:np_selectedTextSize="@dimen/_18sdp"
+        app:np_textSize="@dimen/_16sdp"
+        app:np_dividerDistance="@dimen/_35sdp"
+        app:np_dividerThickness="2dp"
+        app:np_dividerColor="@color/primary"
+        app:np_wheelItemCount="5"
+        app:np_max="60"
+        app:np_min="20"
+        app:np_value="30"
+        android:layout_marginTop="@dimen/_24sdp"/>
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/_20sdp"
+        android:background="@color/tertiaryBackground" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/vn_semi_bold"
+            android:background="@drawable/bg_button_round_conner"
+            android:backgroundTint="@color/tertiaryBackground"/>
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_weight="1"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/vn_semi_bold"
+            android:background="@drawable/bg_primary_button"
+            />
+    </LinearLayout>
+
+</LinearLayout>
