@@ -13,10 +13,15 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.R;
+import com.exercise.app30day.data.models.User;
+import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.repositories.DayHistoryRepository;
+import com.exercise.app30day.data.repositories.WeightHistoryRepository;
 import com.exercise.app30day.items.DayHistoryItem;
 import com.exercise.app30day.items.ExerciseItem;
+import com.exercise.app30day.utils.HawkKeys;
 import com.exercise.app30day.utils.TimeUtils;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.Calendar;
 import java.util.List;
@@ -34,16 +39,19 @@ public class ExerciseCompleteViewModel extends ViewModel {
     public final LiveData<UserUiState> onUserUiState = _onUserUiState;
 
     private final DayHistoryRepository dayHistoryRepository;
+
+    private final WeightHistoryRepository weightHistoryRepository;
     private final List<String> genders;
 
     @Inject
-    public ExerciseCompleteViewModel(@ApplicationContext Context context, DayHistoryRepository dayHistoryRepository) {
-        this.dayHistoryRepository = dayHistoryRepository;
+    public ExerciseCompleteViewModel(@ApplicationContext Context context, DayHistoryRepository dayHistoryRepository, WeightHistoryRepository weightHistoryRepository) {
         genders = List.of(
                 context.getString(R.string.female),
                 context.getString(R.string.other),
                 context.getString(R.string.male)
         );
+        this.dayHistoryRepository = dayHistoryRepository;
+        this.weightHistoryRepository = weightHistoryRepository;
     }
 
     public List<String> getGenders() {
@@ -176,25 +184,15 @@ public class ExerciseCompleteViewModel extends ViewModel {
     }
 
     @SuppressLint("DefaultLocale")
-    public String calculateAndFormatCalories(List<ExerciseItem> exerciseItems, List<DayHistoryItem> dayHistoryItems){
-        if(exerciseItems == null || exerciseItems.isEmpty() || dayHistoryItems == null || dayHistoryItems.isEmpty()){
+    public String calculateAndFormatCalories(List<DayHistoryItem> dayHistoryItems){
+        if(dayHistoryItems == null || dayHistoryItems.isEmpty()){
             return "0.0";
         }
-        long totalActualExerciseTime = 0;
-        for (DayHistoryItem item : dayHistoryItems){
-            totalActualExerciseTime += item.getStopTime() - item.getStartTime() - item.getRestTime();
-        }
-        long totalTime = 0;
-        for (ExerciseItem item : exerciseItems){
-            totalTime += item.getTime();
-        }
         double totalCalo = 0;
-        for (ExerciseItem item : exerciseItems){
+        for (DayHistoryItem item : dayHistoryItems){
             totalCalo += item.getKcal();
         }
-
-        double averageCalo = totalCalo / totalTime;
-        return String.format("%.1f", totalActualExerciseTime * averageCalo).replace(",", ".");
+        return String.format("%.1f", totalCalo).replace(",", ".");
     }
 
     public String calculateAndFormatTotalTime(List<DayHistoryItem> dayHistoryItems){
@@ -208,5 +206,15 @@ public class ExerciseCompleteViewModel extends ViewModel {
 
     public LiveData<List<DayHistoryItem>> getDayHistoryItems(int dayId){
         return dayHistoryRepository.getDayHistoryItems(dayId);
+    }
+
+    public void saveWeight(double weight){
+        weightHistoryRepository.insertWeightHistory(new WeightHistory(weight, getCalendar().getTimeInMillis()));
+    }
+
+    public void updateHeight(double height){
+        User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
+        user.setHeight(height);
+        Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
     }
 }

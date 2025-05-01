@@ -32,4 +32,7 @@ public interface DayDao {
 
     @Query("UPDATE day SET completed = 0")
     void resetAll();
+  
+    @Query("SELECT COUNT(*) FROM day WHERE completed = 1")
+    LiveData<Integer> countCompletedDays();
 }
