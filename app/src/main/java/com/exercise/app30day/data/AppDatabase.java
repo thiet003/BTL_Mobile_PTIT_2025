@@ -11,17 +11,15 @@ import com.exercise.app30day.data.dao.DayDao;
 import com.exercise.app30day.data.dao.DayExerciseDao;
 import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
-import com.exercise.app30day.data.dao.UserDao;
-import com.exercise.app30day.data.dao.WeightDao;
+import com.exercise.app30day.data.dao.WeightHistoryDao;
 import com.exercise.app30day.data.models.Course;
 import com.exercise.app30day.data.models.Day;
 import com.exercise.app30day.data.models.DayExercise;
 import com.exercise.app30day.data.models.DayHistory;
 import com.exercise.app30day.data.models.Exercise;
 import com.exercise.app30day.data.models.User;
-import com.exercise.app30day.data.models.Weight;
+import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.utils.HawkKeys;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.CustomSignals;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -30,38 +28,34 @@ import com.google.gson.reflect.TypeToken;
 import com.orhanobut.hawk.Hawk;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Database(entities = {
         Course.class,
-        Exercise.class, 
-        User.class,
-        Weight.class,
+        Exercise.class,
         Day.class,
         DayExercise.class,
-        DayHistory.class
+        DayHistory.class,
+        WeightHistory.class
 }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
     public abstract CourseDao courseDao();
     public abstract ExerciseDao exerciseDao();
-    public abstract UserDao userDao();
-    public abstract WeightDao weightDao();
     public abstract DayDao dayDao();
     public abstract DayExerciseDao dayExerciseDao();
     public abstract DayHistoryDao dayHistoryDao();
+    public abstract WeightHistoryDao weightHistoryDao();
 
-    public static String COURSES_DATA = "courses_data";
+    public static final String COURSES_DATA = "courses_data";
 
-    public static String EXERCISES_DATA = "exercises_data";
+    public static final String EXERCISES_DATA = "exercises_data";
 
-    public static String DAYS_DATA = "days_data";
+    public static final String DAYS_DATA = "days_data";
 
-    public static String DAY_EXERCISES_DATA = "day_exercises_data";
+    public static final String DAY_EXERCISES_DATA = "day_exercises_data";
 
-    private static String LANGUAGE_CODE = "language_code";
+    private static final String LANGUAGE_CODE = "language_code";
     
     public static AppDatabase getInstance(Context context) {
         if(instance == null){
@@ -112,12 +106,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     }.getType();
                     List<DayExercise> dayExercises = new Gson().fromJson(dayExercisesJson, dayExerciseType);
                     getInstance(context).dayExerciseDao().insertDayExercises(dayExercises);
-
-                    User user = new User();
-                    user.setId(1);
-                    getInstance(context).userDao().insertUser(user);
-                    Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
-
+                    Hawk.put(HawkKeys.INSTANCE_USER_KEY, new User(System.currentTimeMillis(), "user", 0f));
                     Hawk.put(HawkKeys.DATABASE_DATA_INITIALIZED_KEY, true);
                 }).start();
             }
@@ -165,5 +154,13 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public interface OnUpdateListener{
         void onCompleted();
+    }
+
+    public static void resetAll(Context context) {
+        new Thread(() -> {
+            getInstance(context).dayDao().resetAll();
+            getInstance(context).dayExerciseDao().resetAll();
+            getInstance(context).dayHistoryDao().deleteAll();
+        }).start();
     }
 }

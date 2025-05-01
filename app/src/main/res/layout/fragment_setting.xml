@@ -70,6 +70,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/item_workout_settings"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/bg_round_corner_small"
@@ -97,7 +98,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/languages"
+                        android:text="@string/workout_settings"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -107,7 +108,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/music_amp_reminder_amp_coach_etc"
+                        android:text="@string/music_amp_coach_amp_duration_etc"
                         android:textColor="@color/textSecondaryColor"
                         android:textSize="@dimen/_11sdp"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -158,12 +159,15 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/item_restart"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/bg_round_corner_small"
                 android:backgroundTint="@color/primary"
                 android:paddingHorizontal="@dimen/_13sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/iv_recovery"

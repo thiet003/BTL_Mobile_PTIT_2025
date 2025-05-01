@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array translatable="false" name="history_filter_options">
+        <item>All</item>
+        <item>This month</item>
+        <item>This week</item>
+    </string-array>
+</resources>
