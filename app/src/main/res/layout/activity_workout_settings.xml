@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondaryBackground">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_16sdp"
+        android:paddingHorizontal="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:src="@drawable/ic_arrow_back"
+                android:scaleType="fitXY"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="@color/iconPrimaryColor"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/workout_settings"
+                android:textColor="@color/textPrimaryColor"
+                android:layout_toEndOf="@id/btnBack"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/_18sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/vn_bold"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/bg_round_corner_medium"
+            android:backgroundTint="@color/background"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <!-- Background Music Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/background_music"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/toggleBackgroundMusic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="7dp"
+                    android:checked="true"
+                    app:thumbTint="@color/primary"
+                    app:trackTint="@drawable/switch_track_color" />
+            </LinearLayout>
+
+            <!-- Music Selection -->
+            <LinearLayout
+                android:id="@+id/layoutSelectMusic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_music"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:src="@drawable/ic_flag_english" />
+
+                    <TextView
+                        android:id="@+id/tvSelectedMusic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="@string/music_default"
+                        android:textColor="@color/textPrimaryColor"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/iconTertiaryColor" />
+            </LinearLayout>
+
+            <!-- Volume Slider -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/ic_volume_down"
+                    app:tint="@color/iconTertiaryColor" />
+
+                <SeekBar
+                    android:id="@+id/volumeSeekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary" />
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/ic_volume_up"
+                    app:tint="@color/iconTertiaryColor" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/bg_round_corner_medium"
+            android:backgroundTint="@color/background"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <!-- Voice Guidance Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/voice_guidance"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/toggleVoiceGuidance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:thumbTint="@color/primary"
+                    app:trackTint="@drawable/switch_track_color"  />
+            </LinearLayout>
+
+            <!-- Voice Type Selection -->
+            <LinearLayout
+                android:id="@+id/layoutSelectVoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/voice_type"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/tvSelectedVoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/_12sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/iconTertiaryColor" />
+            </LinearLayout>
+
+            <!-- Voice Volume Slider -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/ic_volume_down"
+                    app:tint="@color/iconTertiaryColor" />
+
+                <SeekBar
+                    android:id="@+id/voiceVolumeSeekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="70"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary" />
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/ic_volume_up"
+                    app:tint="@color/iconTertiaryColor" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/bg_round_corner_medium"
+            android:backgroundTint="@color/background"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <!-- Rest Time Between Exercises -->
+            <LinearLayout
+                android:id="@+id/layoutRestTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/rest_time"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/tvRestTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seconds_30"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/_12sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/iconTertiaryColor" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:background="@color/tertiaryBackground" />
+
+            <!-- Preparation Time -->
+            <LinearLayout
+                android:id="@+id/layoutPrepTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/preparation_time"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/tvPrepTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seconds_15"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/_12sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/iconTertiaryColor" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:background="@color/tertiaryBackground" />
+
+            <!-- Countdown Sound Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/countdown_sound"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/toggleCountdownSound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:thumbTint="@color/primary"
+                    app:trackTint="@drawable/switch_track_color" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Spacing at the bottom -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp" />
+
+    </LinearLayout>
+
+</ScrollView>

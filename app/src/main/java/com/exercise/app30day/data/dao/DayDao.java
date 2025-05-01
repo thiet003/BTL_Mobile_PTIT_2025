@@ -29,4 +29,7 @@ public interface DayDao {
 
     @Query("UPDATE day SET completed = :completed WHERE id = :dayId")
     void updateDay(int dayId, boolean completed);
+
+    @Query("UPDATE day SET completed = 0")
+    void resetAll();
 }

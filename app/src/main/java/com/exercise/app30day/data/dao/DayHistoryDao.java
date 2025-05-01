@@ -22,4 +22,7 @@ public interface DayHistoryDao {
             "WHERE dh.dayId = :dayId " +
             "ORDER BY startTime ASC")
     LiveData<List<DayHistoryItem>> getDayHistoryItems(int dayId);
+
+    @Query("DELETE FROM day_history")
+    void deleteAll();
 }

@@ -16,4 +16,7 @@ public interface DayExerciseDao {
 
     @Query("UPDATE day_exercise SET completed = :completed WHERE dayId = :dayId AND exerciseId = :exerciseId")
     void updateDayExercise(int dayId, int exerciseId, boolean completed);
+
+    @Query("UPDATE day_exercise SET completed = 0")
+    void resetAll();
 }

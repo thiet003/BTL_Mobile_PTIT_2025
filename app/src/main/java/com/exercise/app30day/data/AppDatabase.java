@@ -166,4 +166,12 @@ public abstract class AppDatabase extends RoomDatabase {
     public interface OnUpdateListener{
         void onCompleted();
     }
+
+    public static void resetAll(Context context) {
+        new Thread(() -> {
+            getInstance(context).dayDao().resetAll();
+            getInstance(context).dayExerciseDao().resetAll();
+            getInstance(context).dayHistoryDao().deleteAll();
+        }).start();
+    }
 }
