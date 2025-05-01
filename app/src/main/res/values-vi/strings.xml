@@ -104,4 +104,42 @@
     <string name="rest_time_between_exercises">Thời gian nghỉ giữa các bài tập</string>
     <string name="rest_time_updated">Đã cập nhật thời gian nghỉ</string>
     <string name="preparation_time_updated">Đã cập nhật thời gian chuẩn bị</string>
+    <string name="workouts">Số buổi tập</string>
+    <string name="completed_days">Ngày hoàn thành</string>
+    <string name="kcal_burned">Calo đã đốt</string>
+    <string name="workout_minutes">Phút tập luyện</string>
+    <string name="exercise_report">Báo cáo tập luyện</string>
+    <string name="body_indices">Chỉ số cơ thể</string>
+    <string name="heights">Chiều cao</string>
+    <string name="current_weight">Cân nặng hiện tại</string>
+    <string name="f_kg">%.1f kg</string>
+    <string name="f_cm">%.1f cm</string>
+    <string name="weight_history">Lịch sử cân nặng</string>
+    <string name="update_metrics">Cập nhật số liệu</string>
+    <string name="weekly_progress">Tiến độ hàng tuần</string>
+    <string name="calories_burned_each_day_of_the_week">Số calo đốt cháy mỗi ngày trong tuần</string>
+    <string name="courses_progress">Tiến độ khóa học</string>
+    <string name="course_completion_rates">Tiến độ hoàn thành các khóa học</string>
+    <string name="recent_activity">Hoạt động gần đây</string>
+    <string name="see_full_history">Xem toàn bộ lịch sử</string>
+
+    <string name="completed_course">Hoàn thành\nkhóa học</string>
+    <string name="calo_kcal">Calo (kcal)</string>
+
+    <string name="workout_history_title">Lịch sử tập luyện</string>
+    <string name="workout_calendar_title">Lịch tập luyện</string>
+    <string name="total_workouts">Tổng buổi tập</string>
+    <string name="this_month">Tháng này</string>
+    <string name="consecutive_days">Ngày liên tiếp</string>
+
+    <string name="update_body_metrics">Cập nhật chỉ số cơ thể</string>
+    <string name="body_metrics_subtitle">Theo dõi sự thay đổi cân nặng và chiều cao của bạn</string>
+    <string name="weight_kg">Cân nặng (kg)</string>
+    <string name="height_cm">Chiều cao (cm)</string>
+    <string name="cancel">Hủy</string>
+    <string name="calories">Calo </string>
+    <string name="rest">Nghỉ ngơi</string>
+    <string name="d_minutes">%d phút</string>
+    <string name="f_kcal">$.1f kcal</string>
+    <string name="d_seconds">%d giây</string>
 </resources>
