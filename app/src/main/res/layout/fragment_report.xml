@@ -275,10 +275,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
-                            android:text="@string/f_cm"
+                            android:text="0.0 cm"
                             android:textColor="@color/textPrimaryColor"
                             android:textSize="@dimen/_16sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -299,10 +300,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
-                            android:text="@string/f_kg"
+                            android:text="0.0 kg"
                             android:textColor="@color/textPrimaryColor"
                             android:textSize="@dimen/_16sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
                 </LinearLayout>
 
