@@ -142,4 +142,11 @@
     <string name="d_minutes">%d min</string>
     <string name="f_kcal">$.1f kcal</string>
     <string name="d_seconds">%d sec</string>
+    <string name="intro_title_1">Effective Workouts</string>
+    <string name="intro_description_1">Track your progress with our professionally designed workout plans to achieve your fitness goals.</string>
+    <string name="intro_title_2">Rest &amp; Recovery</string>
+    <string name="intro_description_2">Learn the importance of proper rest and recovery between workouts for optimal muscle growth.</string>
+    <string name="intro_title_3">Track Your Progress</string>
+    <string name="intro_description_3">Monitor your strength gains and workout performance over time to stay motivated.</string>
+    <string name="get_started">Get Started</string>
 </resources>
