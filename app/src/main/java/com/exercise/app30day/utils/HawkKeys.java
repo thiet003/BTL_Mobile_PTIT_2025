@@ -14,4 +14,6 @@ public final class HawkKeys {
     public static final String MUSIC_ID_KEY = "music_id_key";
 
     public static final String FEMALE_VOICE_KEY = "female_voice_key";
+
+    public static final String INTRO_SHOWN_KEY = "intro_shown_key";
 }

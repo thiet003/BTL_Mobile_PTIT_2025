@@ -65,9 +65,9 @@ public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportVi
             binding.tvCompletedDays.setAnimationDuration(1000).countAnimation(0, count);
         });
 
+        User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
+        binding.tvHeight.setText(String.format(Locale.getDefault(), getString(R.string.f_cm), user.getHeight()));
         viewModel.getAllWeightHistoryItems().observe(this, weightHistoryItems -> {
-            User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
-            binding.tvHeight.setText(String.format(Locale.getDefault(), getString(R.string.f_cm), user.getHeight()));
             if(!weightHistoryItems.isEmpty()){
                 double weight = weightHistoryItems.get(weightHistoryItems.size() - 1).getWeight();
                 binding.tvCurrentWeight.setText(String.format(Locale.getDefault(), getString(R.string.f_kg), weight));
