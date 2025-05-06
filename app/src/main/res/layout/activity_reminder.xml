@@ -32,15 +32,15 @@
                     android:scaleType="fitXY"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_arrow_back"
-                    android:contentDescription="Back"
+                    android:contentDescription="@null"
                     app:tint="@color/textPrimaryColor"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reminder"
+                    android:text="@string/reminder"
                     android:textColor="@color/textPrimaryColor"
-                    android:textSize="@dimen/_20sdp"
+                    android:textSize="@dimen/_18sdp"
                     android:textStyle="bold"
                     android:layout_marginStart="@dimen/_12sdp"/>
             </LinearLayout>

@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Repeat"
+        android:text="@string/repeat"
         android:textColor="@color/textPrimaryColor"
         android:textSize="@dimen/_18sdp"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sunday"
+            android:text="@string/sunday"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_8sdp"/>
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Monday"
+            android:text="@string/monday"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_8sdp"/>
@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tuesday"
+            android:text="@string/tuesday"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_8sdp"/>
@@ -107,7 +107,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wednesday"
+            android:text="@string/wednesday"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_8sdp"/>
@@ -131,7 +131,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thursday"
+            android:text="@string/thursday"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_8sdp"/>
@@ -155,7 +155,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Friday"
+            android:text="@string/friday"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_8sdp"/>
@@ -179,7 +179,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saturday"
+            android:text="@string/saturday"
             android:textColor="@color/textPrimaryColor"
             android:textSize="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_8sdp"/>
@@ -196,7 +196,7 @@
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CANCEL"
+            android:text="@string/cancel"
             android:textSize="@dimen/_14sdp"
             android:background="@android:color/transparent"
             android:layout_marginEnd="@dimen/_16sdp"/>
@@ -205,7 +205,7 @@
             android:id="@+id/okButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OK"
+            android:text="@string/ok"
             android:textColor="@color/primary"
             android:textSize="@dimen/_14sdp"
             android:background="@android:color/transparent"/>

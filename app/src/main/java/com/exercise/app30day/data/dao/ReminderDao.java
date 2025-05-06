@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Dao
 public interface ReminderDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertReminder(Reminder reminder);
 
     @Update
@@ -26,6 +27,6 @@ public interface ReminderDao {
     @Delete
     void deleteReminder(Reminder reminder);
 
-    @Query("SELECT * FROM reminder AS r ORDER BY r.createdAt ASC")
+    @Query("SELECT * FROM reminder AS r ORDER BY r.id DESC")
     LiveData<List<ReminderItem>> getAllReminders();
 }

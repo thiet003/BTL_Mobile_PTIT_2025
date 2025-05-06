@@ -1,5 +1,7 @@
 package com.exercise.app30day.features.setting.reminder;
 
+import android.view.View;
+
 import com.exercise.app30day.base.adapter.BaseRecyclerViewAdapter;
 import com.exercise.app30day.databinding.ItemReminderBinding;
 import com.exercise.app30day.items.ReminderItem;
