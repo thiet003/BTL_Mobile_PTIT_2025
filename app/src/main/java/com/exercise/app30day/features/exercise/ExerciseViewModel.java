@@ -1,7 +1,5 @@
 package com.exercise.app30day.features.exercise;
 
-import static com.exercise.app30day.config.AppConfig.LOOP_DURATION_MILLIS;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -14,6 +12,7 @@ import com.exercise.app30day.data.repositories.DayRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
+import com.exercise.app30day.items.MusicItem;
 import com.exercise.app30day.utils.TimeUtils;
 
 import java.util.List;
@@ -29,6 +28,9 @@ public class ExerciseViewModel extends ViewModel {
 
     public LiveData<ExerciseUiState> onExerciseUiState = _onExerciseUiState;
 
+    private final MutableLiveData<Boolean> _onPlayExercise = new MutableLiveData<>(true);
+    public LiveData<Boolean> onPlayExercise = _onPlayExercise;
+
     private long timeCounter = 0;
 
     private DayItem dayItem;
@@ -39,8 +41,6 @@ public class ExerciseViewModel extends ViewModel {
 
     private DayHistory dayHistory;
 
-    private boolean playExercise = true;
-
     private final Observer<ExerciseUiState> exerciseUiStateObserver = this::updateDayHistoryExerciseItem;
 
     private final DayRepository dayRepository;
@@ -49,11 +49,14 @@ public class ExerciseViewModel extends ViewModel {
 
     private final DayHistoryRepository dayHistoryRepository;
 
+    private final List<MusicItem> musicItems;
+
     @Inject
     public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository, DayHistoryRepository dayHistoryRepository) {
         this.dayRepository = dayRepository;
         this.dayExerciseRepository = dayExerciseRepository;
         this.dayHistoryRepository = dayHistoryRepository;
+        musicItems = MusicItem.getMusicItems();
     }
 
 
@@ -81,6 +84,7 @@ public class ExerciseViewModel extends ViewModel {
                 state.setExerciseState(ExerciseState.REST);
                 state.setExercisePosition(state.getExercisePosition() + 1);
                 _onExerciseUiState.setValue(state);
+                _onPlayExercise.setValue(true);
                 dayExerciseRepository.updateDayExercise(dayItem.getId(), listExerciseItem.get(getExercisePosition()).getId(), true);
                 listener.onCompleteExercise(listExerciseItem.get(state.getExercisePosition()));
             }else{
@@ -165,6 +169,15 @@ public class ExerciseViewModel extends ViewModel {
         this.dayHistory.setRestTime(this.dayHistory.getRestTime() + addedTime);
     }
 
+    public int findMusicItemPosition(int id) {
+        for (int i = 0; i < musicItems.size(); i++) {
+            if (musicItems.get(i).getId() == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
@@ -196,10 +209,25 @@ public class ExerciseViewModel extends ViewModel {
     }
 
     public boolean isPlayExercise() {
-        return playExercise;
+        return Boolean.TRUE.equals(onPlayExercise.getValue());
     }
 
     public void setPlayExercise(boolean playExercise) {
-        this.playExercise = playExercise;
+        _onPlayExercise.setValue(playExercise);
     }
+
+    public List<MusicItem> getMusicItems() {
+        return musicItems;
+    }
+
+    public MusicItem finMusicItem(int id) {
+        for (MusicItem item : musicItems) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+
 }

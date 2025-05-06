@@ -22,23 +22,28 @@ public abstract class BaseFragment<VB extends ViewBinding, VM extends ViewModel>
     protected VB binding;
     protected VM viewModel;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = BindingReflex.reflexViewBinding(getClass(), inflater);
-        viewModel = ViewModelHelper.createViewModel(this, getClass());
-        initView();
-        initListener();
-        return Objects.requireNonNull(binding).getRoot();
-    }
-
     protected abstract void initView();
 
     protected abstract void initListener();
 
+    @Nullable
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = BindingReflex.reflexViewBinding(getClass(), inflater);
+        return Objects.requireNonNull(binding).getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = ViewModelHelper.createViewModel(this, getClass());
+        initView();
+        initListener();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         binding = null;
     }
 }

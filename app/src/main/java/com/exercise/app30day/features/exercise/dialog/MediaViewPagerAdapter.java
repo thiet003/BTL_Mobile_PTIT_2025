@@ -1,10 +1,12 @@
-package com.exercise.app30day.features.exercise_dialog;
+package com.exercise.app30day.features.exercise.dialog;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.exercise.app30day.features.exercise.dialog.fragment.AnimFragment;
+import com.exercise.app30day.features.exercise.dialog.fragment.WebViewFragment;
 import com.exercise.app30day.items.ExerciseItem;
 
 public class MediaViewPagerAdapter extends FragmentStateAdapter {
@@ -15,13 +17,14 @@ public class MediaViewPagerAdapter extends FragmentStateAdapter {
         this.exerciseItem = exerciseItem;
     }
 
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         if (position == 0) {
-            return new MediaFragment(exerciseItem.getAnimationUrl(), position);
+            return AnimFragment.newInstance(exerciseItem.getAnimationUrl());
         }
-        return new MediaFragment(exerciseItem.getInstructionUrl(), position);
+        return WebViewFragment.newInstance(exerciseItem.getInstructionUrl());
     }
 
     @Override

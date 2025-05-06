@@ -142,4 +142,7 @@
     <string name="d_minutes">%d min</string>
     <string name="f_kcal">$.1f kcal</string>
     <string name="d_seconds">%d sec</string>
+    <string name="prepare_d_seconds">Ready to workout, %d seconds to prepare</string>
+    <string name="rest_d_seconds">Rest time, %d seconds</string>
+    <string name="completing_today_exercises">Completing today\'s exercises</string>
 </resources>
