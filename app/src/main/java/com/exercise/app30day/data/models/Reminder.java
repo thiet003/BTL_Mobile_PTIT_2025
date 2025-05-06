@@ -3,15 +3,15 @@ package com.exercise.app30day.data.models;
 import androidx.room.Entity;
 import androidx.room.TypeConverters;
 
-import com.exercise.app30day.data.utils.DaysOfWeekConverter;
+import com.exercise.app30day.data.utils.Converters;
 
 @Entity(tableName = "reminder")
 public class Reminder extends BaseEntity{
     private int hour;
     private int minute;
     private boolean isAM;
-    @TypeConverters(DaysOfWeekConverter.class)
-    private boolean[] daysOfWeek; // Sunday = 0, Monday = 1, ..., Saturday = 6
+    @TypeConverters(Converters.class)
+    private boolean[] daysOfWeek;
     private boolean isEnabled;
 
     public Reminder(int hour, int minute, boolean isAM, boolean[] daysOfWeek, boolean isEnabled) {
