@@ -24,6 +24,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         viewModel.getAllCourseItems().observe(getViewLifecycleOwner(), courseItems -> {
             courseAdapter.setData(courseItems);
         });
+        viewModel.getLongestWorkoutStreak().observe(getViewLifecycleOwner(), dayStreak -> {
+            binding.tvSpark.setText(String.valueOf(dayStreak));
+        });
     }
 
     @Override
@@ -33,11 +36,5 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             intent.putExtra(IntentKeys.EXTRA_COURSE_ID, item.getId());
             requireContext().startActivity(intent);
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        System.out.println("HomeFragment onStart");
     }
 }

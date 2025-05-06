@@ -2,19 +2,19 @@ package com.exercise.app30day.features.exercise;
 
 import static com.exercise.app30day.config.AppConfig.DEFAULT_DELAY_MILLIS;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+
+import androidx.lifecycle.ViewModelProvider;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.FragmentExerciseRestBinding;
-import com.exercise.app30day.features.exercise_dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.exercise.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.ExerciseItem;
-import com.exercise.app30day.utils.GlideUtils;
 import com.exercise.app30day.utils.TimeUtils;
 
 import java.util.List;
@@ -32,15 +32,9 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
 
     private long restDuration = AppConfig.getExerciseRestDuration();
 
-    public ExerciseRestFragment() {
-    }
-
-    public ExerciseRestFragment(ExerciseViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
-
     @Override
     protected void initView() {
+        viewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
         restRunnable = () -> {
             if(viewModel.getTimeCounter() < restDuration){
                 if(!inBackground) {
@@ -62,7 +56,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             ExerciseItem item = listExerciseItem.get(exercisePosition);
             binding.stepSeekBar.setNumSteps(listExerciseItem.size());
             binding.stepSeekBar.setProgress(exerciseUiState.getExercisePosition() + 1);
-            binding.mediaPlayer.display(item.getAnimationUrl());
+            binding.mediaPlayer.load(item.getAnimationUrl());
             binding.tvPage.setText(requireContext().getString(R.string.page, exercisePosition + 1, listExerciseItem.size()));
             binding.tvExerciseName.setText(item.getName());
             binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
@@ -80,7 +74,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
     @Override
     public void onClick(View v) {
         if(v == binding.btnInfo){
-            ExerciseBottomDialog dialog = new ExerciseBottomDialog(viewModel.getListExerciseItem(), viewModel.getExercisePosition());
+            ExerciseBottomDialog dialog = ExerciseBottomDialog.newInstance(viewModel.getListExerciseItem(), viewModel.getExercisePosition());
             dialog.show(requireActivity().getSupportFragmentManager(), dialog.getTag());
         }else if(v == binding.btnAddTime){
             restDuration += 30000;
@@ -110,8 +104,13 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
 
     @Override
     public void onDestroy() {
-        binding.mediaPlayer.onDestroy();
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void onDestroyView() {
+        binding.mediaPlayer.onDestroy();
+        super.onDestroyView();
     }
 }

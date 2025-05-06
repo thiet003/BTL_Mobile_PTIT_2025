@@ -1,8 +1,5 @@
 package com.exercise.app30day.features.main;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.exercise.app30day.R;

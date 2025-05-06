@@ -141,6 +141,9 @@
     <string name="d_minutes">%d phút</string>
     <string name="f_kcal">$.1f kcal</string>
     <string name="d_seconds">%d giây</string>
+    <string name="prepare_d_seconds">Sẵn sàng tập luyện, %d giây chuẩn bị</string>
+    <string name="rest_d_seconds">Thời gian ghỉ ngơi, %d giây</string>
+    <string name="completing_today_exercises">Chúc mừng bạn đã hoàn thành các bài tập của ngày hôm nay</string>
 
     <string name="intro_title_1">Tập Luyện Hiệu Quả</string>
     <string name="intro_description_1">Theo dõi tiến trình của bạn với các kế hoạch tập luyện được thiết kế chuyên nghiệp để đạt được mục tiêu sức khỏe.</string>

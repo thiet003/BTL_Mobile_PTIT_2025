@@ -9,7 +9,8 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.databinding.ActivityDayBinding;
 import com.exercise.app30day.features.exercise.ExerciseActivity;
-import com.exercise.app30day.features.exercise_dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.exercise.dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.setting.workout.WorkoutSettingsActivity;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.utils.IntentKeys;
@@ -61,7 +62,7 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
         });
 
         exerciseAdapter.setOnItemClickListener((data, position) -> {
-            ExerciseBottomDialog exerciseBottomDialog = new ExerciseBottomDialog(exerciseAdapter.getDataList(), position);
+            ExerciseBottomDialog exerciseBottomDialog = ExerciseBottomDialog.newInstance(exerciseAdapter.getDataList(), position);
             exerciseBottomDialog.show(getSupportFragmentManager(), exerciseBottomDialog.getTag());
         });
 
@@ -70,6 +71,7 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
     @Override
     protected void initListener() {
         binding.ibBack.setOnClickListener(this);
+        binding.ibSetting.setOnClickListener(this);
     }
 
     @Override
@@ -78,6 +80,8 @@ public class DayActivity extends BaseActivity<ActivityDayBinding, DayViewModel> 
             finish();
         }else if(v == binding.btnStart){
             gotoExercise();
+        }else if(v == binding.ibSetting){
+            startActivity(new Intent(this, WorkoutSettingsActivity.class));
         }
     }
 

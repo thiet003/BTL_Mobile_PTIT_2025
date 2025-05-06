@@ -8,10 +8,12 @@ import android.os.Handler;
 
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.base.NoneViewModel;
+import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.data.AppDatabase;
 import com.exercise.app30day.databinding.ActivitySplashBinding;
 import com.exercise.app30day.features.intro.IntroActivity;
 import com.exercise.app30day.features.main.MainActivity;
+import com.exercise.app30day.utils.SpeechHelper;
 import com.exercise.app30day.utils.HawkKeys;
 import com.orhanobut.hawk.Hawk;
 
@@ -35,8 +37,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
                         if (countTimeSplash > 3) {
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
                             finish();
+                        }else{
+                            handler.postDelayed(this, 1000);
                         }
-                        handler.postDelayed(this, 1000);
                     }
                 }, 1000);
             });
@@ -57,11 +60,13 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
                         }
                         startActivity(intent);
                         finish();
+                    }else{
+                        handler.postDelayed(this, 1000);
                     }
-                    handler.postDelayed(this, 1000);
                 }
             }, 1000);
         }
+        SpeechHelper.getInstance().init();
     }
 
     @Override

@@ -66,7 +66,7 @@ public class MediaPlayer extends FrameLayout implements ExoPlayer.Listener {
 
     @SuppressLint("ResourceAsColor")
     @OptIn(markerClass = UnstableApi.class)
-    public void display(String url) {
+    public void load(String url) {
 
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -84,9 +84,7 @@ public class MediaPlayer extends FrameLayout implements ExoPlayer.Listener {
                     ContextCompat.getColor(context, R.color.blue),
                     android.graphics.PorterDuff.Mode.SRC_IN);
             playerView = new PlayerView(context);
-            playerView.setClipChildren(true);
-            playerView.setClipToPadding(true);
-            playerView.setClipToOutline(true);
+            playerView.setElevation(0);
             playerView.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
             playerView.setLayoutParams(layoutParams);
@@ -144,12 +142,6 @@ public class MediaPlayer extends FrameLayout implements ExoPlayer.Listener {
             player.release();
             player = null;
         }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        onDestroy();
     }
 
     @Override
