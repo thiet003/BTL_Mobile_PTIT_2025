@@ -11,8 +11,11 @@ import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.data.AppDatabase;
 import com.exercise.app30day.databinding.ActivitySplashBinding;
+import com.exercise.app30day.features.intro.IntroActivity;
 import com.exercise.app30day.features.main.MainActivity;
 import com.exercise.app30day.utils.SpeechHelper;
+import com.exercise.app30day.utils.HawkKeys;
+import com.orhanobut.hawk.Hawk;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneViewModel> {
@@ -49,7 +52,13 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
                 public void run() {
                     countTimeSplash++;
                     if (countTimeSplash > 3 && AppDatabase.isDataInitialized()) {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        Intent intent;
+                        if(!Hawk.get(HawkKeys.INTRO_SHOWN_KEY, false)){
+                            intent = new Intent(SplashActivity.this, IntroActivity.class);
+                        }else{
+                            intent = new Intent(SplashActivity.this, MainActivity.class);
+                        }
+                        startActivity(intent);
                         finish();
                     }else{
                         handler.postDelayed(this, 1000);

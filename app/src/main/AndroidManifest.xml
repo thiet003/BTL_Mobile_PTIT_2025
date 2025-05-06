@@ -18,20 +18,25 @@
         <service android:name=".services.MusicService"
             android:exported="false"/>
         <activity
+            android:name=".features.intro.IntroActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
             android:name=".features.setting.workout.WorkoutSettingsActivity"
-            android:exported="false" 
+            android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".features.complete.ExerciseCompleteActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".features.report.history.WorkoutHistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".features.exercise.ExerciseActivity"
             android:exported="false" />

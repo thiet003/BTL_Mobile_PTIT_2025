@@ -144,4 +144,13 @@
     <string name="prepare_d_seconds">Sẵn sàng tập luyện, %d giây chuẩn bị</string>
     <string name="rest_d_seconds">Thời gian ghỉ ngơi, %d giây</string>
     <string name="completing_today_exercises">Chúc mừng bạn đã hoàn thành các bài tập của ngày hôm nay</string>
+
+    <string name="intro_title_1">Tập Luyện Hiệu Quả</string>
+    <string name="intro_description_1">Theo dõi tiến trình của bạn với các kế hoạch tập luyện được thiết kế chuyên nghiệp để đạt được mục tiêu sức khỏe.</string>
+    <string name="intro_title_2">Nghỉ Ngơi &amp; Hồi Phục</string>
+    <string name="intro_description_2">Hiểu tầm quan trọng của việc nghỉ ngơi và hồi phục đúng cách giữa các buổi tập để phát triển cơ bắp tối ưu.</string>
+    <string name="intro_title_3">Theo Dõi Tiến Trình</string>
+    <string name="intro_description_3">Theo dõi sự tăng trưởng sức mạnh và hiệu suất tập luyện của bạn theo thời gian để duy trì động lực.</string>
+
+    <string name="get_started">Bắt Đầu</string>
 </resources>

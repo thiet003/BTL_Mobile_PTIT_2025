@@ -20,4 +20,5 @@ public final class HawkKeys {
     public static final String VOICE_ENABLE_KEY = "voice_enable_key";
 
     public static final String VOICE_VOLUME_KEY = "voice_volume_key";
+    public static final String INTRO_SHOWN_KEY = "intro_shown_key";
 }

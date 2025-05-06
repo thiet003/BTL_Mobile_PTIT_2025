@@ -145,4 +145,11 @@
     <string name="prepare_d_seconds">Ready to workout, %d seconds to prepare</string>
     <string name="rest_d_seconds">Rest time, %d seconds</string>
     <string name="completing_today_exercises">Completing today\'s exercises</string>
+    <string name="intro_title_1">Effective Workouts</string>
+    <string name="intro_description_1">Track your progress with our professionally designed workout plans to achieve your fitness goals.</string>
+    <string name="intro_title_2">Rest &amp; Recovery</string>
+    <string name="intro_description_2">Learn the importance of proper rest and recovery between workouts for optimal muscle growth.</string>
+    <string name="intro_title_3">Track Your Progress</string>
+    <string name="intro_description_3">Monitor your strength gains and workout performance over time to stay motivated.</string>
+    <string name="get_started">Get Started</string>
 </resources>
