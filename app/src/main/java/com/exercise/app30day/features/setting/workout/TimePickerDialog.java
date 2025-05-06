@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.exercise.app30day.R;
+import com.exercise.app30day.utils.ScreenUtils;
 import com.shawnlin.numberpicker.NumberPicker;
 
 public class TimePickerDialog extends Dialog {
@@ -50,11 +51,16 @@ public class TimePickerDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_time_picker);
 
+        setCancelable(false);
+        setCanceledOnTouchOutside(true);
         Window window = getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setGravity(Gravity.CENTER);
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = (int) (ScreenUtils.getScreenWidth() * 0.8);
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.gravity = Gravity.CENTER;
+            window.setAttributes(params);
         }
 
         // Initialize views

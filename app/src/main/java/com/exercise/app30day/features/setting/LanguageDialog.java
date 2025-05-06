@@ -19,6 +19,7 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.features.splash.SplashActivity;
 import com.exercise.app30day.items.LanguageItem;
 import com.exercise.app30day.utils.IntentKeys;
+import com.exercise.app30day.utils.ScreenUtils;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
@@ -43,8 +44,11 @@ public class LanguageDialog {
         Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setGravity(Gravity.CENTER);
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = (int) (ScreenUtils.getScreenWidth() * 0.8);
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.gravity = Gravity.CENTER;
+            window.setAttributes(params);
         }
 
         RecyclerView rvLanguage = dialog.findViewById(R.id.rv_language);

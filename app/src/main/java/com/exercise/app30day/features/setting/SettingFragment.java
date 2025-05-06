@@ -8,6 +8,7 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseFragment;
 import com.exercise.app30day.data.AppDatabase;
 import com.exercise.app30day.databinding.FragmentSettingBinding;
+import com.exercise.app30day.features.setting.reminder.ReminderActivity;
 import com.exercise.app30day.features.setting.workout.WorkoutSettingsActivity;
 import com.exercise.app30day.features.splash.SplashActivity;
 
@@ -24,6 +25,7 @@ public class SettingFragment extends BaseFragment<FragmentSettingBinding, Settin
         binding.itemLanguage.setOnClickListener(this);
         binding.itemRestart.setOnClickListener(this);
         binding.itemWorkoutSettings.setOnClickListener(this);
+        binding.itemReminder.setOnClickListener(this);
     }
 
 
@@ -47,6 +49,8 @@ public class SettingFragment extends BaseFragment<FragmentSettingBinding, Settin
             AppDatabase.resetAll(requireContext());
         } else if (v == binding.itemWorkoutSettings) {
             requireContext().startActivity(new Intent(requireContext(), WorkoutSettingsActivity.class));
+        } else if(v == binding.itemReminder){
+            requireContext().startActivity(new Intent(requireContext(), ReminderActivity.class));
         }
     }
 }
