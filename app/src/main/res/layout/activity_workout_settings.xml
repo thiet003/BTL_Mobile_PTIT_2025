@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="7dp"
                     android:checked="true"
-                    app:thumbTint="@color/primary"
+                    app:thumbTint="@drawable/switch_tint_color"
                     app:trackTint="@drawable/switch_track_color" />
             </LinearLayout>
 
@@ -172,8 +172,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    app:thumbTint="@color/primary"
-                    app:trackTint="@drawable/switch_track_color"  />
+                    app:thumbTint="@drawable/switch_tint_color"
+                    app:trackTint="@drawable/switch_track_color" />
             </LinearLayout>
 
             <!-- Voice Type Selection -->
@@ -184,7 +184,8 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
-                android:paddingVertical="@dimen/_8sdp">
+                android:paddingVertical="@dimen/_8sdp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -217,7 +218,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/_16sdp"
@@ -354,7 +356,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    app:thumbTint="@color/primary"
+                    app:thumbTint="@drawable/switch_tint_color"
                     app:trackTint="@drawable/switch_track_color" />
             </LinearLayout>
         </LinearLayout>

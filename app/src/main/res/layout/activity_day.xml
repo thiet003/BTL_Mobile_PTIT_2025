@@ -26,7 +26,7 @@
                 android:contentDescription="@null"
                 android:src="@drawable/ic_arrow_back"
                 app:tint= "@color/iconPrimaryColor"
-                android:background="@null"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitXY"
                 />
 
@@ -52,7 +52,7 @@
                 android:contentDescription="@null"
                 android:src="@drawable/ic_setting"
                 app:tint= "@color/iconPrimaryColor"
-                android:background="@null"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitXY"
                 />
         </LinearLayout>

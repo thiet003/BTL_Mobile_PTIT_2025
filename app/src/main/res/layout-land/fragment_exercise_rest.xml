@@ -16,15 +16,12 @@
         android:orientation="vertical"
         android:padding="@dimen/_10sdp">
 
-        <ImageView
-            android:id="@+id/ivAnimation"
+        <com.exercise.app30day.widgets.MediaPlayer
+            android:id="@+id/media_player"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:contentDescription="@null"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter" />
+            tools:ignore="NestedWeights" />
 
         <LinearLayout
             android:layout_width="match_parent"

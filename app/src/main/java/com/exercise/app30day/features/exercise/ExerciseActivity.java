@@ -7,23 +7,38 @@ import static com.exercise.app30day.utils.IntentKeys.EXTRA_DAY;
 import static com.exercise.app30day.utils.IntentKeys.EXTRA_EXERCISE_LIST;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
+import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.ActivityExerciseBinding;
 import com.exercise.app30day.features.complete.ExerciseCompleteActivity;
-import com.exercise.app30day.features.exercise_dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.exercise.dialog.ExerciseBottomDialog;
+import com.exercise.app30day.features.setting.workout.MusicBottomDialog;
+import com.exercise.app30day.features.setting.workout.WorkoutSettingsActivity;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayItem;
 import com.exercise.app30day.items.ExerciseItem;
+import com.exercise.app30day.items.MusicItem;
+import com.exercise.app30day.services.MusicService;
+import com.exercise.app30day.utils.HawkKeys;
+import com.exercise.app30day.utils.SpeechHelper;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,25 +46,64 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, ExerciseViewModel> implements View.OnClickListener, OnCompleteListener{
+public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, NoneViewModel>
+        implements View.OnClickListener, OnCompleteListener{
+
+    private ExerciseViewModel viewModel;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable prepareRunnable, exerciseRunnable;
     private boolean inBackground = false;
 
+    private MusicService musicService;
+    private boolean musicBound = false;
+
+    private SpeechHelper speechHelper;
+
+    private final ServiceConnection musicConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+            musicService = binder.getService();
+            musicBound = true;
+            updateAndPlayMusic();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicBound = false;
+        }
+    };
+
+    private final int SETTING_REQUEST_CODE = 100;
+
     @Override
     protected void initView() {
+        viewModel = new ViewModelProvider(this).get(ExerciseViewModel.class);
         initData();
         binding.stepSeekBar.setNumSteps(viewModel.getListExerciseItem().size());
         binding.stepSeekBar.setEnabled(false);
+        speechHelper = SpeechHelper.getInstance();
         viewModel.onExerciseUiState.observe(this, exerciseUiState -> {
             ExerciseItem exerciseItem = viewModel.getListExerciseItem().get(exerciseUiState.getExercisePosition());
             binding.stepSeekBar.setProgress(exerciseUiState.getExercisePosition() + 1);
             if(exerciseUiState.getExerciseState() == ExerciseState.PREPARE) {
                 setPrepareLayout(exerciseItem);
+                long prepareDuration = AppConfig.getExercisePrepareDuration();
+                speechHelper.speak(getString(R.string.prepare_d_seconds, (int)(prepareDuration / 1000)));
             }else if(exerciseUiState.getExerciseState() == ExerciseState.EXERCISE) {
                 setExerciseLayout(exerciseItem);
+                speechHelper.speak(exerciseItem.getDescription());
             }else if(exerciseUiState.getExerciseState() == ExerciseState.REST){
                 setRestLayout();
+                long restDuration = AppConfig.getExerciseRestDuration();
+                speechHelper.speak(getString(R.string.rest_d_seconds, (int)(restDuration / 1000)));
+            }
+        });
+        viewModel.onPlayExercise.observe(this, isPlay -> {
+            if(isPlay){
+                playExercise();
+            }else{
+                pauseExercise();
             }
         });
     }
@@ -69,7 +123,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
     private void setPrepareLayout(ExerciseItem item) {
         binding.layoutPrepare.setVisibility(View.VISIBLE);
         binding.layoutExercise.setVisibility(View.GONE);
-        binding.mediaPlayer.display(item.getAnimationUrl());
+        binding.mediaPlayer.load(item.getAnimationUrl());
         binding.tvExerciseName.setText(item.getName());
         long prepareDuration = AppConfig.getExercisePrepareDuration();
         prepareRunnable = () -> {
@@ -94,7 +148,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         binding.layoutExercise.setVisibility(View.VISIBLE);
         binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
         binding.tvExerciseName2.setText(item.getName());
-        binding.mediaPlayer.display(item.getAnimationUrl());
+        binding.mediaPlayer.load(item.getAnimationUrl());
         long totalDuration = viewModel.calculateDuration(item);
 
         exerciseRunnable = () -> {
@@ -116,7 +170,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        ExerciseRestFragment restFragment = new ExerciseRestFragment(viewModel);
+        ExerciseRestFragment restFragment = new ExerciseRestFragment();
 
         transaction.replace(binding.mainLayout.getId(), restFragment);
         transaction.addToBackStack(null);
@@ -144,6 +198,8 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         binding.viewProgress.setOnClickListener(this);
         binding.tvExerciseName.setOnClickListener(this);
         binding.tvExerciseName2.setOnClickListener(this);
+        binding.btnSetting.setOnClickListener(this);
+        binding.btnMusic.setOnClickListener(this);
     }
 
     @Override
@@ -151,12 +207,11 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         if(v == binding.btnBack){
             finish();
         }else if(v == binding.btnInfo || v == binding.btnInfo2 || v == binding.tvExerciseName || v == binding.tvExerciseName2){
-            ExerciseBottomDialog exerciseBottomDialog = new ExerciseBottomDialog(viewModel.getListExerciseItem(), viewModel.getExercisePosition());
+            ExerciseBottomDialog exerciseBottomDialog = ExerciseBottomDialog.newInstance(viewModel.getListExerciseItem(), viewModel.getExercisePosition());
             exerciseBottomDialog.show(getSupportFragmentManager(), exerciseBottomDialog.getTag());
         }else if(v == binding.btnSkipPrepare){
             movePrepareToExercise();
         }else if(v == binding.btnNext){
-            playExercise();
             moveExerciseToRest();
         }else if(v == binding.btnPrevious) {
             if (viewModel.getExercisePosition() > 0) {
@@ -167,34 +222,55 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
             }
         }
         else if(v == binding.viewProgress){
-            if(viewModel.isPlayExercise()){
-                pauseExercise();
-            }else{
-               playExercise();
-            }
+            viewModel.setPlayExercise(!viewModel.isPlayExercise());
+        }else if(v == binding.btnSetting){
+            Intent intent = new Intent(this, WorkoutSettingsActivity.class);
+            startActivityForResult(intent, SETTING_REQUEST_CODE);
+        } else if (v == binding.btnMusic) {
+            int musicId = Hawk.get(HawkKeys.MUSIC_ID_KEY, viewModel.getMusicItems().get(0).getId());
+            MusicBottomDialog musicBottomDialog = new MusicBottomDialog(viewModel.getMusicItems(), viewModel.findMusicItemPosition(musicId));
+            musicBottomDialog.setMusicSelectionListener(music -> {
+                Hawk.put(HawkKeys.MUSIC_ID_KEY, music.getId());
+                MusicItem musicItem = viewModel.finMusicItem(music.getId());
+                if(musicItem !=null && musicBound){
+                    float volume = AppConfig.getBackgroundMusicVolume();
+                    musicService.initMusic(musicItem.getAudio(), volume, true);
+                    if(AppConfig.isPlayBackgroundMusic()) musicService.playMusic();
+                }
+                Toast.makeText(ExerciseActivity.this,
+                        getString(R.string.selected_music, ExerciseActivity.this.getString(music.getName())), Toast.LENGTH_SHORT).show();
+            });
+            musicBottomDialog.show(getSupportFragmentManager(), MusicBottomDialog.class.getName());
         }
     }
 
     private void playExercise(){
+        if(musicBound && AppConfig.isPlayBackgroundMusic()) musicService.playMusic();
         binding.ivPlayPause.setImageResource(R.drawable.ic_pause);
-        viewModel.setPlayExercise(true);
+        binding.mediaPlayer.onStart();
     }
 
     private void pauseExercise(){
+        if(musicBound) musicService.pauseMusic();
         binding.ivPlayPause.setImageResource(R.drawable.ic_play);
-        viewModel.setPlayExercise(false);
+        binding.mediaPlayer.onPause();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         inBackground = false;
+        if (!musicBound) {
+            Intent intent = new Intent(this, MusicService.class);
+            bindService(intent, musicConnection, Context.BIND_AUTO_CREATE);
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         inBackground = true;
+        speechHelper.stop();
     }
 
     @Override
@@ -203,6 +279,10 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
         viewModel.saveStopTime();
+        if (musicBound) {
+            unbindService(musicConnection);
+            musicBound = false;
+        }
     }
 
     @SuppressLint("MissingSuperCall")
@@ -223,6 +303,29 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, Exer
         intent.putExtra(EXTRA_COURSE, viewModel.getCourseItem());
         intent.putExtra(EXTRA_EXERCISE_LIST, new ArrayList<>(viewModel.getListExerciseItem()));
         startActivity(intent);
+        speechHelper.speak(getString(R.string.completing_today_exercises));
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SETTING_REQUEST_CODE){
+            if(AppConfig.isPlayBackgroundMusic()){
+                updateAndPlayMusic();
+            }else{
+                if(musicBound) musicService.stopMusic();
+            }
+        }
+    }
+
+    private void updateAndPlayMusic(){
+        int musicId = Hawk.get(HawkKeys.MUSIC_ID_KEY, viewModel.getMusicItems().get(0).getId());
+        MusicItem musicItem = viewModel.finMusicItem(musicId);
+        if(musicBound && musicItem != null && viewModel.isPlayExercise()){
+            float volume = AppConfig.getBackgroundMusicVolume();
+            musicService.initMusic(musicItem.getAudio(), volume,true);
+            if(AppConfig.isPlayBackgroundMusic()) musicService.playMusic();
+        }
     }
 }

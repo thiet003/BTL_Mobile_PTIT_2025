@@ -16,7 +16,6 @@ public class CourseAdapter extends BaseRecyclerViewAdapter<CourseItem, ItemCours
         binding.tvLevel.setText(item.getType());
         binding.rbCourse.setRating(item.getLevel());
         int dayProgress = item.getDayProgress();
-        System.out.println(position + " Day progress: " + dayProgress);
         binding.tvProgress.setText(getContext().getString(R.string.progress, dayProgress));
         binding.progressCourse.animateProgress(1000, 0, dayProgress);
     }
