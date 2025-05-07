@@ -5,20 +5,24 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.exercise.app30day.data.dao.CourseDao;
 import com.exercise.app30day.data.dao.DayDao;
 import com.exercise.app30day.data.dao.DayExerciseDao;
 import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
+import com.exercise.app30day.data.dao.ReminderDao;
 import com.exercise.app30day.data.dao.WeightHistoryDao;
 import com.exercise.app30day.data.models.Course;
 import com.exercise.app30day.data.models.Day;
 import com.exercise.app30day.data.models.DayExercise;
 import com.exercise.app30day.data.models.DayHistory;
 import com.exercise.app30day.data.models.Exercise;
+import com.exercise.app30day.data.models.Reminder;
 import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.models.WeightHistory;
+import com.exercise.app30day.data.utils.Converters;
 import com.exercise.app30day.utils.HawkKeys;
 import com.google.firebase.remoteconfig.CustomSignals;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -36,8 +40,10 @@ import java.util.List;
         Day.class,
         DayExercise.class,
         DayHistory.class,
-        WeightHistory.class
+        WeightHistory.class,
+        Reminder.class
 }, version = 1, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
     public abstract CourseDao courseDao();
@@ -46,6 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract DayExerciseDao dayExerciseDao();
     public abstract DayHistoryDao dayHistoryDao();
     public abstract WeightHistoryDao weightHistoryDao();
+    public abstract ReminderDao reminderDao();
 
     public static final String COURSES_DATA = "courses_data";
 

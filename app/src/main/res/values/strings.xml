@@ -152,4 +152,14 @@
     <string name="intro_title_3">Track Your Progress</string>
     <string name="intro_description_3">Monitor your strength gains and workout performance over time to stay motivated.</string>
     <string name="get_started">Get Started</string>
+    <string name="reminder">Reminder</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="ok">OK</string>
+    <string name="done">Done</string>
 </resources>

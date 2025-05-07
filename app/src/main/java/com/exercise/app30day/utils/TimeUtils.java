@@ -27,4 +27,18 @@ public final class TimeUtils {
         return sdf.format(new Date(millis));
     }
 
+    public static String[] getWeekdayNames() {
+        String[] dayNames = new String[7];
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+
+        for (int i = 0; i < 7; i++) {
+            Calendar day = (Calendar) calendar.clone();
+            dayNames[i] = new SimpleDateFormat("EEE", Locale.getDefault()).format(day.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return dayNames;
+    }
+
 }
