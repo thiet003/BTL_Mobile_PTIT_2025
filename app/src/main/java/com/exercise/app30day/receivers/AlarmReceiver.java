@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import com.exercise.app30day.data.repositories.ReminderRepository;
 import com.exercise.app30day.items.ReminderItem;
 import com.exercise.app30day.utils.AlarmHelper;
+import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.NotificationHelper;
 
 import java.util.Calendar;
@@ -28,23 +29,18 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int reminderId = intent.getIntExtra("reminderId", -1);
+        int reminderId = intent.getIntExtra(IntentKeys.EXTRA_REMINDER_ID, -1);
         if (reminderId != -1) {
-            // Fetch the reminder details
             LiveData<List<ReminderItem>> remindersLiveData = reminderRepository.getAllReminders();
-
-            Observer<List<ReminderItem>> observer = new Observer<List<ReminderItem>>() {
+            Observer<List<ReminderItem>> observer = new Observer<>() {
                 @Override
                 public void onChanged(List<ReminderItem> reminderItems) {
                     for (ReminderItem reminder : reminderItems) {
                         if (reminder.getId() == reminderId && reminder.isEnabled()) {
-                            // Check if today is one of the days this reminder should trigger
                             if (shouldTriggerToday(reminder)) {
-                                // Show the notification
                                 showNotification(context, reminder);
                             }
 
-                            // Schedule the next alarm for this reminder
                             AlarmHelper.updateReminder(context, reminder);
                         }
                     }

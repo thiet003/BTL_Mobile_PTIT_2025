@@ -12,4 +12,6 @@ public final class IntentKeys {
     public static final String EXTRA_CURRENT_EXERCISE_POSITION = "extra_current_exercise_position";
 
     public static final String EXTRA_LANGUAGE_CHANGED = "extra_language_changed";
+
+    public static final String EXTRA_REMINDER_ID = "extra_reminder_id";
 }

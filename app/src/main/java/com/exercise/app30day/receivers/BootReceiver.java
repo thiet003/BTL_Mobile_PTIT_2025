@@ -27,7 +27,6 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            // Reschedule all enabled reminders after device reboot
             LiveData<List<ReminderItem>> remindersLiveData = reminderRepository.getAllReminders();
 
             Observer<List<ReminderItem>> observer = new Observer<>() {
@@ -38,8 +37,6 @@ public class BootReceiver extends BroadcastReceiver {
                             AlarmHelper.scheduleReminder(context, reminder);
                         }
                     }
-
-                    // Remove the observer after handling
                     remindersLiveData.removeObserver(this);
                 }
             };
