@@ -1,18 +1,28 @@
 package com.exercise.app30day.features.main;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.databinding.ActivityMainBinding;
+import com.exercise.app30day.utils.NotificationHelper;
+import com.exercise.app30day.utils.PermissionHandler;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel>  {
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+
     @Override
     protected void initView() {
+
+        requestPermissionLauncher = PermissionHandler.registerForNotificationPermission(this);
+
+        PermissionHandler.requestNotificationPermissionIfNeeded(this, requestPermissionLauncher);
+
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(this);
         binding.mainViewPager.setAdapter(mainViewPagerAdapter);
         binding.mainViewPager.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
