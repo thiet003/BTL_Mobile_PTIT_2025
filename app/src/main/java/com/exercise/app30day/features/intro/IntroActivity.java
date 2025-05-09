@@ -14,6 +14,7 @@ import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.databinding.ActivityIntroBinding;
 import com.exercise.app30day.features.main.MainActivity;
+import com.exercise.app30day.features.setup.UserSetupActivity;
 import com.exercise.app30day.utils.HawkKeys;
 import com.orhanobut.hawk.Hawk;
 
@@ -121,7 +122,7 @@ public class IntroActivity extends BaseActivity<ActivityIntroBinding, NoneViewMo
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, UserSetupActivity.class);
         startActivity(intent);
         finish();
     }
