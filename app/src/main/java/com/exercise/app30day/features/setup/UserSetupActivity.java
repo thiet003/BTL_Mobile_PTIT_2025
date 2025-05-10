@@ -1,5 +1,6 @@
 package com.exercise.app30day.features.setup;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,86 +10,76 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.exercise.app30day.config.AppConfig;
+import com.shawnlin.numberpicker.NumberPicker;
+
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
-import com.exercise.app30day.base.NoneViewModel;
-import com.exercise.app30day.data.AppDatabase;
-import com.exercise.app30day.data.models.User;
-import com.exercise.app30day.data.models.WeightHistory;
-import com.exercise.app30day.databinding.ActivityIntroBinding;
+import com.exercise.app30day.databinding.ActivityUserSetupBinding;
 import com.exercise.app30day.features.main.MainActivity;
-import com.exercise.app30day.utils.HawkKeys;
-import com.orhanobut.hawk.Hawk;
-public class UserSetupActivity extends BaseActivity<ActivityIntroBinding, NoneViewModel> {
+
+import dagger.hilt.android.AndroidEntryPoint;
+@AndroidEntryPoint
+public class UserSetupActivity extends BaseActivity<ActivityUserSetupBinding, UserSetupViewModel>
+        implements View.OnClickListener, NumberPicker.OnValueChangeListener{
 
     private EditText editTextName;
-    private EditText editTextHeight;
-    private EditText editTextWeight;
+    private NumberPicker heightPicker;
+    private NumberPicker weightPickerWhole;
     private Button buttonSave;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_setup);
-        
-        editTextName = findViewById(R.id.editTextName);
-        editTextHeight = findViewById(R.id.editTextHeight);
-        editTextWeight = findViewById(R.id.editTextWeight);
-        buttonSave = findViewById(R.id.buttonSave);
-        
-        buttonSave.setOnClickListener(v -> saveUserInfo());
-    }
-
-    @Override
     protected void initView() {
+        editTextName = binding.editTextName;
+        heightPicker = binding.heightPicker;
+        weightPickerWhole = binding.weightPickerWhole;
+        buttonSave = binding.buttonSave;
+        setupNumberPickers();
+    }
+    
+    @SuppressLint("DefaultLocale")
+    private void setupNumberPickers() {
+        // Setup height picker formatting
+        heightPicker.setMaxValue(AppConfig.MAX_HEIGHT);
+        heightPicker.setMinValue(AppConfig.MIN_HEIGHT);
+        heightPicker.setValue(170);
+        heightPicker.setWrapSelectorWheel(true);
+
+        weightPickerWhole.setMaxValue(AppConfig.MAX_WEIGHT);
+        weightPickerWhole.setMinValue(AppConfig.MIN_WEIGHT);
+        weightPickerWhole.setValue(70);
+        weightPickerWhole.setWrapSelectorWheel(true);
     }
 
     @Override
     protected void initListener() {
+        buttonSave.setOnClickListener(this);
+        weightPickerWhole.setOnValueChangedListener(this);
     }
 
     private void saveUserInfo() {
         String name = editTextName.getText().toString().trim();
-        String heightStr = editTextHeight.getText().toString().trim();
-        String weightStr = editTextWeight.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(heightStr)) {
-            Toast.makeText(this, "Please enter your height", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (TextUtils.isEmpty(weightStr)) {
-            Toast.makeText(this, "Please enter your weight", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         try {
-            double height = Double.parseDouble(heightStr);
-            double weight = Double.parseDouble(weightStr);
+            int height = heightPicker.getValue();
+            double weight = weightPickerWhole.getValue();
+            
+            // Log the weight value
+            System.out.println("Cân nặng: " + weight);
+            Toast.makeText(this, "Saving profile...", Toast.LENGTH_SHORT).show();
 
-            User user = new User(0, name, height);
-            
-            Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
-            
-            // Save user to database
-            new Thread(() -> {
-                long userId = AppDatabase.getInstance(this).userDao().insertUser(user);
-                
-                WeightHistory weightHistory = new WeightHistory(weight, System.currentTimeMillis());
-                AppDatabase.getInstance(this).weightHistoryDao().insertWeightHistory(weightHistory);
-                
-                Hawk.put(HawkKeys.PROFILE_SETUP_KEY, true);
-                
-                // Start MainActivity
-                runOnUiThread(this::startMainActivity);
-            }).start();
+            viewModel.saveUserInfo(name, height, weight);
+            // Save in a background thread
+            Toast.makeText(this, "Profile saved!", Toast.LENGTH_SHORT).show();
+            startMainActivity();
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Please enter valid numbers for height and weight", Toast.LENGTH_SHORT).show();
         }
@@ -98,5 +89,19 @@ public class UserSetupActivity extends BaseActivity<ActivityIntroBinding, NoneVi
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == binding.buttonSave){
+            saveUserInfo();
+        }
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        if(picker == weightPickerWhole){
+            System.out.println("Weight whole changed: " + newVal);
+        }
     }
 }

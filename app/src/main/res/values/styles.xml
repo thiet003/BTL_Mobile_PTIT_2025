@@ -7,4 +7,13 @@
     <style name="BottomNavTextInactive">
         <item name="android:textSize">@dimen/text_medium</item>
     </style>
+    
+    <style name="NumberPickerStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColorPrimary">#333333</item>
+        <item name="android:colorControlNormal">#EB5B00</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">120dp</item>
+    </style>
 </resources>
