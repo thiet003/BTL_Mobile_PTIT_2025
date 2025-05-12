@@ -6,6 +6,7 @@ import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.databinding.ActivityMainBinding;
+import com.exercise.app30day.utils.SpeechUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -34,10 +35,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewMode
             }
             return true;
         });
+        SpeechUtils.init();
     }
 
     @Override
     protected void initListener() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpeechUtils.destroy();
     }
 }

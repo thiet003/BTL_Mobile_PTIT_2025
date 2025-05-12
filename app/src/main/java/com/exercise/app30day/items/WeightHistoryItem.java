@@ -1,4 +1,4 @@
-package com.exercise.app30day.utils;
+package com.exercise.app30day.items;
 
 import com.exercise.app30day.base.adapter.BaseItem;
 

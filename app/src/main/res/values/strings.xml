@@ -162,4 +162,6 @@
     <string name="saturday">Saturday</string>
     <string name="ok">OK</string>
     <string name="done">Done</string>
+    <string name="voice_speed">Voice speed</string>
+    <string name="voice_pitch">Voice pitch</string>
 </resources>

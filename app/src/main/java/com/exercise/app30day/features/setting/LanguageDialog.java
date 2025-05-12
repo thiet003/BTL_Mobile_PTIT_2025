@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exercise.app30day.R;
 import com.exercise.app30day.features.splash.SplashActivity;
 import com.exercise.app30day.items.LanguageItem;
-import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.ScreenUtils;
 import com.orhanobut.hawk.Hawk;
 
