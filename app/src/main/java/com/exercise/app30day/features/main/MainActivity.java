@@ -1,18 +1,27 @@
 package com.exercise.app30day.features.main;
 
+import android.content.Intent;
+import android.view.View;
+
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
 import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.databinding.ActivityMainBinding;
+import com.exercise.app30day.features.chatbot.ChatbotActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel>  {
+public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel>
+    implements View.OnClickListener
+{
+    private FloatingActionButton chatbotButton;
     @Override
     protected void initView() {
+        chatbotButton = binding.fabChatbot;
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(this);
         binding.mainViewPager.setAdapter(mainViewPagerAdapter);
         binding.mainViewPager.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
@@ -38,6 +47,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewMode
 
     @Override
     protected void initListener() {
+        chatbotButton.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        if (v==binding.fabChatbot){
+            startChatbotActivity();
+        }
+    }
+    private void startChatbotActivity() {
+        // Start the ChatbotActivity
+        Intent intent = new Intent(this, ChatbotActivity.class);
+        startActivity(intent);
     }
 }

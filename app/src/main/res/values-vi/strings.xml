@@ -163,4 +163,15 @@
     <string name="saturday">Thứ 7</string>
     <string name="ok">Lưu</string>
     <string name="done">Xong</string>
+    <string name="setup_profile">Thiết lập hồ sơ của bạn</string>
+    <string name="setup_profile_description">Vui lòng nhập thông tin của bạn để cá nhân hóa trải nghiệm tập luyện của bạn</string>
+    <string name="your_name">Tên của bạn</string>
+    <string name="your_height_cm">Cân nặng (cm)</string>
+    <string name="your_weight_kg">Chiều cao (kg)</string>
+    <string name="save_and_continue">Lưu hồ sơ</string>
+    <string name="profile_setup_key">profile_setup_key</string>
+    <string name="chatbot">Chatbot</string>
+    <string name="back">Quay lại</string>
+    <string name="send_message">Gửi tin nhắn</string>
+    <string name="bot_avatar">Avatar chatbot</string>
 </resources>
