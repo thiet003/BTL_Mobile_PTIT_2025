@@ -11,7 +11,6 @@ public class LanguageItem extends BaseItem {
     private int name;
     @DrawableRes
     private int flag;
-
     private String codeSnip;
 
 

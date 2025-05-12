@@ -12,7 +12,6 @@ public final class AppConfig {
     public static final int MAX_HEIGHT = 250;
     public static int MIN_HEIGHT = 100;
     public static final long DEFAULT_DELAY_MILLIS = 100L;
-    public static final long LOOP_DURATION_MILLIS = 3000L;
 
     public static long getExercisePrepareDuration(){
         return Hawk.get(HawkKeys.PREPARE_DURATION_KEY, 15000L);
@@ -28,14 +27,6 @@ public final class AppConfig {
 
     public static void setExerciseRestDuration(long duration){
         Hawk.put(HawkKeys.REST_DURATION_KEY, duration);
-    }
-
-    public static boolean isFemaleVoice(){
-        return Hawk.get(HawkKeys.FEMALE_VOICE_KEY, false);
-    }
-
-    public static void setFemaleVoice(boolean femaleVoice){
-        Hawk.put(HawkKeys.FEMALE_VOICE_KEY, femaleVoice);
     }
 
     public static boolean isPlayBackgroundMusic(){
@@ -60,6 +51,28 @@ public final class AppConfig {
 
     public static void setVoiceEnabled(boolean isEnabled){
         Hawk.put(HawkKeys.VOICE_ENABLE_KEY, isEnabled);
+    }
+
+    public static void setVoiceSpeed(float speed){
+        if(speed < 0.5f || speed > 2.0f){
+            throw new IllegalArgumentException("Speed must be between 0.5 and 2.0");
+        }
+        Hawk.put(HawkKeys.VOICE_SPEED_KEY, speed);
+    }
+
+    public static float getVoiceSpeed(){
+        return Hawk.get(HawkKeys.VOICE_SPEED_KEY, 1.0f);
+    }
+
+    public static void setVoicePitch(float pitch){
+        if(pitch < 0.5f || pitch > 2.0f){
+            throw new IllegalArgumentException("Pitch must be between 0.5 and 2.0");
+        }
+        Hawk.put(HawkKeys.VOICE_PITCH_KEY, pitch);
+    }
+
+    public static float getVoicePitch(){
+        return Hawk.get(HawkKeys.VOICE_PITCH_KEY, 1.0f);
     }
 
 }

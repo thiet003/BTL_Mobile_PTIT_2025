@@ -163,4 +163,6 @@
     <string name="saturday">Thứ 7</string>
     <string name="ok">Lưu</string>
     <string name="done">Xong</string>
+    <string name="voice_speed">Tốc độ</string>
+    <string name="voice_pitch">Độ cao</string>
 </resources>

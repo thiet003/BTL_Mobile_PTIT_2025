@@ -27,6 +27,6 @@ public interface ReminderDao {
     @Delete
     void deleteReminder(Reminder reminder);
 
-    @Query("SELECT * FROM reminder AS r ORDER BY r.id DESC")
+    @Query("SELECT r.id, r.hour, r.minute, r.isAM, r.daysOfWeek, r.isEnabled FROM reminder AS r ORDER BY r.id DESC")
     LiveData<List<ReminderItem>> getAllReminders();
 }
