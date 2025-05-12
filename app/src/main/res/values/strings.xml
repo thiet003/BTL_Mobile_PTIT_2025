@@ -162,4 +162,11 @@
     <string name="saturday">Saturday</string>
     <string name="ok">OK</string>
     <string name="done">Done</string>
+    <string name="setup_profile">Set Up Your Profile</string>
+    <string name="setup_profile_description">Please enter your information to personalize your workout experience</string>
+    <string name="your_name">Your Name</string>
+    <string name="your_height_cm">Your Height (cm)</string>
+    <string name="your_weight_kg">Your Weight (kg)</string>
+    <string name="save_and_continue">Save and Continue</string>
+    <string name="profile_setup_key">profile_setup_key</string>
 </resources>
