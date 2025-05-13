@@ -2,7 +2,7 @@ package com.exercise.app30day;
 
 import android.app.Application;
 
-import com.exercise.app30day.utils.NotificationHelper;
+import com.exercise.app30day.utils.NotificationUtils;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.orhanobut.hawk.Hawk;
 
@@ -19,6 +19,6 @@ public class MainApplication extends Application {
         INSTANCE = this;
         AndroidThreeTen.init(this);
         Hawk.init(this).build();
-        NotificationHelper.createNotificationChannel(this);
+        NotificationUtils.createNotificationChannel(this);
     }
 }

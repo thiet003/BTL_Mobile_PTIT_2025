@@ -4,18 +4,25 @@ package com.exercise.app30day.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-
+import com.exercise.app30day.R;
+import com.exercise.app30day.data.models.Reminder;
+import com.exercise.app30day.data.models.User;
+import com.exercise.app30day.data.repositories.CourseRepository;
 import com.exercise.app30day.data.repositories.ReminderRepository;
+import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.ReminderItem;
-import com.exercise.app30day.utils.AlarmHelper;
+import com.exercise.app30day.utils.AlarmUtils;
+import com.exercise.app30day.utils.HawkKeys;
 import com.exercise.app30day.utils.IntentKeys;
-import com.exercise.app30day.utils.NotificationHelper;
+import com.exercise.app30day.utils.NotificationUtils;
+import com.exercise.app30day.utils.ResourceUtils;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.Calendar;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,32 +32,30 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class AlarmReceiver extends BroadcastReceiver {
 
     @Inject
+    CourseRepository courseRepository;
+
+    @Inject
     ReminderRepository reminderRepository;
+
+    Handler mainHandler = new Handler(Looper.getMainLooper());
 
     @Override
     public void onReceive(Context context, Intent intent) {
         int reminderId = intent.getIntExtra(IntentKeys.EXTRA_REMINDER_ID, -1);
-        if (reminderId != -1) {
-            LiveData<List<ReminderItem>> remindersLiveData = reminderRepository.getAllReminders();
-            Observer<List<ReminderItem>> observer = new Observer<>() {
-                @Override
-                public void onChanged(List<ReminderItem> reminderItems) {
-                    for (ReminderItem reminder : reminderItems) {
-                        if (reminder.getId() == reminderId && reminder.isEnabled()) {
-                            if (shouldTriggerToday(reminder)) {
-                                showNotification(context, reminder);
-                            }
-
-                            AlarmHelper.updateReminder(context, reminder);
+        if(reminderId != -1) {
+            new Thread(()->{
+                CourseItem courseItem = courseRepository.getCurrentCourseItemSync();
+                ReminderItem reminder = reminderRepository.getReminderByIdSync(reminderId);
+                if(courseItem != null && reminder != null && reminder.isEnabled()) {
+                    mainHandler.post(()->{
+                        if (shouldTriggerToday(reminder)) {
+                            showNotification(context, reminder, courseItem);
                         }
-                    }
 
-                    // Remove the observer after handling
-                    remindersLiveData.removeObserver(this);
+                        AlarmUtils.updateReminder(context, reminder);
+                    });
                 }
-            };
-
-            remindersLiveData.observeForever(observer);
+            }).start();
         }
     }
 
@@ -60,15 +65,40 @@ public class AlarmReceiver extends BroadcastReceiver {
         return reminder.getDaysOfWeek()[today];
     }
 
-    private void showNotification(Context context, ReminderItem reminder) {
-        String title = "It's time for your workout";
-        String message = "Your exercise reminder " + reminder.getFormattedTime();
+    private void showNotification(Context context, ReminderItem reminder, CourseItem courseItem) {
+        String title;
+        String message;
+        String bigText;
 
-        NotificationHelper.showReminderNotification(
-                context,
+        User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
+        if(user != null){
+            title = context.getString(R.string.workout_title, user.getName());
+        }else{
+            title = context.getString(R.string.workout_title_second);
+        }
+
+        int currentDay = courseItem.getNumberOfCompletedDays() + 1;
+
+        if (courseItem.getNumberOfCompletedDays() == 0) {
+            message = context.getString(R.string.start_course_message, courseItem.getName(), currentDay);
+            bigText = context.getString(R.string.start_course_big_text, courseItem.getName());
+        } else {
+            message = context.getString(R.string.continue_course_message, courseItem.getName(), currentDay);
+            bigText = context.getString(R.string.continue_course_big_text,
+                    courseItem.getNumberOfCompletedDays(),
+                    courseItem.getNumberOfDays());
+        }
+
+        NotificationUtils.NotificationItem notificationItem = new NotificationUtils.NotificationItem(
                 reminder.getId(),
                 title,
-                message
+                message,
+                bigText,
+                ResourceUtils.getDrawableId(context, courseItem.getImage())
+        );
+        NotificationUtils.showReminderNotification(
+                context,
+                notificationItem
         );
     }
 }

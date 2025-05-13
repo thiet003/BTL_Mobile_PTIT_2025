@@ -38,12 +38,13 @@ public class ReminderActivity extends BaseActivity<ActivityReminderBinding, Remi
             finish();
         }else if(v == binding.addReminderFab){
             ReminderTimePickerDialog timePickerDialog = new ReminderTimePickerDialog(this, (hour, minute, isAM) -> {
-                ReminderItem reminderItem = new ReminderItem(reminderAdapter.getItemCount() + 1);
+                ReminderItem reminderItem = new ReminderItem(0);
                 reminderItem.setHour(hour);
                 reminderItem.setMinute(minute);
                 reminderItem.setAM(isAM);
                 viewModel.insertReminder(reminderItem);
             });
+            timePickerDialog.setValues(6, 0, false);
             timePickerDialog.show();
         }
     }

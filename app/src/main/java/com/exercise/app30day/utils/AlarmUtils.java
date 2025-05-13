@@ -13,7 +13,7 @@ import com.exercise.app30day.receivers.AlarmReceiver;
 
 import java.util.Calendar;
 
-public class AlarmHelper {
+public final class AlarmUtils {
     public static void scheduleAllReminders(Context context, ReminderItem[] reminders) {
         for (ReminderItem reminder : reminders) {
             if (reminder.isEnabled()) {

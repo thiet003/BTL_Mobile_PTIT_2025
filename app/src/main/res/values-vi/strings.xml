@@ -163,4 +163,11 @@
     <string name="saturday">Thứ 7</string>
     <string name="ok">Lưu</string>
     <string name="done">Xong</string>
+
+    <string name="workout_title">Đã đến lúc tập luyện rồi, %s!</string>
+    <string name="workout_title_second">Đã đến lúc tập luyện rồi!</string>
+    <string name="start_course_message">Hãy bắt đầu khóa học: %1$s - Ngày: %2$d</string>
+    <string name="continue_course_message">Tiếp tục khóa học: %1$s - Ngày: %2$d</string>
+    <string name="start_course_big_text">Bạn sắp bắt đầu hành trình với khóa học "%1$s".&#10;&#10;Hãy giữ vững động lực và hoàn thành từng ngày một!</string>
+    <string name="continue_course_big_text">Bạn đã hoàn thành %1$d trên tổng số %2$d ngày.&#10;&#10;Tiếp tục phát huy nhé!</string>
 </resources>
