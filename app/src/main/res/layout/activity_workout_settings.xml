@@ -164,7 +164,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/voice_guidance"
-                    android:textColor="@color/textPrimaryColor"
                     android:textSize="@dimen/_12sdp" />
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -176,72 +175,50 @@
                     app:trackTint="@drawable/switch_track_color" />
             </LinearLayout>
 
-            <!-- Voice Type Selection -->
             <LinearLayout
-                android:id="@+id/layoutSelectVoice"
+                android:id="@+id/layoutSelectPitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal"
-                android:paddingVertical="@dimen/_8sdp"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/voice_type"
-                    android:textColor="@color/textPrimaryColor"
-                    android:textSize="@dimen/_12sdp" />
-
-                <TextView
-                    android:id="@+id/tvSelectedVoice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/female"
-                    android:textColor="@color/primary"
-                    android:textSize="@dimen/_12sdp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:src="@drawable/ic_chevron_right"
-                    app:tint="@color/iconTertiaryColor" />
-            </LinearLayout>
-
-            <!-- Voice Volume Slider -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="@dimen/_16sdp"
-                    android:src="@drawable/ic_volume_down"
-                    app:tint="@color/iconTertiaryColor" />
-
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/voice_pitch"
+                    android:textSize="@dimen/_12sdp" />
                 <SeekBar
-                    android:id="@+id/voiceVolumeSeekBar"
+                    android:id="@+id/voicePitchSeekBar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:max="100"
-                    android:progress="70"
+                    android:max="2"
+                    android:progress="1"
                     android:progressTint="@color/primary"
                     android:thumbTint="@color/primary" />
+            </LinearLayout>
 
-                <ImageView
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="@dimen/_16sdp"
-                    android:src="@drawable/ic_volume_up"
-                    app:tint="@color/iconTertiaryColor" />
+            <LinearLayout
+                android:id="@+id/layoutSelectSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/voice_speed"
+                    android:textSize="@dimen/_12sdp" />
+                <SeekBar
+                    android:id="@+id/voiceSpeedSeekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="2"
+                    android:progress="1"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary" />
             </LinearLayout>
         </LinearLayout>
 

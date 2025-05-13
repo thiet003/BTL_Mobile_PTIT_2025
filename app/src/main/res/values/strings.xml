@@ -162,6 +162,14 @@
     <string name="saturday">Saturday</string>
     <string name="ok">OK</string>
     <string name="done">Done</string>
+    <string name="workout_title">It\'s time for your workout, %s!</string>
+    <string name="workout_title_second">It\'s time for your workout!</string>
+    <string name="start_course_message">Let\'s start the course: %1$s - Day: %2$d</string>
+    <string name="continue_course_message">Let\'s continue with the course: %1$s - Day: %2$d</string>
+    <string name="start_course_big_text">You\'re about to begin your journey with the course "%1$s".&#10;&#10;Stay motivated and complete each day step by step!</string>
+    <string name="continue_course_big_text">You have completed %1$d days out of %2$d days.&#10;&#10;Keep up the good work!</string>
+    <string name="voice_speed">Voice speed</string>
+    <string name="voice_pitch">Voice pitch</string>
     <string name="setup_profile">Set Up Your Profile</string>
     <string name="setup_profile_description">Please enter your information to personalize your workout experience</string>
     <string name="your_name">Your Name</string>

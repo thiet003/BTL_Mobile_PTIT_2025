@@ -12,8 +12,7 @@ import com.exercise.app30day.data.repositories.WeightHistoryRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayHistoryItem;
 import com.exercise.app30day.utils.HawkKeys;
-import com.exercise.app30day.utils.TimeUtils;
-import com.exercise.app30day.utils.WeightHistoryItem;
+import com.exercise.app30day.items.WeightHistoryItem;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.Collections;

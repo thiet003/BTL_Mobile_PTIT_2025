@@ -69,18 +69,26 @@
             android:layout_gravity="end"
             />
 
+        <ImageButton
+            android:id="@+id/btnRotate"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_phone_rotate"
+            android:scaleType="fitXY"
+            android:padding="@dimen/_6sdp"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="#DDDDDD"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_gravity="end"
+            />
+
         <com.exercise.app30day.widgets.MediaPlayer
             android:id="@+id/media_player"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_marginTop="@dimen/_15sdp"/>
-
-        <View
-            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginBottom="10dp"
-            />
+            android:layout_marginTop="@dimen/_15sdp"/>
 
         <LinearLayout
             android:id="@+id/layout_prepare"
@@ -245,6 +253,7 @@
                     android:layout_marginHorizontal="@dimen/_18sdp"
                     >
                     <FrameLayout
+                        android:id="@+id/btnProgress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <SeekBar
@@ -276,6 +285,25 @@
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
                             />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:id="@+id/btnCompleted"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            app:tint="@color/iconSecondaryColor"
+                            />
+
                     </FrameLayout>
                 </androidx.cardview.widget.CardView>
 

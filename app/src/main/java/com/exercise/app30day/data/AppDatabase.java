@@ -24,6 +24,8 @@ import com.exercise.app30day.data.models.Reminder;
 import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.utils.Converters;
+import com.exercise.app30day.items.ReminderItem;
+import com.exercise.app30day.utils.AlarmUtils;
 import com.exercise.app30day.utils.HawkKeys;
 import com.google.firebase.remoteconfig.CustomSignals;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -33,6 +35,7 @@ import com.google.gson.reflect.TypeToken;
 import com.orhanobut.hawk.Hawk;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 @Database(entities = {
@@ -116,7 +119,16 @@ public abstract class AppDatabase extends RoomDatabase {
                     }.getType();
                     List<DayExercise> dayExercises = new Gson().fromJson(dayExercisesJson, dayExerciseType);
                     getInstance(context).dayExerciseDao().insertDayExercises(dayExercises);
-                    Hawk.put(HawkKeys.INSTANCE_USER_KEY, new User(System.currentTimeMillis(), "user", 0f));
+
+                    boolean[] daysOfWeek = new boolean[7];
+                    Arrays.fill(daysOfWeek, true);
+                    Reminder reminder = new Reminder(6, 0, false, daysOfWeek, true);
+                    long reminderId = getInstance(context).reminderDao().insertReminder(reminder);
+                    reminder.setId((int) reminderId);
+                    AlarmUtils.scheduleReminder(context,reminder);
+
+                    Hawk.put(HawkKeys.INSTANCE_USER_KEY, new User(System.currentTimeMillis(), "Ngoc Yen", 0f));
+
                     Hawk.put(HawkKeys.DATABASE_DATA_INITIALIZED_KEY, true);
                 }).start();
             }

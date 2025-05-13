@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.exercise.app30day.data.dao.WeightHistoryDao;
 import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.repositories.WeightHistoryRepository;
-import com.exercise.app30day.utils.WeightHistoryItem;
+import com.exercise.app30day.items.WeightHistoryItem;
 
 import java.util.List;
 

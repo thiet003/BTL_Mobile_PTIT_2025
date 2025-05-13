@@ -51,6 +51,8 @@ public class ExerciseViewModel extends ViewModel {
 
     private final List<MusicItem> musicItems;
 
+    private boolean isPortrait = true;
+
     @Inject
     public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository, DayHistoryRepository dayHistoryRepository) {
         this.dayRepository = dayRepository;
@@ -131,14 +133,6 @@ public class ExerciseViewModel extends ViewModel {
             return state.getExercisePosition();
         }
         return 0;
-    }
-
-    public String getLoopOrDuration(ExerciseItem item){
-        return item.getLoopNumber() != 0 ? "x" + item.getLoopNumber() : TimeUtils.formatMillisecondsToMMSS(item.getTime());
-    }
-
-    public long calculateDuration(ExerciseItem item){
-        return item.getTime();
     }
 
     public void initData(List<ExerciseItem> listExerciseItem, DayItem dayItem, CourseItem courseItem, int currentExercisePosition){
@@ -229,5 +223,22 @@ public class ExerciseViewModel extends ViewModel {
         return null;
     }
 
+    public String getFirstSentence(String text){
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+        String[] sentences = text.split("(?<=[.!?])\\s*");
+        if (sentences.length > 0) {
+            return sentences[0];
+        }
+        return text;
+    }
 
+    public boolean isPortrait() {
+        return isPortrait;
+    }
+
+    public void setPortrait(boolean portrait) {
+        isPortrait = portrait;
+    }
 }

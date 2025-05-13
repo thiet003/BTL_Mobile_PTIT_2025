@@ -30,4 +30,9 @@ public class CourseRepositoryImpl implements CourseRepository {
     public LiveData<CourseItem> getCourseItemById(int courseId) {
         return courseDao.getCourseItemById(courseId);
     }
+
+    @Override
+    public CourseItem getCurrentCourseItemSync() {
+        return courseDao.getCurrentCourseItemSync();
+    }
 }
