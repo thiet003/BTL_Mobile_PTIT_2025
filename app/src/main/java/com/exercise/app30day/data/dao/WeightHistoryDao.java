@@ -8,7 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.exercise.app30day.data.models.WeightHistory;
-import com.exercise.app30day.utils.WeightHistoryItem;
+import com.exercise.app30day.items.WeightHistoryItem;
 
 import java.util.List;
 

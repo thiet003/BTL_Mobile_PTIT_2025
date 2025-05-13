@@ -59,7 +59,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
             binding.mediaPlayer.load(item.getAnimationUrl());
             binding.tvPage.setText(requireContext().getString(R.string.page, exercisePosition + 1, listExerciseItem.size()));
             binding.tvExerciseName.setText(item.getName());
-            binding.tvLoopDuration.setText(viewModel.getLoopOrDuration(item));
+            binding.tvLoopDuration.setText(item.getLoopOrDuration());
             handler.postDelayed(restRunnable, DEFAULT_DELAY_MILLIS);
         });
     }

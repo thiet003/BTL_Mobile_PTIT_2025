@@ -94,6 +94,11 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
     }
 
     @Override
+    protected void initListener() {
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);

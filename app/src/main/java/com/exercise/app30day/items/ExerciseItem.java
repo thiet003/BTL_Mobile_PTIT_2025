@@ -1,6 +1,7 @@
 package com.exercise.app30day.items;
 
 import com.exercise.app30day.base.adapter.BaseItem;
+import com.exercise.app30day.utils.TimeUtils;
 
 public class ExerciseItem extends BaseItem {
     private String name;
@@ -74,5 +75,9 @@ public class ExerciseItem extends BaseItem {
 
     public void setAnimationUrl(String animationUrl) {
         this.animationUrl = animationUrl;
+    }
+
+    public String getLoopOrDuration(){
+        return loopNumber != 0 ? "x" + loopNumber : TimeUtils.formatMillisecondsToMMSS(time);
     }
 }

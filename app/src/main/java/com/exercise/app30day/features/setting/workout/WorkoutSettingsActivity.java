@@ -42,10 +42,8 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
     protected void initView() {
         int musicId = Hawk.get(HawkKeys.MUSIC_ID_KEY, viewModel.musicItems.get(0).getId());
         MusicItem selectedMusic = viewModel.findMusicItem(musicId);
-        boolean isFemaleVoice = AppConfig.isFemaleVoice();
         binding.tvSelectedMusic.setText(selectedMusic.getName());
         binding.ivMusic.setImageResource(selectedMusic.getImage());
-        binding.tvSelectedVoice.setText(isFemaleVoice ? getString(R.string.female) : getString(R.string.male));
         updateRestTimeText((int)(AppConfig.getExerciseRestDuration() / 1000));
         updatePrepTimeText((int) (AppConfig.getExercisePrepareDuration() / 1000));
         binding.volumeSeekBar.setProgress((int)(AppConfig.getBackgroundMusicVolume() * 100));
@@ -54,6 +52,13 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
         binding.toggleBackgroundMusic.setChecked(AppConfig.isPlayBackgroundMusic());
         binding.toggleVoiceGuidance.setOnCheckedChangeListener(this);
         binding.toggleVoiceGuidance.setChecked(AppConfig.isVoiceEnabled());
+
+        float pitch = AppConfig.getVoicePitch();
+        binding.voicePitchSeekBar.setProgress((int) ((pitch - 0.5f) * 2));
+
+        float speed = AppConfig.getVoiceSpeed();
+        binding.voiceSpeedSeekBar.setProgress((int) ((speed - 0.5f) * 2));
+
     }
 
     @Override
@@ -61,9 +66,10 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
         binding.volumeSeekBar.setOnSeekBarChangeListener(this);
         binding.btnBack.setOnClickListener(this);
         binding.layoutSelectMusic.setOnClickListener(this);
-        binding.layoutSelectVoice.setOnClickListener(this);
         binding.layoutRestTime.setOnClickListener(this);
         binding.layoutPrepTime.setOnClickListener(this);
+        binding.voicePitchSeekBar.setOnSeekBarChangeListener(this);
+        binding.voiceSpeedSeekBar.setOnSeekBarChangeListener(this);
     }
 
     private void showMusicBottomDialog() {
@@ -85,25 +91,6 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
 
         bottomSheet.show(getSupportFragmentManager(), MusicBottomDialog.class.getName());
     }
-
-    private void showVoiceSelectionDialog() {
-        boolean isFemaleVoice = AppConfig.isFemaleVoice();
-        final VoiceSelectionDialog dialog = new VoiceSelectionDialog(this, isFemaleVoice);
-
-        dialog.setOnVoiceSelectedListener(isFemale -> {
-            binding.tvSelectedVoice.setText(isFemale ? getString(R.string.female) : getString(R.string.male));
-            AppConfig.setFemaleVoice(isFemale);
-            Toast.makeText(WorkoutSettingsActivity.this,
-                    getString(R.string.selected_voice, (isFemale ? getString(R.string.female) : getString(R.string.male))),
-                    Toast.LENGTH_SHORT).show();
-        });
-
-        dialog.show();
-    }
-
-    /**
-     * Shows the rest time picker dialog
-     */
     private void showRestTimePickerDialog() {
         long second = AppConfig.getExerciseRestDuration();
         final TimePickerDialog dialog = new TimePickerDialog(
@@ -151,8 +138,6 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
     public void onClick(View v) {
         if(v ==binding.btnBack){
             finish();
-        }else if(v == binding.layoutSelectVoice){
-            showVoiceSelectionDialog();
         }else if(v == binding.layoutSelectMusic){
             showMusicBottomDialog();
         }else if(v == binding.layoutRestTime){
@@ -196,6 +181,10 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
     public void onStopTrackingTouch(SeekBar seekBar) {
         if(seekBar == binding.volumeSeekBar){
             AppConfig.setBackgroundMusicVolume(seekBar.getProgress() / 100f);
+        }else if(seekBar == binding.voicePitchSeekBar){
+            AppConfig.setVoicePitch(seekBar.getProgress() * 0.5f + 0.5f);
+        }else if (seekBar == binding.voiceSpeedSeekBar){
+            AppConfig.setVoiceSpeed(seekBar.getProgress() * 0.5f + 0.5f);
         }
     }
 
@@ -211,10 +200,10 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
                 if(bound) musicService.stopMusic();
             }
         }else if(buttonView == binding.toggleVoiceGuidance){
-            binding.layoutSelectVoice.setEnabled(isChecked);
-            binding.layoutSelectVoice.setAlpha(isChecked ? 1.0f : 0.5f);
-            binding.voiceVolumeSeekBar.setEnabled(isChecked);
-            binding.voiceVolumeSeekBar.setAlpha(isChecked ? 1.0f : 0.5f);
+            binding.voicePitchSeekBar.setEnabled(isChecked);
+            binding.voiceSpeedSeekBar.setEnabled(isChecked);
+            binding.layoutSelectSpeed.setAlpha(isChecked ? 1.0f : 0.5f);
+            binding.layoutSelectPitch.setAlpha(isChecked ? 1.0f : 0.5f);
             AppConfig.setVoiceEnabled(isChecked);
         }
     }
