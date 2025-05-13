@@ -10,4 +10,6 @@ public interface CourseRepository {
     LiveData<List<CourseItem>> getAllCourseItems();
 
     LiveData<CourseItem> getCourseItemById(int courseId);
+
+    CourseItem getCurrentCourseItemSync();
 }

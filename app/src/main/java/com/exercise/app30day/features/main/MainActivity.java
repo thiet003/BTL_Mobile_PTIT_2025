@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel>  {
+
     @Override
     protected void initView() {
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(this);
