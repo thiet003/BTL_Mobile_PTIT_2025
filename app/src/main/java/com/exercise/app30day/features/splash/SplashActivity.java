@@ -18,8 +18,9 @@ import com.exercise.app30day.data.AppDatabase;
 import com.exercise.app30day.databinding.ActivitySplashBinding;
 import com.exercise.app30day.features.intro.IntroActivity;
 import com.exercise.app30day.features.main.MainActivity;
-import com.exercise.app30day.utils.HawkKeys;
+import com.exercise.app30day.features.setup.UserSetupActivity;
 import com.exercise.app30day.utils.SpeechHelper;
+import com.exercise.app30day.utils.HawkKeys;
 import com.orhanobut.hawk.Hawk;
 
 @SuppressLint("CustomSplashScreen")

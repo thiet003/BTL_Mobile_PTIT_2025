@@ -1,7 +1,11 @@
 package com.exercise.app30day.data.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "user")
 public class User{
+    @PrimaryKey(autoGenerate = true)
     private long id;
 
     private String name;

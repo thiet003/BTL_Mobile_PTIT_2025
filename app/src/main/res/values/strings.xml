@@ -170,4 +170,11 @@
     <string name="continue_course_big_text">You have completed %1$d days out of %2$d days.&#10;&#10;Keep up the good work!</string>
     <string name="voice_speed">Voice speed</string>
     <string name="voice_pitch">Voice pitch</string>
+    <string name="setup_profile">Set Up Your Profile</string>
+    <string name="setup_profile_description">Please enter your information to personalize your workout experience</string>
+    <string name="your_name">Your Name</string>
+    <string name="your_height_cm">Your Height (cm)</string>
+    <string name="your_weight_kg">Your Weight (kg)</string>
+    <string name="save_and_continue">Save and Continue</string>
+    <string name="profile_setup_key">profile_setup_key</string>
 </resources>
