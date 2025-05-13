@@ -13,7 +13,6 @@ import com.exercise.app30day.data.dao.DayExerciseDao;
 import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
 import com.exercise.app30day.data.dao.ReminderDao;
-import com.exercise.app30day.data.dao.UserDao;
 import com.exercise.app30day.data.dao.WeightHistoryDao;
 import com.exercise.app30day.data.models.Course;
 import com.exercise.app30day.data.models.Day;
@@ -21,7 +20,6 @@ import com.exercise.app30day.data.models.DayExercise;
 import com.exercise.app30day.data.models.DayHistory;
 import com.exercise.app30day.data.models.Exercise;
 import com.exercise.app30day.data.models.Reminder;
-import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.utils.Converters;
 import com.exercise.app30day.items.ReminderItem;
@@ -45,8 +43,7 @@ import java.util.List;
         DayExercise.class,
         DayHistory.class,
         WeightHistory.class,
-        Reminder.class,
-        User.class
+        Reminder.class
 }, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -58,7 +55,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract DayHistoryDao dayHistoryDao();
     public abstract WeightHistoryDao weightHistoryDao();
     public abstract ReminderDao reminderDao();
-    public abstract UserDao userDao();
 
     public static final String COURSES_DATA = "courses_data";
 
@@ -124,11 +120,13 @@ public abstract class AppDatabase extends RoomDatabase {
                     Arrays.fill(daysOfWeek, true);
                     Reminder reminder = new Reminder(6, 0, false, daysOfWeek, true);
                     long reminderId = getInstance(context).reminderDao().insertReminder(reminder);
-                    reminder.setId((int) reminderId);
-                    AlarmUtils.scheduleReminder(context,reminder);
-
-                    Hawk.put(HawkKeys.INSTANCE_USER_KEY, new User(System.currentTimeMillis(), "Ngoc Yen", 0f));
-
+                    ReminderItem reminderItem = new ReminderItem((int) reminderId);
+                    reminderItem.setHour(reminder.getHour());
+                    reminderItem.setMinute(reminder.getMinute());
+                    reminderItem.setAM(reminder.isAM());
+                    reminderItem.setDaysOfWeek(reminder.getDaysOfWeek());
+                    reminderItem.setEnabled(reminder.isEnabled());
+                    AlarmUtils.scheduleReminder(context, reminderItem);
                     Hawk.put(HawkKeys.DATABASE_DATA_INITIALIZED_KEY, true);
                 }).start();
             }

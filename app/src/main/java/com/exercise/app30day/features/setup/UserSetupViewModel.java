@@ -22,18 +22,9 @@ public class UserSetupViewModel extends ViewModel {
         this.weightHistoryRepository = weightHistoryRepository;
     }
     public void saveUserInfo(String name, int height, double weight) {
-        User user = new User(0, name, height);
-        User existingUser = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
-        if (existingUser != null) {
-            existingUser.setName(name);
-            existingUser.setHeight(height);
-            Hawk.put(HawkKeys.INSTANCE_USER_KEY, existingUser);
-        }
-        else {
-            Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
-        }
+        User user = new User(System.currentTimeMillis(), name, height);
+        Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
         saveWeightHistory(weight);
-        Hawk.put(HawkKeys.PROFILE_SETUP_KEY, true);
     }
     public void saveWeightHistory(double weight) {
         WeightHistory weightHistory = new WeightHistory(weight, System.currentTimeMillis());

@@ -28,9 +28,9 @@ public interface ReminderDao {
     @Query("SELECT r.id, r.hour, r.minute, r.isAM, r.daysOfWeek, r.isEnabled FROM reminder AS r ORDER BY r.id DESC")
     LiveData<List<ReminderItem>> getAllReminders();
 
-    @Query("SELECT * FROM reminder AS r ORDER BY r.id DESC")
+    @Query("SELECT r.id, r.hour, r.minute, r.isAM, r.daysOfWeek, r.isEnabled FROM reminder AS r ORDER BY r.id DESC")
     List<ReminderItem> getAllRemindersSync();
 
-    @Query("SELECT * FROM reminder AS r WHERE id = :id")
+    @Query("SELECT r.id, r.hour, r.minute, r.isAM, r.daysOfWeek, r.isEnabled FROM reminder AS r WHERE id = :id")
     ReminderItem getReminderByIdSync(int id);
 }

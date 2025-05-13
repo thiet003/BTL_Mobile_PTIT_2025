@@ -19,7 +19,6 @@ import com.exercise.app30day.databinding.ActivitySplashBinding;
 import com.exercise.app30day.features.intro.IntroActivity;
 import com.exercise.app30day.features.main.MainActivity;
 import com.exercise.app30day.features.setup.UserSetupActivity;
-import com.exercise.app30day.utils.SpeechHelper;
 import com.exercise.app30day.utils.HawkKeys;
 import com.orhanobut.hawk.Hawk;
 
@@ -42,8 +41,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
         }else{
             loadSplash();
         }
-
-        SpeechHelper.getInstance().init();
     }
 
     @Override
@@ -78,14 +75,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
                 public void run() {
                     countTimeSplash++;
                     if (countTimeSplash > 3 && AppDatabase.isDataInitialized()) {
-                        Intent intent;
-                        if(!Hawk.get(HawkKeys.INTRO_SHOWN_KEY, false)){
-                            intent = new Intent(SplashActivity.this, IntroActivity.class);
-                        }else{
-                            intent = new Intent(SplashActivity.this, MainActivity.class);
-                        }
-                        startActivity(intent);
-                        finish();
+                        startNextScreen();
                     }else{
                         handler.postDelayed(this, 1000);
                     }
@@ -94,9 +84,19 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, NoneView
         }
     }
 
-    @Override
-    protected void initListener() {
-
+    private void startNextScreen() {
+        Intent intent;
+        if(!Hawk.get(HawkKeys.INTRO_SHOWN_KEY, false)){
+            intent = new Intent(this, IntroActivity.class);
+        }else{
+            if(!Hawk.get(HawkKeys.PROFILE_SETUP_KEY, false)){
+                intent = new Intent(this, UserSetupActivity.class);
+            }else{
+                intent = new Intent(this, MainActivity.class);
+            }
+        }
+        startActivity(intent);
+        finish();
     }
 
     @Override

@@ -171,4 +171,6 @@
     <string name="continue_course_big_text">Bạn đã hoàn thành %1$d trên tổng số %2$d ngày.&#10;&#10;Tiếp tục phát huy nhé!</string>
     <string name="voice_speed">Tốc độ</string>
     <string name="voice_pitch">Độ cao</string>
+    <string name="please_enter_your_name">Hãy điền tên của bạn</string>
+    <string name="please_select_at_least_one_day">Phải chọn ít nhất một ngày</string>
 </resources>
