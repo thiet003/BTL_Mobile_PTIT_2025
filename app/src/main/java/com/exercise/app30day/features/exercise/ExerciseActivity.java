@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -49,7 +50,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, NoneViewModel>
-        implements View.OnClickListener, OnCompleteListener{
+        implements View.OnClickListener, OnCompleteListener, ExerciseRestFragment.OnSoundControlListener{
 
     private ExerciseViewModel viewModel;
     private final Handler handler = new Handler(Looper.getMainLooper());
@@ -58,6 +59,8 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
 
     private MusicService musicService;
     private boolean musicBound = false;
+
+    private MediaPlayer effectMediaPlayer;
 
     private final ServiceConnection musicConnection = new ServiceConnection() {
         @Override
@@ -133,6 +136,9 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
                         binding.tvProgress.setText(String.valueOf((viewModel.getTimeCounter()/1000)));
                     }
                     binding.circleView.setValue((float) (viewModel.getTimeCounter() * 100) / prepareDuration);
+                    onShowTickSound();
+                }else{
+                    onPauseSound();
                 }
                 handler.postDelayed(prepareRunnable, DEFAULT_DELAY_MILLIS);
             }else{
@@ -161,6 +167,9 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
                     if (!inBackground && viewModel.isPlayExercise()) {
                         viewModel.updateTimeCounter(viewModel.getTimeCounter() + DEFAULT_DELAY_MILLIS);
                         binding.sbExercise.setProgress((int) (viewModel.getTimeCounter() * 100 / totalDuration));
+                        onShowTickSound();
+                    }else{
+                        onPauseSound();
                     }
                     handler.postDelayed(exerciseRunnable, DEFAULT_DELAY_MILLIS);
                 }else{
@@ -184,11 +193,13 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
 
     private void moveExerciseToRest(){
         handler.removeCallbacks(exerciseRunnable);
+        onStopSound();
         viewModel.moveExerciseToRest(this);
     }
 
     private void movePrepareToExercise(){
         handler.removeCallbacks(prepareRunnable);
+        onStopSound();
         viewModel.movePrepareToExercise();
     }
 
@@ -286,6 +297,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
         super.onStop();
         inBackground = true;
         SpeechUtils.stop();
+        onPauseSound();
     }
 
     @Override
@@ -298,6 +310,7 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
             unbindService(musicConnection);
             musicBound = false;
         }
+        onStopSound();
     }
 
     @SuppressLint("MissingSuperCall")
@@ -341,6 +354,35 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
             float volume = AppConfig.getBackgroundMusicVolume();
             musicService.initMusic(musicItem.getAudio(), volume,true);
             if(AppConfig.isPlayBackgroundMusic()) musicService.playMusic();
+        }
+    }
+
+    @Override
+    public void onShowTickSound() {
+        if(!AppConfig.isCountdownSoundEnabled()) return;
+        if(effectMediaPlayer != null && !effectMediaPlayer.isPlaying()){
+            effectMediaPlayer.start();
+        }else if(effectMediaPlayer == null){
+            effectMediaPlayer = MediaPlayer.create(this, R.raw.tick_coundown_sound);
+            effectMediaPlayer.setVolume(0.5f, 0.5f);
+            effectMediaPlayer.setLooping(true);
+            effectMediaPlayer.start();
+        }
+    }
+
+    @Override
+    public void onPauseSound() {
+        if(effectMediaPlayer != null && effectMediaPlayer.isPlaying()){
+            effectMediaPlayer.pause();
+        }
+    }
+
+    @Override
+    public void onStopSound() {
+        if(effectMediaPlayer != null){
+            effectMediaPlayer.stop();
+            effectMediaPlayer.release();
+            effectMediaPlayer = null;
         }
     }
 }

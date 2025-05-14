@@ -48,10 +48,9 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
         updatePrepTimeText((int) (AppConfig.getExercisePrepareDuration() / 1000));
         binding.volumeSeekBar.setProgress((int)(AppConfig.getBackgroundMusicVolume() * 100));
 
-        binding.toggleBackgroundMusic.setOnCheckedChangeListener(this);
         binding.toggleBackgroundMusic.setChecked(AppConfig.isPlayBackgroundMusic());
-        binding.toggleVoiceGuidance.setOnCheckedChangeListener(this);
         binding.toggleVoiceGuidance.setChecked(AppConfig.isVoiceEnabled());
+        binding.toggleCountdownSound.setChecked(AppConfig.isCountdownSoundEnabled());
 
         float pitch = AppConfig.getVoicePitch();
         binding.voicePitchSeekBar.setProgress((int) ((pitch - 0.5f) * 2));
@@ -70,6 +69,9 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
         binding.layoutPrepTime.setOnClickListener(this);
         binding.voicePitchSeekBar.setOnSeekBarChangeListener(this);
         binding.voiceSpeedSeekBar.setOnSeekBarChangeListener(this);
+        binding.toggleBackgroundMusic.setOnCheckedChangeListener(this);
+        binding.toggleVoiceGuidance.setOnCheckedChangeListener(this);
+        binding.toggleCountdownSound.setOnCheckedChangeListener(this);
     }
 
     private void showMusicBottomDialog() {
@@ -205,6 +207,8 @@ public class WorkoutSettingsActivity extends BaseActivity<ActivityWorkoutSetting
             binding.layoutSelectSpeed.setAlpha(isChecked ? 1.0f : 0.5f);
             binding.layoutSelectPitch.setAlpha(isChecked ? 1.0f : 0.5f);
             AppConfig.setVoiceEnabled(isChecked);
+        }else if(buttonView == binding.toggleCountdownSound){
+            AppConfig.setEnableCountdownSound(isChecked);
         }
     }
 }
