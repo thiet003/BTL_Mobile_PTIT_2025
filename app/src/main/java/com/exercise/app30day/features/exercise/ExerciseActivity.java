@@ -82,7 +82,9 @@ public class ExerciseActivity extends BaseActivity<ActivityExerciseBinding, None
     @Override
     protected void initView() {
         viewModel = new ViewModelProvider(this).get(ExerciseViewModel.class);
-        initData();
+        if(!viewModel.isInitializeData()){
+            initData();
+        }
         binding.stepSeekBar.setNumSteps(viewModel.getListExerciseItem().size());
         binding.stepSeekBar.setEnabled(false);
         viewModel.onExerciseUiState.observe(this, exerciseUiState -> {

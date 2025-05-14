@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.exercise.app30day.R;
@@ -112,7 +113,11 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
         viewModel.addRestTime(viewModel.getTimeCounter());
         handler.removeCallbacks(restRunnable);
         viewModel.moveRestToExercise();
-        requireActivity().getSupportFragmentManager().popBackStack();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        int count = fragmentManager.getBackStackEntryCount();
+        for (int i = 0; i < count; i++) {
+            fragmentManager.popBackStack();
+        }
     }
 
     @Override
