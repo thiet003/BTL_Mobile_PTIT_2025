@@ -23,4 +23,6 @@ public final class HawkKeys {
 
     public static final String INTRO_SHOWN_KEY = "intro_shown_key";
     public static final String PROFILE_SETUP_KEY = "profile_setup_key";
+
+    public static final String ENABLE_COUNTDOWN_SOUND_KEY = "enable_countdown_key";
 }

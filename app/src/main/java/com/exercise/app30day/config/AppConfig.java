@@ -75,4 +75,12 @@ public final class AppConfig {
         return Hawk.get(HawkKeys.VOICE_PITCH_KEY, 1.0f);
     }
 
+    public static void setEnableCountdownSound(boolean enable){
+        Hawk.put(HawkKeys.ENABLE_COUNTDOWN_SOUND_KEY, enable);
+    }
+
+    public static boolean isCountdownSoundEnabled(){
+        return Hawk.get(HawkKeys.ENABLE_COUNTDOWN_SOUND_KEY, true);
+    }
+
 }

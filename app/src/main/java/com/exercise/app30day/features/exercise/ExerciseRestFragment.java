@@ -2,10 +2,14 @@ package com.exercise.app30day.features.exercise;
 
 import static com.exercise.app30day.config.AppConfig.DEFAULT_DELAY_MILLIS;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.exercise.app30day.R;
@@ -17,6 +21,7 @@ import com.exercise.app30day.features.exercise.dialog.ExerciseBottomDialog;
 import com.exercise.app30day.items.ExerciseItem;
 import com.exercise.app30day.utils.TimeUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -32,6 +37,22 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
 
     private long restDuration = AppConfig.getExerciseRestDuration();
 
+    private OnSoundControlListener soundListener;
+
+    public interface OnSoundControlListener extends Serializable {
+        void onShowTickSound();
+        void onPauseSound();
+        void onStopSound();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof OnSoundControlListener){
+            this.soundListener = (OnSoundControlListener) context;
+        }
+    }
+
     @Override
     protected void initView() {
         viewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
@@ -43,6 +64,9 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
                         long remainTime = restDuration - viewModel.getTimeCounter();
                         binding.tvRestingTime.setText(TimeUtils.formatMillisecondsToMMSS(remainTime));
                     }
+                    if(soundListener != null) soundListener.onShowTickSound();
+                }else{
+                    if(soundListener != null) soundListener.onPauseSound();
                 }
                 handler.postDelayed(restRunnable, DEFAULT_DELAY_MILLIS);
             }else{
@@ -84,6 +108,7 @@ public class ExerciseRestFragment extends BaseFragment<FragmentExerciseRestBindi
     }
 
     private void moveRestToExercise() {
+        if(soundListener != null) soundListener.onStopSound();
         viewModel.addRestTime(viewModel.getTimeCounter());
         handler.removeCallbacks(restRunnable);
         viewModel.moveRestToExercise();
