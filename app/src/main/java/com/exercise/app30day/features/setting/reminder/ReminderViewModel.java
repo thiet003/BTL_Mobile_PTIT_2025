@@ -39,7 +39,7 @@ public class ReminderViewModel extends ViewModel {
             long reminderId = reminderRepository.insertReminderSync(reminder);
             reminderItem.setId((int) reminderId);
             mainHandler.post(()-> AlarmUtils.scheduleReminder(context, reminderItem));
-        });
+        }).start();
     }
 
     public void updateReminder(ReminderItem reminderItem) {
