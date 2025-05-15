@@ -96,7 +96,11 @@ public final class AlarmUtils {
         // Our days: 0 = Sunday, 1 = Monday, ..., 6 = Saturday
         // Calendar days: 1 = Sunday, 2 = Monday, ..., 7 = Saturday
         calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek + 1);
-        calendar.set(Calendar.HOUR, reminder.getHour());
+        if(reminder.getHour() == 12 && reminder.isAM()){
+            calendar.set(Calendar.HOUR, 0);
+        }else{
+            calendar.set(Calendar.HOUR, reminder.getHour());
+        }
         calendar.set(Calendar.MINUTE, reminder.getMinute());
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
