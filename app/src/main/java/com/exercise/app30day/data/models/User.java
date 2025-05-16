@@ -4,25 +4,20 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "user")
-public class User{
-    @PrimaryKey(autoGenerate = true)
-    private long id;
-
+public class User extends BaseEntity{
     private String name;
     private double height;
+    private double weight;
 
     public User(long id, String name, double height){
-        this.id = id;
         this.name = name;
         this.height = height;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public User(String name, double height, double weight) {
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
     }
 
     public String getName() {
@@ -39,5 +34,13 @@ public class User{
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 }

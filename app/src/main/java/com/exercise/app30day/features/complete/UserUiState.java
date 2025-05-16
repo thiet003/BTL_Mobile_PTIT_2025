@@ -5,9 +5,9 @@ import java.util.Calendar;
 public class UserUiState {
     private int userGenderIndex = 2;
 
-    private int weight = 70;
+    private double weight = 70;
 
-    private int height = 170;
+    private double height = 170;
 
     private Calendar calendar = Calendar.getInstance();
 
@@ -19,19 +19,19 @@ public class UserUiState {
         this.userGenderIndex = userGenderIndex;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 

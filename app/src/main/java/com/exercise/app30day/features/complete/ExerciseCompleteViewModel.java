@@ -14,14 +14,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.data.models.User;
-import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.repositories.DayHistoryRepository;
-import com.exercise.app30day.data.repositories.WeightHistoryRepository;
+import com.exercise.app30day.data.repositories.UserRepository;
 import com.exercise.app30day.items.DayHistoryItem;
-import com.exercise.app30day.items.ExerciseItem;
-import com.exercise.app30day.utils.HawkKeys;
+import com.exercise.app30day.items.UserItem;
 import com.exercise.app30day.utils.TimeUtils;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.Calendar;
 import java.util.List;
@@ -40,18 +37,18 @@ public class ExerciseCompleteViewModel extends ViewModel {
 
     private final DayHistoryRepository dayHistoryRepository;
 
-    private final WeightHistoryRepository weightHistoryRepository;
+    private final UserRepository userRepository;
     private final List<String> genders;
 
     @Inject
-    public ExerciseCompleteViewModel(@ApplicationContext Context context, DayHistoryRepository dayHistoryRepository, WeightHistoryRepository weightHistoryRepository) {
+    public ExerciseCompleteViewModel(@ApplicationContext Context context, DayHistoryRepository dayHistoryRepository, UserRepository userRepository) {
         genders = List.of(
                 context.getString(R.string.female),
                 context.getString(R.string.other),
                 context.getString(R.string.male)
         );
         this.dayHistoryRepository = dayHistoryRepository;
-        this.weightHistoryRepository = weightHistoryRepository;
+        this.userRepository = userRepository;
     }
 
     public List<String> getGenders() {
@@ -71,11 +68,11 @@ public class ExerciseCompleteViewModel extends ViewModel {
         _onUserUiState.setValue(userUiState);
     }
 
-    public int getUserHeight(){
+    public double getUserHeight(){
         return Objects.requireNonNull(_onUserUiState.getValue()).getHeight();
     }
 
-    public void setUserHeight(int height) {
+    public void setUserHeight(double height) {
         if(height < MIN_HEIGHT || height > MAX_HEIGHT){
             return;
         }
@@ -84,11 +81,11 @@ public class ExerciseCompleteViewModel extends ViewModel {
         _onUserUiState.setValue(userUiState);
     }
 
-    public int getUserWeight(){
+    public double getUserWeight(){
         return Objects.requireNonNull(_onUserUiState.getValue()).getWeight();
     }
 
-    public void setUserWeight(int weight){
+    public void setUserWeight(double weight){
         if(weight < MIN_WEIGHT || weight > MAX_WEIGHT){
             return;
         }
@@ -208,13 +205,11 @@ public class ExerciseCompleteViewModel extends ViewModel {
         return dayHistoryRepository.getDayHistoryItems(dayId);
     }
 
-    public void saveWeight(double weight){
-        weightHistoryRepository.insertWeightHistory(new WeightHistory(weight, getCalendar().getTimeInMillis()));
-    }
-
-    public void updateHeight(double height){
-        User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
-        user.setHeight(height);
-        Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
+    public void saveUser(){
+        new Thread(()->{
+            UserItem userItem = userRepository.getUserItemSync();
+            User user = new User(userItem.getName(), getUserHeight(), getUserWeight());
+            userRepository.insertUser(user);
+        }).start();
     }
 }

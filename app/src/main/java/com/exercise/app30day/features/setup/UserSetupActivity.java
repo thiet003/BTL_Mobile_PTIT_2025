@@ -19,13 +19,14 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
-public class UserSetupActivity extends BaseActivity<ActivityUserSetupBinding, UserSetupViewModel>
-        implements View.OnClickListener{
+public class UserSetupActivity extends BaseActivity<ActivityUserSetupBinding, UserSetupViewModel> {
 
     private EditText editTextName;
     private NumberPicker heightPicker;
     private NumberPicker weightPickerWhole;
     private Button buttonSave;
+
+    String[] displayedWeights;
 
     @Override
     protected void initView() {
@@ -44,15 +45,24 @@ public class UserSetupActivity extends BaseActivity<ActivityUserSetupBinding, Us
         heightPicker.setValue(170);
         heightPicker.setWrapSelectorWheel(true);
 
-        weightPickerWhole.setMaxValue(AppConfig.MAX_WEIGHT);
-        weightPickerWhole.setMinValue(AppConfig.MIN_WEIGHT);
-        weightPickerWhole.setValue(70);
+        int weightRange = (AppConfig.MAX_WEIGHT - AppConfig.MIN_WEIGHT) * 10 + 1;
+        displayedWeights = new String[weightRange];
+        weightPickerWhole.setMinValue(0);
+        weightPickerWhole.setMaxValue(weightRange - 1);
+        for (int i = 0; i < weightRange; i++) {
+            float weight = AppConfig.MIN_WEIGHT + i * 0.1f;
+            if(weight == 70.0){
+                weightPickerWhole.setValue(i);
+            }
+            displayedWeights[i] = String.format("%.1f", weight);
+        }
+        weightPickerWhole.setDisplayedValues(displayedWeights);
         weightPickerWhole.setWrapSelectorWheel(true);
     }
 
     @Override
     protected void initListener() {
-        buttonSave.setOnClickListener(this);
+        buttonSave.setOnClickListener(v -> saveUserInfo());
     }
 
     private void saveUserInfo() {
@@ -62,8 +72,8 @@ public class UserSetupActivity extends BaseActivity<ActivityUserSetupBinding, Us
             Toast.makeText(this, R.string.please_enter_your_name, Toast.LENGTH_SHORT).show();
             return;
         }
-        int height = heightPicker.getValue();
-        double weight = weightPickerWhole.getValue();
+        double height = heightPicker.getValue();
+        double weight = Double.parseDouble(displayedWeights[weightPickerWhole.getValue()]);
         viewModel.saveUserInfo(name, height, weight);
         Hawk.put(HawkKeys.PROFILE_SETUP_KEY, true);
         startMainActivity();
@@ -73,12 +83,5 @@ public class UserSetupActivity extends BaseActivity<ActivityUserSetupBinding, Us
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v == binding.buttonSave){
-            saveUserInfo();
-        }
     }
 }

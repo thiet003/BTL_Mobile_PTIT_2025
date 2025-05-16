@@ -5,6 +5,7 @@ import static com.exercise.app30day.config.AppConfig.MAX_WEIGHT;
 import static com.exercise.app30day.config.AppConfig.MIN_HEIGHT;
 import static com.exercise.app30day.config.AppConfig.MIN_WEIGHT;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.exercise.app30day.R;
+import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.DialogUserMetricsBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.Serializable;
 
-public class UserMetricsBottomSheet extends BottomSheetDialogFragment implements View.OnClickListener {
+public class UserMetricsBottomSheet extends BottomSheetDialogFragment {
 
     private DialogUserMetricsBinding binding;
 
@@ -27,6 +29,8 @@ public class UserMetricsBottomSheet extends BottomSheetDialogFragment implements
     private double currentHeight;
 
     private OnMetricsUpdatedListener listener;
+
+    private String[] displayedWeights;
 
     private static final String CURRENT_WEIGHT_KEY = "current_weight";
     private static final String CURRENT_HEIGHT_KEY = "current_height";
@@ -71,31 +75,27 @@ public class UserMetricsBottomSheet extends BottomSheetDialogFragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.weightPicker.setMinValue(MIN_WEIGHT);
-        binding.weightPicker.setMaxValue(MAX_WEIGHT);
-        binding.weightPicker.setValue((int) currentWeight);
+        int weightRange = (AppConfig.MAX_WEIGHT - AppConfig.MIN_WEIGHT) * 10 + 1;
+        displayedWeights = new String[weightRange];
+        binding.weightPicker.setMinValue(0);
+        binding.weightPicker.setMaxValue(weightRange - 1);
+        for (int i = 0; i < weightRange; i++) {
+            float weight = AppConfig.MIN_WEIGHT + i * 0.1f;
+            if(weight == currentWeight){
+                binding.weightPicker.setValue(i);
+            }
+            displayedWeights[i] = String.format("%.1f", weight);
+        }
+        binding.weightPicker.setDisplayedValues(displayedWeights);
 
         binding.heightPicker.setMinValue(MIN_HEIGHT);
         binding.heightPicker.setMaxValue(MAX_HEIGHT);
         binding.heightPicker.setValue((int) currentHeight);
 
-        binding.btnCancel.setOnClickListener(this);
+        binding.btnCancel.setOnClickListener(v -> dismiss());
 
-        binding.btnSave.setOnClickListener(this);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v == binding.btnCancel){
-            dismiss();
-        } else if(v == binding.btnSave){
-            double selectedWeight = binding.weightPicker.getValue();
+        binding.btnSave.setOnClickListener(v->{
+            double selectedWeight = Double.parseDouble(displayedWeights[binding.weightPicker.getValue()]);
             double selectedHeight = binding.heightPicker.getValue();
 
             if (listener != null) {
@@ -103,6 +103,12 @@ public class UserMetricsBottomSheet extends BottomSheetDialogFragment implements
             }
 
             dismiss();
-        }
+        });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }
