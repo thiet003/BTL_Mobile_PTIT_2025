@@ -8,9 +8,10 @@ import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.repositories.CourseRepository;
 import com.exercise.app30day.data.repositories.DayHistoryRepository;
 import com.exercise.app30day.data.repositories.DayRepository;
-import com.exercise.app30day.data.repositories.WeightHistoryRepository;
+import com.exercise.app30day.data.repositories.UserRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayHistoryItem;
+import com.exercise.app30day.items.UserItem;
 import com.exercise.app30day.utils.HawkKeys;
 import com.exercise.app30day.items.WeightHistoryItem;
 import com.orhanobut.hawk.Hawk;
@@ -29,16 +30,16 @@ public class ReportViewModel extends ViewModel {
 
     private final DayRepository dayRepository;
 
-    private final WeightHistoryRepository weightHistoryRepository;
-
     private final CourseRepository courseRepository;
 
+    private final UserRepository userRepository;
+
     @Inject
-    public ReportViewModel(DayHistoryRepository dayHistoryRepository, DayRepository dayRepository, WeightHistoryRepository weightHistoryRepository, CourseRepository courseRepository) {
+    public ReportViewModel(DayHistoryRepository dayHistoryRepository, DayRepository dayRepository, CourseRepository courseRepository, UserRepository userRepository) {
         this.dayHistoryRepository = dayHistoryRepository;
         this.dayRepository = dayRepository;
-        this.weightHistoryRepository = weightHistoryRepository;
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
     public LiveData<List<DayHistoryItem>> getAllDayHistoryItems() {
@@ -56,12 +57,8 @@ public class ReportViewModel extends ViewModel {
         return dayRepository.countCompletedDays();
     }
 
-    public LiveData<WeightHistoryItem> getLatestWeightHistoryItem() {
-        return weightHistoryRepository.getLatestWeightHistoryItem();
-    }
-
-    public LiveData<List<WeightHistoryItem>> getAllWeightHistoryItems() {
-        return weightHistoryRepository.getAllWeightHistoryItems();
+    public LiveData<List<UserItem>> getHistoryUserItem(){
+        return userRepository.getHistoryUserItem();
     }
 
     public LiveData<List<CourseItem>> getAllCourseItems() {
@@ -84,13 +81,11 @@ public class ReportViewModel extends ViewModel {
         return totalCalo;
     }
 
-    public void saveWeight(double weight){
-        weightHistoryRepository.insertWeightHistory(new WeightHistory(weight, System.currentTimeMillis()));
-    }
-
-    public void updateHeight(double height){
-        User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
-        user.setHeight(height);
-        Hawk.put(HawkKeys.INSTANCE_USER_KEY, user);
+    public void saveUser(double height, double weight){
+        new Thread(()->{
+            UserItem userItem = userRepository.getUserItemSync();
+            User user = new User(userItem.getName(), height, weight);
+            userRepository.insertUser(user);
+        }).start();
     }
 }

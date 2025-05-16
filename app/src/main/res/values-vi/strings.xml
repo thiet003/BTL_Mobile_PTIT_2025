@@ -173,4 +173,5 @@
     <string name="voice_pitch">Độ cao</string>
     <string name="please_enter_your_name">Hãy điền tên của bạn</string>
     <string name="please_select_at_least_one_day">Phải chọn ít nhất một ngày</string>
+    <string name="save_profile">Save Profile</string>
 </resources>

@@ -179,4 +179,5 @@
     <string name="profile_setup_key">profile_setup_key</string>
     <string name="please_enter_your_name">Please enter your name</string>
     <string name="please_select_at_least_one_day">Please select at least one day</string>
+    <string name="save_profile">Save Profile</string>
 </resources>

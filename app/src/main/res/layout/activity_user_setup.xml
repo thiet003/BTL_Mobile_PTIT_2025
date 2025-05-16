@@ -61,10 +61,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/your_name"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:padding="16dp"
             android:background="@drawable/edit_text_border"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:imeOptions="actionDone"
+            />
 
     </LinearLayout>
 
@@ -100,9 +102,9 @@
                 android:layout_marginBottom="4dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:text="Height:"
+                    android:text="@string/height"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#333333"
@@ -110,15 +112,17 @@
 
                 <com.shawnlin.numberpicker.NumberPicker
                     android:id="@+id/heightPicker"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     app:np_width="120dp"
                     app:np_height="48dp"
                     app:np_dividerColor="#EB5B00"
+                    app:np_dividerDistance="60dp"
                     app:np_selectedTextColor="#EB5B00"
                     app:np_textColor="#666666"
                     app:np_textSize="18sp"
-                    app:np_selectedTextSize="22sp"
+                    app:np_selectedTextSize="24sp"
                     app:np_min="100"
                     app:np_max="250"
                     app:np_value="170"
@@ -127,12 +131,13 @@
                     app:np_wheelItemCount="3" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:text="cm"
                     android:textSize="16sp"
                     android:textColor="#666666"
-                    android:layout_marginStart="4dp" />
+                    android:layout_marginStart="4dp"
+                    android:textAlignment="textEnd"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -161,47 +166,42 @@
                     android:layout_marginBottom="4dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:text="Weight:"
+                        android:text="@string/weight"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#333333"
                         android:layout_marginEnd="8dp" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <com.shawnlin.numberpicker.NumberPicker
+                        android:id="@+id/weightPickerWhole"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <com.shawnlin.numberpicker.NumberPicker
-                            android:id="@+id/weightPickerWhole"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:np_width="120dp"
-                            app:np_height="48dp"
-                            app:np_dividerColor="#EB5B00"
-                            app:np_selectedTextColor="#EB5B00"
-                            app:np_textColor="#666666"
-                            app:np_textSize="18sp"
-                            app:np_selectedTextSize="22sp"
-                            app:np_min="30"
-                            app:np_max="200"
-                            app:np_value="70"
-                            app:np_orientation="horizontal"
-                            app:np_wrapSelectorWheel="true"
-                            app:np_wheelItemCount="3" />
-
-x                    </LinearLayout>
+                        android:layout_weight="1"
+                        app:np_width="120dp"
+                        app:np_height="48dp"
+                        app:np_dividerDistance="60dp"
+                        app:np_dividerColor="#EB5B00"
+                        app:np_selectedTextColor="#EB5B00"
+                        app:np_textColor="#666666"
+                        app:np_textSize="18sp"
+                        app:np_selectedTextSize="24sp"
+                        app:np_min="30"
+                        app:np_max="200"
+                        app:np_value="70"
+                        app:np_orientation="horizontal"
+                        app:np_wrapSelectorWheel="true"
+                        app:np_wheelItemCount="3" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:text="kg"
                         android:textSize="16sp"
                         android:textColor="#666666"
-                        android:layout_marginStart="4dp" />
+                        android:layout_marginStart="4dp"
+                        android:textAlignment="textEnd"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -211,7 +211,7 @@ x                    </LinearLayout>
         android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SAVE PROFILE"
+        android:text="@string/save_profile"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="#FFFFFF"

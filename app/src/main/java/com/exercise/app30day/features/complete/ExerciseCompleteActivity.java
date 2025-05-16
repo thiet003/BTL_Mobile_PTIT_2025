@@ -129,8 +129,7 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         }else if(v == binding.btnSkip){
             goBackToCourseActivity();
         }else if(v == binding.btnSave){
-            viewModel.saveWeight(binding.weightPicker.getValue());
-            viewModel.updateHeight(binding.heightPicker.getValue());
+            viewModel.saveUser(binding.heightPicker.getValue(), binding.weightPicker.getValue());
             goBackToCourseActivity();
         }
     }
