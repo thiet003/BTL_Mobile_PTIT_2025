@@ -68,11 +68,11 @@ public class ExerciseCompleteViewModel extends ViewModel {
         _onUserUiState.setValue(userUiState);
     }
 
-    public int getUserHeight(){
+    public double getUserHeight(){
         return Objects.requireNonNull(_onUserUiState.getValue()).getHeight();
     }
 
-    public void setUserHeight(int height) {
+    public void setUserHeight(double height) {
         if(height < MIN_HEIGHT || height > MAX_HEIGHT){
             return;
         }
@@ -81,11 +81,11 @@ public class ExerciseCompleteViewModel extends ViewModel {
         _onUserUiState.setValue(userUiState);
     }
 
-    public int getUserWeight(){
+    public double getUserWeight(){
         return Objects.requireNonNull(_onUserUiState.getValue()).getWeight();
     }
 
-    public void setUserWeight(int weight){
+    public void setUserWeight(double weight){
         if(weight < MIN_WEIGHT || weight > MAX_WEIGHT){
             return;
         }
@@ -205,10 +205,10 @@ public class ExerciseCompleteViewModel extends ViewModel {
         return dayHistoryRepository.getDayHistoryItems(dayId);
     }
 
-    public void saveUser(double height, double weight){
+    public void saveUser(){
         new Thread(()->{
             UserItem userItem = userRepository.getUserItemSync();
-            User user = new User(userItem.getName(), height, weight);
+            User user = new User(userItem.getName(), getUserHeight(), getUserWeight());
             userRepository.insertUser(user);
         }).start();
     }

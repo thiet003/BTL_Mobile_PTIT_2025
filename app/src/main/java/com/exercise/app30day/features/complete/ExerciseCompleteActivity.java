@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseActivity;
+import com.exercise.app30day.config.AppConfig;
 import com.exercise.app30day.databinding.ActivityExerciseCompleteBinding;
 import com.exercise.app30day.features.course.CourseActivity;
 import com.exercise.app30day.items.CourseItem;
@@ -45,6 +46,8 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
     WheelView genderWheelView;
 
     NumberPicker weightPicker, heightPicker;
+
+    private String[] displayedWeights;
 
 
     @SuppressLint("DefaultLocale")
@@ -82,11 +85,19 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
 
         weightPicker.setMaxValue(MAX_WEIGHT);
         weightPicker.setMinValue(MIN_WEIGHT);
-        weightPicker.setValue(viewModel.getUserWeight());
+
+        int weightRange = (AppConfig.MAX_WEIGHT - AppConfig.MIN_WEIGHT) * 10 + 1;
+        displayedWeights = new String[weightRange];
+        binding.weightPicker.setMinValue(0);
+        binding.weightPicker.setMaxValue(weightRange - 1);
+        for (int i = 0; i < weightRange; i++) {
+            float weight = AppConfig.MIN_WEIGHT + i * 0.1f;
+            displayedWeights[i] = String.format("%.1f", weight);
+        }
+        binding.weightPicker.setDisplayedValues(displayedWeights);
 
         heightPicker.setMaxValue(MAX_HEIGHT);
         heightPicker.setMinValue(MIN_WEIGHT);
-        heightPicker.setValue(viewModel.getUserHeight());
 
         viewModel.onUserUiState.observe(this, userUiState -> {
             binding.tvTime.setText(TimeUtils.formatDate(userUiState.getCalendar()));
@@ -95,6 +106,14 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
             int color = ContextCompat.getColor(this, bmiResult.getColor());
             binding.bmiColor.setBackgroundTintList(ColorStateList.valueOf(color));
             binding.healthStatus.setText(bmiResult.getHealthStatus());
+            heightPicker.setValue((int) userUiState.getHeight());
+            for (int i = 0; i < weightRange; i++) {
+                double weight = AppConfig.MIN_WEIGHT + i * 0.1f;
+                if(weight == userUiState.getWeight()){
+                    weightPicker.setValue(i);
+                    break;
+                }
+            }
         });
     }
 
@@ -129,7 +148,7 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
         }else if(v == binding.btnSkip){
             goBackToCourseActivity();
         }else if(v == binding.btnSave){
-            viewModel.saveUser(binding.heightPicker.getValue(), binding.weightPicker.getValue());
+            viewModel.saveUser();
             goBackToCourseActivity();
         }
     }
@@ -152,7 +171,7 @@ public class ExerciseCompleteActivity extends BaseActivity<ActivityExerciseCompl
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
         if(picker == weightPicker) {
-            viewModel.setUserWeight(newVal);
+            viewModel.setUserWeight(Double.parseDouble(displayedWeights[newVal]));
         }
     }
 
