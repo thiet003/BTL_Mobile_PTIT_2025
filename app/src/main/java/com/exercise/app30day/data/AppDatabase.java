@@ -15,6 +15,8 @@ import com.exercise.app30day.data.dao.ExerciseDao;
 import com.exercise.app30day.data.dao.ReminderDao;
 import com.exercise.app30day.data.dao.UserDao;
 import com.exercise.app30day.data.dao.WeightHistoryDao;
+import com.exercise.app30day.data.dao.ConversationDao;
+import com.exercise.app30day.data.dao.HistoryChatDao;
 import com.exercise.app30day.data.models.Course;
 import com.exercise.app30day.data.models.Day;
 import com.exercise.app30day.data.models.DayExercise;
@@ -23,6 +25,8 @@ import com.exercise.app30day.data.models.Exercise;
 import com.exercise.app30day.data.models.Reminder;
 import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.models.WeightHistory;
+import com.exercise.app30day.data.models.Conversation;
+import com.exercise.app30day.data.models.HistoryChat;
 import com.exercise.app30day.data.utils.Converters;
 import com.exercise.app30day.utils.HawkKeys;
 import com.google.firebase.remoteconfig.CustomSignals;
@@ -43,8 +47,10 @@ import java.util.List;
         DayHistory.class,
         WeightHistory.class,
         Reminder.class,
-        User.class
-}, version = 1, exportSchema = false)
+        User.class,
+        Conversation.class,
+        HistoryChat.class
+}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
@@ -56,6 +62,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract WeightHistoryDao weightHistoryDao();
     public abstract ReminderDao reminderDao();
     public abstract UserDao userDao();
+    public abstract ConversationDao conversationDao();
+    public abstract HistoryChatDao historyChatDao();
 
     public static final String COURSES_DATA = "courses_data";
 

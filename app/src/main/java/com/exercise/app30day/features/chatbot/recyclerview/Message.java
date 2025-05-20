@@ -1,4 +1,4 @@
-package com.exercise.app30day.features.chatbot;
+package com.exercise.app30day.features.chatbot.recyclerview;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

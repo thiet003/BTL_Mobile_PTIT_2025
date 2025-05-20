@@ -3,11 +3,13 @@ package com.exercise.app30day.di.modules;
 import android.content.Context;
 
 import com.exercise.app30day.data.AppDatabase;
+import com.exercise.app30day.data.dao.ConversationDao;
 import com.exercise.app30day.data.dao.CourseDao;
 import com.exercise.app30day.data.dao.DayDao;
 import com.exercise.app30day.data.dao.DayExerciseDao;
 import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
+import com.exercise.app30day.data.dao.HistoryChatDao;
 import com.exercise.app30day.data.dao.ReminderDao;
 import com.exercise.app30day.data.dao.WeightHistoryDao;
 
@@ -22,6 +24,12 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class DatabaseModule {
+
+    @Provides
+    @Singleton
+    public static AppDatabase provideAppDatabase(@ApplicationContext Context context) {
+        return AppDatabase.getInstance(context);
+    }
 
     @Provides
     @Singleton
@@ -63,5 +71,17 @@ public class DatabaseModule {
     @Singleton
     public static ReminderDao provideReminderDao(@ApplicationContext Context context) {
         return AppDatabase.getInstance(context).reminderDao();
+    }
+    
+    @Provides
+    @Singleton
+    public static ConversationDao provideConversationDao(@ApplicationContext Context context) {
+        return AppDatabase.getInstance(context).conversationDao();
+    }
+    
+    @Provides
+    @Singleton
+    public static HistoryChatDao provideHistoryChatDao(@ApplicationContext Context context) {
+        return AppDatabase.getInstance(context).historyChatDao();
     }
 }
