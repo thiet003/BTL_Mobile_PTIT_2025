@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.exercise.app30day.data.AppDatabase;
 import com.exercise.app30day.data.dao.ConversationDao;
 import com.exercise.app30day.data.dao.HistoryChatDao;
+import com.exercise.app30day.data.dao.UserDao;
 import com.exercise.app30day.data.models.Conversation;
 import com.exercise.app30day.data.models.HistoryChat;
 import com.exercise.app30day.data.models.User;
@@ -20,6 +21,7 @@ import com.exercise.app30day.features.chatbot.models.ChatMessage;
 import com.exercise.app30day.features.chatbot.models.ChatbotRequest;
 import com.exercise.app30day.features.chatbot.models.ChatbotResponse;
 import com.exercise.app30day.features.chatbot.recyclerview.Message;
+import com.exercise.app30day.items.UserItem;
 import com.exercise.app30day.utils.HawkKeys;
 import com.orhanobut.hawk.Hawk;
 
@@ -41,15 +43,17 @@ public class ChatbotRepositoryImpl implements ChatbotRepository {
 
     private final ConversationDao conversationDao;
     private final HistoryChatDao historyChatDao;
+    private final UserDao userDao;
     private final ChatbotApiService apiService;
     private final Executor executor;
     private final MutableLiveData<String> error = new MutableLiveData<>();
     private String conversationId;
 
     @Inject
-    public ChatbotRepositoryImpl(ConversationDao conversationDao, HistoryChatDao historyChatDao) {
+    public ChatbotRepositoryImpl(ConversationDao conversationDao, HistoryChatDao historyChatDao, UserDao userDao) {
         this.conversationDao = conversationDao;
         this.historyChatDao = historyChatDao;
+        this.userDao = userDao;
         this.apiService = RetrofitClient.getChatbotService();
         this.executor = Executors.newSingleThreadExecutor();
         
@@ -68,7 +72,7 @@ public class ChatbotRepositoryImpl implements ChatbotRepository {
         executor.execute(() -> {
             try {
                 // Lấy thông tin người dùng
-                User existingUser = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
+                UserItem existingUser = userDao.getUserItemSync();
                 if (existingUser == null) {
                     postError("User not found");
                     result.postValue(new ArrayList<>());
@@ -144,7 +148,7 @@ public class ChatbotRepositoryImpl implements ChatbotRepository {
         
         executor.execute(() -> {
             try {
-                User existingUser = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
+                UserItem existingUser = userDao.getUserItemSync();
                 if (existingUser == null) {
                     postError("User not found");
                     result.postValue(new ArrayList<>());

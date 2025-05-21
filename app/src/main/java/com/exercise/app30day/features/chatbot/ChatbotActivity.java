@@ -99,7 +99,7 @@ public class ChatbotActivity extends BaseActivity<ActivityChatbotBinding, Chatbo
                                 binding.rvMessages.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
                             }, 300 * index);
                         }
-                    }, 500);
+                    }, 1000);
                 }
             });
         }

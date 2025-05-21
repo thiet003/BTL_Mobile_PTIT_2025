@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel> implements View.OnClickListener {
-    private FloatingActionButton chatbotButto
+    private FloatingActionButton chatbotButton;
     @Override
     protected void initView() {
         chatbotButton = binding.fabChatbot;

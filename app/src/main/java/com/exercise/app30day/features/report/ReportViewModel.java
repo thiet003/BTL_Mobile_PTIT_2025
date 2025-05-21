@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.exercise.app30day.data.models.User;
-import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.repositories.CourseRepository;
 import com.exercise.app30day.data.repositories.DayHistoryRepository;
 import com.exercise.app30day.data.repositories.DayRepository;
@@ -12,9 +11,6 @@ import com.exercise.app30day.data.repositories.UserRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayHistoryItem;
 import com.exercise.app30day.items.UserItem;
-import com.exercise.app30day.utils.HawkKeys;
-import com.exercise.app30day.items.WeightHistoryItem;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.Collections;
 import java.util.List;

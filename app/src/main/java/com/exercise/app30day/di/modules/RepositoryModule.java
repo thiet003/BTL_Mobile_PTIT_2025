@@ -7,8 +7,7 @@ import com.exercise.app30day.data.repositories.DayHistoryRepository;
 import com.exercise.app30day.data.repositories.DayRepository;
 import com.exercise.app30day.data.repositories.ExerciseRepository;
 import com.exercise.app30day.data.repositories.ReminderRepository;
-import com.exercise.app30day.data.repositories.WeightHistoryRepository;
-import com.exercise.app30day.data.repositories.impl.ChatbotRepositoryIm
+import com.exercise.app30day.data.repositories.impl.ChatbotRepositoryImpl;
 import com.exercise.app30day.data.repositories.UserRepository;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.DayExerciseRepositoryImpl;
