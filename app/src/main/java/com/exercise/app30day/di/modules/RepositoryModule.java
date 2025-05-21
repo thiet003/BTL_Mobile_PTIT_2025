@@ -1,11 +1,14 @@
 package com.exercise.app30day.di.modules;
 
+import com.exercise.app30day.data.repositories.ChatbotRepository;
 import com.exercise.app30day.data.repositories.CourseRepository;
 import com.exercise.app30day.data.repositories.DayExerciseRepository;
 import com.exercise.app30day.data.repositories.DayHistoryRepository;
 import com.exercise.app30day.data.repositories.DayRepository;
 import com.exercise.app30day.data.repositories.ExerciseRepository;
 import com.exercise.app30day.data.repositories.ReminderRepository;
+import com.exercise.app30day.data.repositories.WeightHistoryRepository;
+import com.exercise.app30day.data.repositories.impl.ChatbotRepositoryIm
 import com.exercise.app30day.data.repositories.UserRepository;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.DayExerciseRepositoryImpl;
@@ -48,7 +51,11 @@ public abstract class RepositoryModule {
     @Binds
     @Singleton
     public abstract ReminderRepository bindReminderRepository(ReminderRepositoryImpl impl);
-
+    
+    @Binds
+    @Singleton
+    public abstract ChatbotRepository bindChatbotRepository(ChatbotRepositoryImpl impl);
+  
     @Binds
     @Singleton
     public abstract UserRepository bindUserRepository(UserRepositoryImpl impl);

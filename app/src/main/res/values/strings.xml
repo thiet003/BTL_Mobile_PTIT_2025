@@ -177,6 +177,10 @@
     <string name="your_weight_kg">Your Weight (kg)</string>
     <string name="save_and_continue">Save and Continue</string>
     <string name="profile_setup_key">profile_setup_key</string>
+    <string name="chatbot">Chatbot</string>
+    <string name="back">Back</string>
+    <string name="send_message">Send</string>
+    <string name="bot_avatar">Avatar chatbot</string>
     <string name="please_enter_your_name">Please enter your name</string>
     <string name="please_select_at_least_one_day">Please select at least one day</string>
     <string name="save_profile">Save Profile</string>
