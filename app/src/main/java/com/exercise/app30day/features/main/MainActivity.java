@@ -11,14 +11,13 @@ import com.exercise.app30day.base.NoneViewModel;
 import com.exercise.app30day.databinding.ActivityMainBinding;
 import com.exercise.app30day.features.chatbot.ChatbotActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.exercise.app30day.utils.SpeechUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel>
-    implements View.OnClickListener
-{
-    private FloatingActionButton chatbotButton;
+public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewModel> implements View.OnClickListener {
+    private FloatingActionButton chatbotButto
     @Override
     protected void initView() {
         chatbotButton = binding.fabChatbot;
@@ -43,6 +42,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewMode
             }
             return true;
         });
+        SpeechUtils.init();
     }
 
     @Override
@@ -60,5 +60,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, NoneViewMode
         // Start the ChatbotActivity
         Intent intent = new Intent(this, ChatbotActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpeechUtils.destroy();
     }
 }

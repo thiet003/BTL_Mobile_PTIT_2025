@@ -28,6 +28,8 @@ import com.exercise.app30day.data.models.WeightHistory;
 import com.exercise.app30day.data.models.Conversation;
 import com.exercise.app30day.data.models.HistoryChat;
 import com.exercise.app30day.data.utils.Converters;
+import com.exercise.app30day.items.ReminderItem;
+import com.exercise.app30day.utils.AlarmUtils;
 import com.exercise.app30day.utils.HawkKeys;
 import com.google.firebase.remoteconfig.CustomSignals;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -37,6 +39,7 @@ import com.google.gson.reflect.TypeToken;
 import com.orhanobut.hawk.Hawk;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 @Database(entities = {
@@ -45,7 +48,6 @@ import java.util.List;
         Day.class,
         DayExercise.class,
         DayHistory.class,
-        WeightHistory.class,
         Reminder.class,
         User.class,
         Conversation.class,
@@ -59,7 +61,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract DayDao dayDao();
     public abstract DayExerciseDao dayExerciseDao();
     public abstract DayHistoryDao dayHistoryDao();
-    public abstract WeightHistoryDao weightHistoryDao();
     public abstract ReminderDao reminderDao();
     public abstract UserDao userDao();
     public abstract ConversationDao conversationDao();
@@ -124,7 +125,18 @@ public abstract class AppDatabase extends RoomDatabase {
                     }.getType();
                     List<DayExercise> dayExercises = new Gson().fromJson(dayExercisesJson, dayExerciseType);
                     getInstance(context).dayExerciseDao().insertDayExercises(dayExercises);
-                    Hawk.put(HawkKeys.INSTANCE_USER_KEY, new User(System.currentTimeMillis(), "user", 0f));
+
+                    boolean[] daysOfWeek = new boolean[7];
+                    Arrays.fill(daysOfWeek, true);
+                    Reminder reminder = new Reminder(6, 0, false, daysOfWeek, true);
+                    long reminderId = getInstance(context).reminderDao().insertReminder(reminder);
+                    ReminderItem reminderItem = new ReminderItem((int) reminderId);
+                    reminderItem.setHour(reminder.getHour());
+                    reminderItem.setMinute(reminder.getMinute());
+                    reminderItem.setAM(reminder.isAM());
+                    reminderItem.setDaysOfWeek(reminder.getDaysOfWeek());
+                    reminderItem.setEnabled(reminder.isEnabled());
+                    AlarmUtils.scheduleReminder(context, reminderItem);
                     Hawk.put(HawkKeys.DATABASE_DATA_INITIALIZED_KEY, true);
                 }).start();
             }

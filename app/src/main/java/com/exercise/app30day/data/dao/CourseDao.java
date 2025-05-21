@@ -40,4 +40,14 @@ public interface CourseDao {
             "ORDER BY c.id ASC")
     LiveData<CourseItem> getCourseItemById(int courseId);
 
+    @Query("SELECT c.id, c.name, c.image, c.type, c.level, " +
+            "COUNT(d.id) as numberOfDays, " +
+            "COUNT(CASE WHEN d.completed = 1 THEN 1 ELSE NULL END) AS numberOfCompletedDays " +
+            "FROM course c " +
+            "LEFT JOIN day AS d ON c.id = d.courseId " +
+            "GROUP BY c.id " +
+            "HAVING COUNT(d.id) != COUNT(CASE WHEN d.completed = 1 THEN 1 ELSE NULL END) " +
+            "LIMIT 1")
+    CourseItem getCurrentCourseItemSync();
+
 }

@@ -23,8 +23,8 @@ public class ReminderRepositoryImpl implements ReminderRepository {
     }
 
     @Override
-    public void insertReminder(Reminder reminder) {
-        new Thread(()-> reminderDao.insertReminder(reminder)).start();
+    public long insertReminderSync(Reminder reminder) {
+        return reminderDao.insertReminder(reminder);
     }
 
     @Override
@@ -40,5 +40,15 @@ public class ReminderRepositoryImpl implements ReminderRepository {
     @Override
     public LiveData<List<ReminderItem>> getAllReminders() {
         return reminderDao.getAllReminders();
+    }
+
+    @Override
+    public List<ReminderItem> getAllRemindersSync() {
+        return reminderDao.getAllRemindersSync();
+    }
+
+    @Override
+    public ReminderItem getReminderByIdSync(int id) {
+        return reminderDao.getReminderByIdSync(id);
     }
 }

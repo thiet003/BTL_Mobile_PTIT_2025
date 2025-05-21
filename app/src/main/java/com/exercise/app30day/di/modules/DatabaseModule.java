@@ -11,7 +11,7 @@ import com.exercise.app30day.data.dao.DayHistoryDao;
 import com.exercise.app30day.data.dao.ExerciseDao;
 import com.exercise.app30day.data.dao.HistoryChatDao;
 import com.exercise.app30day.data.dao.ReminderDao;
-import com.exercise.app30day.data.dao.WeightHistoryDao;
+import com.exercise.app30day.data.dao.UserDao;
 
 import javax.inject.Singleton;
 
@@ -63,14 +63,14 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    public static WeightHistoryDao provideWeightHistoryDao(@ApplicationContext Context context) {
-        return AppDatabase.getInstance(context).weightHistoryDao();
+    public static ReminderDao provideReminderDao(@ApplicationContext Context context) {
+        return AppDatabase.getInstance(context).reminderDao();
     }
 
     @Provides
     @Singleton
-    public static ReminderDao provideReminderDao(@ApplicationContext Context context) {
-        return AppDatabase.getInstance(context).reminderDao();
+    public static UserDao provideUserDao(@ApplicationContext Context context){
+        return AppDatabase.getInstance(context).userDao();
     }
     
     @Provides

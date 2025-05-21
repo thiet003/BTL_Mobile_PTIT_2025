@@ -8,14 +8,15 @@ import com.exercise.app30day.data.repositories.DayRepository;
 import com.exercise.app30day.data.repositories.ExerciseRepository;
 import com.exercise.app30day.data.repositories.ReminderRepository;
 import com.exercise.app30day.data.repositories.WeightHistoryRepository;
-import com.exercise.app30day.data.repositories.impl.ChatbotRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.ChatbotRepositoryIm
+import com.exercise.app30day.data.repositories.UserRepository;
 import com.exercise.app30day.data.repositories.impl.CourseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.DayExerciseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.DayHistoryRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.DayRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.ExerciseRepositoryImpl;
 import com.exercise.app30day.data.repositories.impl.ReminderRepositoryImpl;
-import com.exercise.app30day.data.repositories.impl.WeightHistoryRepositoryImpl;
+import com.exercise.app30day.data.repositories.impl.UserRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -47,11 +48,6 @@ public abstract class RepositoryModule {
     @Singleton
     public abstract DayHistoryRepository bindDayHistoryRepository(DayHistoryRepositoryImpl impl);
 
-
-    @Binds
-    @Singleton
-    public abstract WeightHistoryRepository bindWeightHistoryRepository(WeightHistoryRepositoryImpl impl);
-
     @Binds
     @Singleton
     public abstract ReminderRepository bindReminderRepository(ReminderRepositoryImpl impl);
@@ -59,4 +55,8 @@ public abstract class RepositoryModule {
     @Binds
     @Singleton
     public abstract ChatbotRepository bindChatbotRepository(ChatbotRepositoryImpl impl);
+  
+    @Binds
+    @Singleton
+    public abstract UserRepository bindUserRepository(UserRepositoryImpl impl);
 }

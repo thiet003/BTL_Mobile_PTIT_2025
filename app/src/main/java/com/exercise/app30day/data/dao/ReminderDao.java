@@ -1,7 +1,5 @@
 package com.exercise.app30day.data.dao;
 
-import android.graphics.pdf.models.ListItem;
-
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -19,7 +17,7 @@ import java.util.List;
 public interface ReminderDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertReminder(Reminder reminder);
+    long insertReminder(Reminder reminder);
 
     @Update
     void updateReminder(Reminder reminder);
@@ -27,6 +25,12 @@ public interface ReminderDao {
     @Delete
     void deleteReminder(Reminder reminder);
 
-    @Query("SELECT * FROM reminder AS r ORDER BY r.id DESC")
+    @Query("SELECT r.id, r.hour, r.minute, r.isAM, r.daysOfWeek, r.isEnabled FROM reminder AS r ORDER BY r.id DESC")
     LiveData<List<ReminderItem>> getAllReminders();
+
+    @Query("SELECT r.id, r.hour, r.minute, r.isAM, r.daysOfWeek, r.isEnabled FROM reminder AS r ORDER BY r.id DESC")
+    List<ReminderItem> getAllRemindersSync();
+
+    @Query("SELECT r.id, r.hour, r.minute, r.isAM, r.daysOfWeek, r.isEnabled FROM reminder AS r WHERE id = :id")
+    ReminderItem getReminderByIdSync(int id);
 }

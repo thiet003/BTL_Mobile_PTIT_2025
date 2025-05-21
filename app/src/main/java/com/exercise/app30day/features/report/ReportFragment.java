@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.exercise.app30day.R;
 import com.exercise.app30day.base.BaseFragment;
-import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.databinding.FragmentReportBinding;
 import com.exercise.app30day.features.report.history.WorkoutHistoryActivity;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.DayHistoryItem;
-import com.exercise.app30day.utils.HawkKeys;
-import com.exercise.app30day.utils.WeightHistoryItem;
+import com.exercise.app30day.items.UserItem;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -29,13 +27,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.orhanobut.hawk.Hawk;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -43,8 +38,9 @@ import java.util.Locale;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportViewModel>
-        implements UserMetricsBottomSheet.OnMetricsUpdatedListener, View.OnClickListener {
+public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportViewModel> {
+
+    private double currentWeight = 70.0, currentHeight = 170.0;
 
     @Override
     protected void initView() {
@@ -65,13 +61,14 @@ public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportVi
             binding.tvCompletedDays.setAnimationDuration(1000).countAnimation(0, count);
         });
 
-        User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
-        binding.tvHeight.setText(String.format(Locale.getDefault(), getString(R.string.f_cm), user.getHeight()));
-        viewModel.getAllWeightHistoryItems().observe(this, weightHistoryItems -> {
-            if(!weightHistoryItems.isEmpty()){
-                double weight = weightHistoryItems.get(weightHistoryItems.size() - 1).getWeight();
-                binding.tvCurrentWeight.setText(String.format(Locale.getDefault(), getString(R.string.f_kg), weight));
-                setupWeightHistoryChart(weightHistoryItems);
+        viewModel.getHistoryUserItem().observe(this, userItems -> {
+            if(!userItems.isEmpty()){
+                UserItem lastUserItem = userItems.get(userItems.size() - 1);
+                currentHeight = lastUserItem.getHeight();
+                currentWeight = lastUserItem.getWeight();
+                binding.tvHeight.setText(String.format(Locale.getDefault(), getString(R.string.f_cm), currentHeight));
+                binding.tvCurrentWeight.setText(String.format(Locale.getDefault(), getString(R.string.f_kg), currentWeight));
+                setupWeightHistoryChart(userItems);
             }
         });
 
@@ -80,19 +77,26 @@ public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportVi
 
     @Override
     protected void initListener() {
-        binding.btnUpdateMetrics.setOnClickListener(this);
-        binding.btnViewAllHistory.setOnClickListener(this);
+        binding.btnUpdateMetrics.setOnClickListener(v->{
+            UserMetricsBottomSheet bottomSheet= UserMetricsBottomSheet.newInstance(currentWeight, currentHeight, (UserMetricsBottomSheet.OnMetricsUpdatedListener) (weight, height) -> {
+                viewModel.saveUser(height, weight);
+            });
+            bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
+        });
+        binding.btnViewAllHistory.setOnClickListener(v->{
+            startActivity(new Intent(requireContext(), WorkoutHistoryActivity.class));
+        });
     }
 
-    private void setupWeightHistoryChart(List<WeightHistoryItem> weightHistoryItems) {
+    private void setupWeightHistoryChart(List<UserItem> userItems) {
         List<Entry> entries = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM", Locale.getDefault());
         List<String> xLabels = new ArrayList<>();
 
-        for (int i = 0; i < weightHistoryItems.size(); i++) {
-            WeightHistoryItem weightHistory = weightHistoryItems.get(i);
-            entries.add(new Entry(i, (float) weightHistory.getWeight()));
-            xLabels.add(sdf.format(new Date(weightHistory.getDate())));
+        for (int i = 0; i < userItems.size(); i++) {
+            UserItem userItem = userItems.get(i);
+            entries.add(new Entry(i, (float) userItem.getWeight()));
+            xLabels.add(sdf.format(new Date(userItem.getDate())));
         }
 
         LineDataSet dataSet = new LineDataSet(entries, getString(R.string.weight) + " " + getString(R.string.kg) );
@@ -231,13 +235,6 @@ public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportVi
         binding.chartCourseCompletion.invalidate();
     }
 
-    @Override
-    public void onMetricsUpdated(double weight, double height) {
-        viewModel.updateHeight(height);
-        binding.tvHeight.setText(String.format(Locale.getDefault(), getString(R.string.f_cm), height));
-        viewModel.saveWeight(weight);
-    }
-
     private String[] getWeekdayNames() {
         String[] dayNames = new String[7];
         Calendar calendar = Calendar.getInstance();
@@ -250,15 +247,5 @@ public class ReportFragment extends BaseFragment<FragmentReportBinding, ReportVi
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
         return dayNames;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v == binding.btnUpdateMetrics){
-            UserMetricsBottomSheet bottomSheet= UserMetricsBottomSheet.newInstance(70, 170, this);
-            bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
-        } else if (v == binding.btnViewAllHistory) {
-            startActivity(new Intent(requireContext(), WorkoutHistoryActivity.class));
-        }
     }
 }

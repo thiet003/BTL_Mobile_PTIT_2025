@@ -15,12 +15,15 @@ public final class HawkKeys {
     public static final String MUSIC_ENABLED_KEY = "music_enabled_key";
     public static final String MUSIC_VOLUME_KEY = "music_volume_key";
 
-    public static final String FEMALE_VOICE_KEY = "female_voice_key";
-
     public static final String VOICE_ENABLE_KEY = "voice_enable_key";
 
-    public static final String VOICE_VOLUME_KEY = "voice_volume_key";
+    public static final String VOICE_SPEED_KEY = "voice_speed_key";
+
+    public static final String VOICE_PITCH_KEY = "voice_pitch_key";
+
     public static final String INTRO_SHOWN_KEY = "intro_shown_key";
     public static final String PROFILE_SETUP_KEY = "profile_setup_key";
     public static final String CONVERSATION_ID_KEY = "conversation_id_key";
+
+    public static final String ENABLE_COUNTDOWN_SOUND_KEY = "enable_countdown_key";
 }

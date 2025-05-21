@@ -174,4 +174,15 @@
     <string name="back">Quay lại</string>
     <string name="send_message">Gửi tin nhắn</string>
     <string name="bot_avatar">Avatar chatbot</string>
+    <string name="workout_title">Đã đến lúc tập luyện rồi, %s!</string>
+    <string name="workout_title_second">Đã đến lúc tập luyện rồi!</string>
+    <string name="start_course_message">Hãy bắt đầu khóa học: %1$s - Ngày: %2$d</string>
+    <string name="continue_course_message">Tiếp tục khóa học: %1$s - Ngày: %2$d</string>
+    <string name="start_course_big_text">Bạn sắp bắt đầu hành trình với khóa học "%1$s".&#10;&#10;Hãy giữ vững động lực và hoàn thành từng ngày một!</string>
+    <string name="continue_course_big_text">Bạn đã hoàn thành %1$d trên tổng số %2$d ngày.&#10;&#10;Tiếp tục phát huy nhé!</string>
+    <string name="voice_speed">Tốc độ</string>
+    <string name="voice_pitch">Độ cao</string>
+    <string name="please_enter_your_name">Hãy điền tên của bạn</string>
+    <string name="please_select_at_least_one_day">Phải chọn ít nhất một ngày</string>
+    <string name="save_profile">Save Profile</string>
 </resources>

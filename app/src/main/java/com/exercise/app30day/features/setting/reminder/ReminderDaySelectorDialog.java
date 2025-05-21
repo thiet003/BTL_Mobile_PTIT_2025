@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.exercise.app30day.R;
 import com.exercise.app30day.databinding.DialogReminderDaySelectorBinding;
 import com.exercise.app30day.utils.ScreenUtils;
 
@@ -104,7 +105,7 @@ public class ReminderDaySelectorDialog extends Dialog implements View.OnClickLis
         }
 
         if (!atLeastOneDaySelected) {
-            Toast.makeText(context, "Please select at least one day", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.please_select_at_least_one_day, Toast.LENGTH_SHORT).show();
             return;
         }
 
