@@ -51,7 +51,7 @@ public class ExerciseViewModel extends ViewModel {
 
     private final List<MusicItem> musicItems;
 
-    private boolean isPortrait = true;
+    private boolean initializeData = false;
 
     @Inject
     public ExerciseViewModel(DayRepository dayRepository, DayExerciseRepository dayExerciseRepository, DayHistoryRepository dayHistoryRepository) {
@@ -148,6 +148,7 @@ public class ExerciseViewModel extends ViewModel {
             exerciseUiState.setExercisePosition(currentExercisePosition);
             _onExerciseUiState.setValue(exerciseUiState);
         }
+        initializeData = true;
     }
 
     private void updateDayHistoryExerciseItem(ExerciseUiState exerciseUiState) {
@@ -234,11 +235,7 @@ public class ExerciseViewModel extends ViewModel {
         return text;
     }
 
-    public boolean isPortrait() {
-        return isPortrait;
-    }
-
-    public void setPortrait(boolean portrait) {
-        isPortrait = portrait;
+    public boolean isInitializeData() {
+        return initializeData;
     }
 }
