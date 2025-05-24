@@ -6,21 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.exercise.app30day.R;
-import com.exercise.app30day.data.models.Reminder;
-import com.exercise.app30day.data.models.User;
 import com.exercise.app30day.data.repositories.CourseRepository;
 import com.exercise.app30day.data.repositories.ReminderRepository;
+import com.exercise.app30day.data.repositories.UserRepository;
 import com.exercise.app30day.items.CourseItem;
 import com.exercise.app30day.items.ReminderItem;
+import com.exercise.app30day.items.UserItem;
 import com.exercise.app30day.utils.AlarmUtils;
-import com.exercise.app30day.utils.HawkKeys;
 import com.exercise.app30day.utils.IntentKeys;
 import com.exercise.app30day.utils.NotificationUtils;
 import com.exercise.app30day.utils.ResourceUtils;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.Calendar;
 
@@ -37,6 +34,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Inject
     ReminderRepository reminderRepository;
 
+    @Inject
+    UserRepository userRepository;
+
     Handler mainHandler = new Handler(Looper.getMainLooper());
 
     @Override
@@ -46,10 +46,11 @@ public class AlarmReceiver extends BroadcastReceiver {
             new Thread(()->{
                 CourseItem courseItem = courseRepository.getCurrentCourseItemSync();
                 ReminderItem reminder = reminderRepository.getReminderByIdSync(reminderId);
+                UserItem userItem = userRepository.getUserItemSync();
                 if(courseItem != null && reminder != null && reminder.isEnabled()) {
                     mainHandler.post(()->{
                         if (shouldTriggerToday(reminder)) {
-                            showNotification(context, reminder, courseItem);
+                            showNotification(context, reminder, courseItem, userItem);
                         }
 
                         AlarmUtils.updateReminder(context, reminder);
@@ -65,14 +66,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         return reminder.getDaysOfWeek()[today];
     }
 
-    private void showNotification(Context context, ReminderItem reminder, CourseItem courseItem) {
+    private void showNotification(Context context, ReminderItem reminder, CourseItem courseItem, UserItem userItem) {
         String title;
         String message;
         String bigText;
 
-        User user = Hawk.get(HawkKeys.INSTANCE_USER_KEY);
-        if(user != null){
-            title = context.getString(R.string.workout_title, user.getName());
+        if(userItem != null){
+            title = context.getString(R.string.workout_title, userItem.getName());
         }else{
             title = context.getString(R.string.workout_title_second);
         }

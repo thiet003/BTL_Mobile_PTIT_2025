@@ -49,10 +49,10 @@ public class SettingFragment extends BaseFragment<FragmentSettingBinding, Settin
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         requireActivity().finish();
+                        AppDatabase.resetAll(requireContext());
                     }).setNegativeButton(R.string.no, null)
                     .setIcon(R.drawable.ic_warning)
                     .show();
-            AppDatabase.resetAll(requireContext());
         } else if (v == binding.itemWorkoutSettings) {
             requireContext().startActivity(new Intent(requireContext(), WorkoutSettingsActivity.class));
         } else if(v == binding.itemReminder){
